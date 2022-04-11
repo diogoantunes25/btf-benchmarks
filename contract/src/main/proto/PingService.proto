@@ -1,0 +1,10 @@
+syntax = "proto3";
+package pt.ulisboa.tecnico.thesis.benchmarks.contract;
+
+message Ping {}
+
+message Pong {}
+
+service PingService {
+  rpc ping(Ping) returns (Pong);
+}
