@@ -20,8 +20,8 @@ public class CommandParser {
                 List<String> args = tokens.subList(1, tokens.size());
                 if (args.size() < 2) throw new InvalidCommandException(line);
                 final String id = args.get(0);
-                final String region = args.get(1);
-                return new SpawnPcsCommand(id, region);
+                final String node = args.get(1);
+                return new SpawnPcsCommand(id, node);
             }
 
             // parse spawn replica command

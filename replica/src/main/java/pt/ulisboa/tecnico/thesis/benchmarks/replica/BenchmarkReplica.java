@@ -113,6 +113,7 @@ public class BenchmarkReplica {
             cDone++;
             logger.info("[{}/{}] listeners stopped", cDone, this.transport.getConnections().size());
         }
+
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------");
 

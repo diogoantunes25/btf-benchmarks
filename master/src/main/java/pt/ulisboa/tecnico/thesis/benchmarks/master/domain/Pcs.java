@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.thesis.benchmarks.master.domain;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+// pcs = process creation service (used to spawn replicas)
 public class Pcs {
 
     public enum Status {

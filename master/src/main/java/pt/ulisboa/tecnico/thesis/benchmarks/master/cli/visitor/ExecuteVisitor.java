@@ -1,9 +1,21 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor;
 
-import io.grpc.ManagedChannel;
-import io.grpc.StatusRuntimeException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.grpc.ManagedChannel;
+import io.grpc.StatusRuntimeException;
 import pt.tecnico.ulisboa.hbbft.utils.ThreshsigUtils;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.Dealer;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.GroupKey;
@@ -12,7 +24,20 @@ import pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.Config;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.CommandParser;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.*;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.AwsCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.AwsTerminateCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.Command;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ExitCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ListCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.PingCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.RunBenchmarkCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.RunScriptCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SetProtocolCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SetTopologyCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ShutdownCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SleepCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SpawnPcsCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SpawnServerCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.benchmark.StartCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.benchmark.StopCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.util.NopCommand;
@@ -26,18 +51,14 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.service.AwsService;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.local.BenchmarkService;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.*;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import software.amazon.awssdk.services.ec2.model.Instance;
+import software.amazon.awssdk.services.ec2.model.InstanceStateName;
+import software.amazon.awssdk.services.ec2.model.IpPermission;
+import software.amazon.awssdk.services.ec2.model.IpRange;
+import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
+import software.amazon.awssdk.services.ec2.model.SecurityGroup;
+import software.amazon.awssdk.services.ec2.model.Tag;
+import software.amazon.awssdk.services.ec2.model.Vpc;
 
 public class ExecuteVisitor implements CommandVisitor {
 
@@ -72,69 +93,16 @@ public class ExecuteVisitor implements CommandVisitor {
     @Override
     public boolean visit(SpawnPcsCommand cmd) {
         // get client for region
-        Region region = Region.of(cmd.getRegion());
-        Ec2Client client = awsService.getClient(region);
 
-        Optional<SecurityGroup> securityGroup = awsService.getSecurityGroup(client, "sg_alea_pcs");
-        if (securityGroup.isEmpty()) {
-            Optional<Vpc> defaultVpc = awsService.getVpcs(client).stream().filter(Vpc::isDefault).findAny();
-            if (defaultVpc.isEmpty()) System.exit(-1);
+        // FIXME: Get automatically (remove hard coded version)
+        String MY_ADDRESS = "93.108.152.18";
 
-            // create PCS security group
-            String groupId = awsService.createSecurityGroup(
-                    client, "sg_alea_pcs", "PCS Security Group", defaultVpc.get().vpcId());
+        int port = 8081 + Integer.parseInt(cmd.getNode());
 
-            // add security rules to PCS security group
-            IpRange ipRange = IpRange.builder().cidrIp("0.0.0.0/0").build();
-            awsService.addSecurityRules(
-                    client,
-                    groupId,
-                    // open pcs control port
-                    IpPermission.builder().ipProtocol("tcp").fromPort(8080).toPort(8080).ipRanges(ipRange).build(),
-                    // open replica protocol ports for inbound connections
-                    IpPermission.builder().ipProtocol("tcp").fromPort(8081).toPort(8088).ipRanges(ipRange).build(),
-                    // open replica control ports for inbound connections
-                    IpPermission.builder().ipProtocol("tcp").fromPort(9420).toPort(9423).ipRanges(ipRange).build(),
-                    // open ssh port
-                    IpPermission.builder().ipProtocol("tcp").fromPort(22).toPort(22).ipRanges(ipRange).build()
-            );
-        }
-
-        // import alea_key key pair
-        Optional<KeyPairInfo> keyPair = awsService.getKeyPairs(client).stream()
-                .filter(k -> k.keyName().equals("alea_key")).findAny();
-        if (keyPair.isEmpty()) {
-            byte[] publicKey = null;
-            try {
-                publicKey = Files.readAllBytes(new File("alea_key.pub").toPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
-
-            this.awsService.importKeyPair(client,"alea_key", publicKey);
-            logger.info("Imported alea_key key pair.");
-        }
-
-        // create new instance
-        logger.info("Creating new Ec2 PCS instance...");
-        String name = "alea_pcs";
-        String amiId = awsService.getAmiId(region);
-        String script = new StringBuilder()
-                .append("#!/bin/bash\n\n")
-                .append("sudo yum update -y\n")
-                .append("sudo yum install java-11-amazon-corretto-headless -y\n")
-                .append("wget -q ").append(config.getResourcesServer()).append("/download/pcs -O /home/ec2-user/pcs.jar\n")
-                .append("java -jar /home/ec2-user/pcs.jar ").append(cmd.getId()).append(" http://" + config.getMasterAddr()).append(":8080\n")
-                //.append("echo \"java -jar /home/ec2-user/replica.jar 0 http://13.36.236.57:8080\" | sudo tee -a /etc/rc.local")
-                //.append("sudo chmod +x /etc/rc.d/rc.local")
-                .toString();
-        Instance instance = awsService.createInstance(client, name, amiId, "sg_alea_pcs", script);
-
-        Pcs pcs = new Pcs(cmd.getId(), instance.publicIpAddress(), 8080);
+        Pcs pcs = new Pcs(cmd.getId(), MY_ADDRESS, port);
         this.pcsRepository.add(pcs);
 
-        client.close();
+        System.out.println("New pcs spawned");
 
         return true;
     }
@@ -142,7 +110,8 @@ public class ExecuteVisitor implements CommandVisitor {
     @Override
     public boolean visit(SpawnServerCommand cmd) {
         Pcs pcs = pcsRepository.get(cmd.getPcs());
-        if (pcs == null || !pcs.getStatus().equals(Pcs.Status.ONLINE)) return false;
+        if (pcs == null) return false;
+        // if (pcs == null || !pcs.getStatus().equals(Pcs.Status.ONLINE)) return false;
 
         // Create pcs channel and stub
         ManagedChannel channel = pcs.getChannel();
@@ -162,6 +131,10 @@ public class ExecuteVisitor implements CommandVisitor {
         if (response == null || !response.getOk()) {
             System.out.println("Unable to spawn replica.");
         }
+        else {
+            System.out.println("New replica spawned");
+        }
+
         channel.shutdown();
 
         return true;

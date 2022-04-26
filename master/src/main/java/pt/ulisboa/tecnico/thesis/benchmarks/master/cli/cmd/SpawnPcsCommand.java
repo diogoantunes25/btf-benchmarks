@@ -5,19 +5,19 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor.CommandVisitor;
 public class SpawnPcsCommand extends Command {
 
     private final String id;
-    private final String region;
+    private final String node;
 
-    public SpawnPcsCommand(String id, String region) {
+    public SpawnPcsCommand(String id, String node) {
         this.id = id;
-        this.region = region;
+        this.node = node;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getRegion() {
-        return region;
+    public String getNode() {
+        return node;
     }
 
 

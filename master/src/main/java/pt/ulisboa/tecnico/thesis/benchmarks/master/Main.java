@@ -20,7 +20,18 @@ import java.util.stream.Collectors;
 
 public class Main {
 
+    private static final int DEFAULT_MASTER_PORT = 8080;
+    
+    /**
+     * @param args Resources server and master address (both optional). By default
+     * resources server is set to a fixed address and the master address to the
+     * current IP.
+     */
     public static void main(String[] args) {
+
+        // Set up ----------------------------------------------------
+        // -----------------------------------------------------------
+
         // parse args
         Config config = Config.fromArgs(args);
 
@@ -32,6 +43,8 @@ public class Main {
         // init services
         BenchmarkService benchmarkService = new BenchmarkService(replicaRepository, benchmarkRepository);
 
+        // for all pcs whose status is unknown pings. If ping goes well
+        // set status as ONLINE, otherwise set as offline
         for (Pcs pcs: pcsRepository.getAll().stream().filter(p -> p.getStatus().equals(Pcs.Status.UNKNOWN)).collect(Collectors.toList())) {
             ManagedChannel channel = pcs.getChannel();
             PingServiceGrpc.PingServiceBlockingStub stub = PingServiceGrpc.newBlockingStub(channel);
@@ -46,9 +59,13 @@ public class Main {
         }
 
         Server server = ServerBuilder
-                .forPort(8080)
+                .forPort(DEFAULT_MASTER_PORT)
                 .addService(new RegisterGrpcService(replicaRepository))
                 .build();
+
+
+        // Command loop ----------------------------------------------
+        // -----------------------------------------------------------
 
         try {
             server.start();

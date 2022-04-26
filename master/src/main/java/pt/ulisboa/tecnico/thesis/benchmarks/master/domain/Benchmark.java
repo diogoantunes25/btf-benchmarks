@@ -6,6 +6,7 @@ import pt.tecnico.ulisboa.hbbft.utils.threshsig.KeyShare;
 import java.util.List;
 import java.util.Map;
 
+// Benchmark for given protocol and topology
 public class Benchmark {
 
     private final Integer id;
