@@ -153,6 +153,7 @@ public class BenchmarkService {
         List<Replica> replicas = this.topology.getReplicas();
         Collections.shuffle(replicas);
 
+
         BenchmarkServiceOuterClass.ProtocolRequest request = BenchmarkServiceOuterClass.ProtocolRequest.newBuilder()
                 .setProtocol(grpcProtocol)
                 .setBatchSize(protocol.getBatchSize())

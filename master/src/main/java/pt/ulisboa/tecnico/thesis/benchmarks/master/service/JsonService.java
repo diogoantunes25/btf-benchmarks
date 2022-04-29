@@ -86,7 +86,7 @@ public class JsonService {
         root.add("results", jsonResults);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String outputFile = String.format("%s-%d-%d-%s.json", protocol, n, batchSize, faultMode);
+        String outputFile = String.format("results/%s-%d-%d-%s.json", protocol, n, batchSize, faultMode);
         try (Writer writer = new FileWriter(outputFile)) {
             gson.toJson(root, writer);
         } catch (IOException e) {

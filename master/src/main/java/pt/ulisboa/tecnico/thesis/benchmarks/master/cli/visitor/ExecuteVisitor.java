@@ -95,9 +95,9 @@ public class ExecuteVisitor implements CommandVisitor {
         // get client for region
 
         // FIXME: Get automatically (remove hard coded version)
-        String MY_ADDRESS = "93.108.152.18";
+        String MY_ADDRESS = "127.0.0.1";
 
-        int port = 8081 + Integer.parseInt(cmd.getNode());
+        int port = 4000 + Integer.parseInt(cmd.getNode());
 
         Pcs pcs = new Pcs(cmd.getId(), MY_ADDRESS, port);
         this.pcsRepository.add(pcs);
@@ -125,7 +125,7 @@ public class ExecuteVisitor implements CommandVisitor {
         try {
             response = stub.replica(request);
         } catch (StatusRuntimeException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
 
         if (response == null || !response.getOk()) {
@@ -135,7 +135,8 @@ public class ExecuteVisitor implements CommandVisitor {
             System.out.println("New replica spawned");
         }
 
-        channel.shutdown();
+        // TODO: check this
+        // channel.shutdown();
 
         return true;
     }
@@ -221,21 +222,9 @@ public class ExecuteVisitor implements CommandVisitor {
         // close all connections
         benchmarkService.shutdown(cmd.getTimer());
 
-        // stop all Ec2 replica instances
-        for (Region region: awsService.getRegions()) {
-            Ec2Client client = awsService.getClient(region);
+        // stop all replicas
 
-            Tag replicaTag = Tag.builder().key("Name").value("alea_replica").build();
-            List<Instance> instances = awsService.getInstances(client).stream()
-                    .filter(i -> i.state().name().equals(InstanceStateName.RUNNING) && i.tags().contains(replicaTag))
-                    .collect(Collectors.toList());
-
-            for (Instance instance: instances) {
-                awsService.stopInstance(client, instance);
-            }
-
-            client.close();
-        }
+        // stop pcs
 
         // shutdown master
         System.exit(0);

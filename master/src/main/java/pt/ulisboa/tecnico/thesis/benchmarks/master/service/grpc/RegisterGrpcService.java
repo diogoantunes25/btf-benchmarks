@@ -19,6 +19,7 @@ public class RegisterGrpcService extends RegisterServiceGrpc.RegisterServiceImpl
             RegisterServiceOuterClass.RegisterRequest request,
             StreamObserver<RegisterServiceOuterClass.RegisterResponse> responseObserver
     ) {
+
         // generate auto incremented replica id
         int replicaId = repository.getAll().size();
 
@@ -32,6 +33,7 @@ public class RegisterGrpcService extends RegisterServiceGrpc.RegisterServiceImpl
 
         // store replica in repository
         repository.addReplica(replica);
+
 
         // send register response
         RegisterServiceOuterClass.RegisterResponse response = RegisterServiceOuterClass.RegisterResponse.newBuilder()

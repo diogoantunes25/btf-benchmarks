@@ -29,3 +29,8 @@ To start the master run `java -jar ./master/target/master-1.0-SNAPSHOT.jar` and 
 - `script <script>`: runs a script
 - `aws <region>`: 
 - `terminate [id]`: 
+
+--------
+
+It might be useful to run this `sudo ip address add <your ip>/32 dev wlp1s0` (when doing stuff locally)
+(you can get your ip with `curl ifconfig.me`)

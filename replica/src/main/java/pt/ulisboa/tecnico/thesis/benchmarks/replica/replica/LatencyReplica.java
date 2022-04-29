@@ -38,8 +38,11 @@ public class LatencyReplica extends BenchmarkReplica {
         // log starting time
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
+        System.out.println("Starting...");
         Step<Block> step = this.propose();
+        System.out.println("Proposed...");
         this.handleStep(step);
+        System.out.println("Handled step...");
     }
 
     @Override
@@ -67,6 +70,7 @@ public class LatencyReplica extends BenchmarkReplica {
     }
 
     private Step<Block> propose() {
+
         this.proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
         Random rng = new Random();

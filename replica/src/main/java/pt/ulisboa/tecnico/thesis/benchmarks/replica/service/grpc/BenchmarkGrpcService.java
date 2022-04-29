@@ -43,6 +43,8 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.TopologyRequest request,
             StreamObserver<BenchmarkServiceOuterClass.TopologyResponse> responseObserver
     ) {
+        
+
         List<Replica> replicas = request.getReplicasList().stream().map(Replica::new).collect(Collectors.toList());
 
         int k = request.getGk().getK();
