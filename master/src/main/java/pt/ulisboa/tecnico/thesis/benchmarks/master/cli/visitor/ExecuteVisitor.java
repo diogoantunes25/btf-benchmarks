@@ -219,6 +219,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(ShutdownCommand cmd) {
+        // TODO: Implement shutdown properly
         // close all connections
         benchmarkService.shutdown(cmd.getTimer());
 

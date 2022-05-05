@@ -14,8 +14,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import javax.sql.rowset.spi.SyncFactory;
-
 public class Main {
 
     private static final int TOLERANCE = 1;

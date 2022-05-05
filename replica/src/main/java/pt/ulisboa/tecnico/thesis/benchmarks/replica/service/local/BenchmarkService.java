@@ -47,7 +47,7 @@ public class BenchmarkService {
 
     private NetworkInfo networkInfo;
     private TcpTransport transport;
-    private BenchmarkReplica benchmarkReplica;
+    private BenchmarkReplica benchmarkReplica; // replica.replica.BenchmarkReplica
 
     public BenchmarkService(Integer replicaId) {
         this.replicaId = replicaId;
@@ -103,9 +103,12 @@ public class BenchmarkService {
         switch (mode) {
             case LATENCY:
                 this.benchmarkReplica = new LatencyReplica(instance, encoder, transport);
+                System.out.println("Latency replica spawned");
+                break;
             case THROUGHPUT:
             default: {
                 this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport);
+                System.out.println("Throughtput replica spawned");
             }
         }
 
@@ -128,9 +131,11 @@ public class BenchmarkService {
         logger.info("------------------------------------------------------------------------");
         logger.info("Stopping benchmark");
         logger.info("------------------------------------------------------------------------");
+        Benchmark benchmark = this.benchmarkReplica.stop();
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
-        return this.benchmarkReplica.stop();
+
+        return benchmark;
     }
 
     private MessageEncoder<String> getEncoder(Protocol protocol) {
@@ -180,7 +185,7 @@ public class BenchmarkService {
 
             Alea.Params aleaParams = new Alea.Params.Builder()
                     .batchSize(batchSize)
-                    .benchmark(mode == BenchmarkMode.THROUGHPUT)
+                    .benchmark(mode == BenchmarkMode.THROUGHPUT) // Why benchmark only in throughput mode?
                     .faults(faults)
                     .build();
 

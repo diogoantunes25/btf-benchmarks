@@ -1,0 +1,10 @@
+pcs 0 0
+replica 0 1
+replica 0 2
+replica 0 3
+topology 0 1 2
+protocol alea 10 latency free
+start
+sleep 100
+stop
+shutdown

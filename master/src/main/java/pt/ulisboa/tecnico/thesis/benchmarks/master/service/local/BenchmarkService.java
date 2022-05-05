@@ -139,7 +139,7 @@ public class BenchmarkService {
 
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("onError");
+                System.out.println("set protocol failed");
                 throwable.printStackTrace();
                 responseLatch.countDown();
             }
@@ -189,7 +189,7 @@ public class BenchmarkService {
 
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("onError");
+                System.out.println("start benchmark failed");
                 throwable.printStackTrace();
                 responseLatch.countDown();
             }
@@ -200,9 +200,13 @@ public class BenchmarkService {
             }
         };
 
+        System.out.println("[start benchmark] Setting up request");
+
         // setup request
         BenchmarkServiceOuterClass.StartBenchmarkRequest request = BenchmarkServiceOuterClass.StartBenchmarkRequest
                 .getDefaultInstance();
+
+        System.out.println("[start benchmark] Sending request");
 
         // send request
         for (Replica replica: topology.getReplicas()) {
@@ -210,6 +214,8 @@ public class BenchmarkService {
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.start(request, responseObserver);
         }
+
+        System.out.println("[start benchmark] Waiting for responses");
 
         // wait for responses
         try {
@@ -233,7 +239,7 @@ public class BenchmarkService {
 
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("onError");
+                System.out.println("stop benchmark failed");
                 throwable.printStackTrace();
                 responseLatch.countDown();
             }
@@ -244,9 +250,13 @@ public class BenchmarkService {
             }
         };
 
+        System.out.println("[stop benchmark] Setting up request");
+
         // setup request
         BenchmarkServiceOuterClass.StopBenchmarkRequest request = BenchmarkServiceOuterClass.StopBenchmarkRequest
                 .getDefaultInstance();
+
+        System.out.println("[stop benchmark] Sending request");
 
         // send request
         for (Replica replica: topology.getReplicas()) {
@@ -254,6 +264,8 @@ public class BenchmarkService {
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.stop(request, responseObserver);
         }
+
+        System.out.println("[stop benchmark] Waiting for replies");
 
         // wait for replies
         try {
@@ -271,7 +283,7 @@ public class BenchmarkService {
                         r.getFinish(),
                         r.getSentMessages(),
                         r.getRecvMessages(),
-                        new ArrayList<>(),
+                        new ArrayList<>(), // FIXME: empty list passed to latencies?
                         r.getMeasurementsList().stream().map(m -> new BenchmarkResult.ThroughputMeasurement(
                                 m.getTimestamp(),
                                 m.getValue(),
@@ -302,6 +314,7 @@ public class BenchmarkService {
 
             @Override
             public void onError(Throwable throwable) {
+                System.out.println("shutdown failed");
                 throwable.printStackTrace();
                 responseLatch.countDown();
             }

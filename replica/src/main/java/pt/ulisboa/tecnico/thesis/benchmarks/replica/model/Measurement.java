@@ -10,7 +10,6 @@ public class Measurement {
 
     private final long timestamp;
     private final long value;
-
     private final Long blockNumber;
     private final Collection<Integer> proposers;
 

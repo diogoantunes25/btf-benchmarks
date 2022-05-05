@@ -1,0 +1,109 @@
+{
+  "protocol": "alea",
+  "n": 10,
+  "batch-size": 100,
+  "payload-size": 250,
+  "fault": "free",
+  "results": [
+    {
+      "replica": 0,
+      "start": 1651676849192,
+      "finish": 1651676891019,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 1,
+      "start": 1651676849192,
+      "finish": 1651676891019,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 2,
+      "start": 1651676849194,
+      "finish": 1651676891023,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 3,
+      "start": 1651676849196,
+      "finish": 1651676891031,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 4,
+      "start": 1651676849190,
+      "finish": 1651676891017,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 5,
+      "start": 1651676849201,
+      "finish": 1651676891033,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 6,
+      "start": 1651676849196,
+      "finish": 1651676891018,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 7,
+      "start": 1651676849196,
+      "finish": 1651676891034,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 8,
+      "start": 1651676849201,
+      "finish": 1651676891029,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    },
+    {
+      "replica": 9,
+      "start": 1651676849193,
+      "finish": 1651676891015,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [],
+      "executions": []
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Alea-BFT - Benchmark Service
+	# Alea-BFT - Benchmark Service
 
 ## Overview
 There are two roles to play by processes: master or replica.
@@ -12,6 +12,7 @@ Before running the code make sure everythings is okay by running `mvn verify`. T
 ### Run locally
 Running locally is easier since the default IP hard coded is the localhost.
 To start the master run `java -jar ./master/target/master-1.0-SNAPSHOT.jar` and to start the replicas run `java -jar ./replica/target/original-replica-1.0-SNAPSHOT.jar`
+To run locally you'll also need to run `sudo ip address add <your_ip> dev wlp1s0`
 ### Available commands
 
 - `pcs <id> <node>`: information about the pcs to spawn
@@ -22,7 +23,7 @@ To start the master run `java -jar ./master/target/master-1.0-SNAPSHOT.jar` and 
 - `protocol <protocol> <batch_size> <mode> <fault>`: sets the protocol to use (can be HoneyBadgerBFT(`hb`), Dumbo1(`dumbo`), Dumbo2(`dumbo2`) or Alea-BFT(`alea`)), the batch size for the protocol, the metric to measure (can be `latency` or `throughput`) and the fault mode (can be `free`, `crash` or `byzantine`)
 - `start`: 
 - `stop`: 
-- `benchmark <num_requests> <payload>`: 
+- `benchmark <num_requests> <payload>`: (deprecated)
 - `shutdown`: shutsdown all the replicas and the master
 - `nop`: nop command (no operation)
 - `sleep <duration>`: sleeps for the specified duration

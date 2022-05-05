@@ -14,6 +14,9 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Measurement;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
+// FIXME: Remove this
+import pt.tecnico.ulisboa.hbbft.abc.alea.benchmark.ExecutionLog;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,7 @@ public class ThroughputReplica extends BenchmarkReplica {
 
         List<Execution> executions = new ArrayList<>();
         if (this.protocol instanceof Alea) {
+
             executions = ((Alea) this.protocol).getExecutionLog().getChildren().stream()
                     .map(e -> new Execution(e.getPid(), e.getStart(), e.getFinish(), e.getResult() instanceof Boolean ? (Boolean) e.getResult() : false)).collect(Collectors.toList());
         }

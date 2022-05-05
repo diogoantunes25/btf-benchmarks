@@ -1,0 +1,8 @@
+{
+  "protocol": "alea",
+  "n": 3,
+  "batch-size": 10,
+  "payload-size": 250,
+  "fault": "free",
+  "results": []
+}

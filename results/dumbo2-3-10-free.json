@@ -1,0 +1,522 @@
+{
+  "protocol": "dumbo2",
+  "n": 3,
+  "batch-size": 10,
+  "payload-size": 250,
+  "fault": "free",
+  "results": [
+    {
+      "replica": 0,
+      "start": 1651678223319,
+      "finish": 1651678233785,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [
+        {
+          "timestamp": 1651678223700,
+          "value": 379,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678224221,
+          "value": 521,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678224502,
+          "value": 281,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225266,
+          "value": 764,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225385,
+          "value": 119,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225513,
+          "value": 128,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225824,
+          "value": 311,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226281,
+          "value": 457,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226946,
+          "value": 665,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227299,
+          "value": 353,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227618,
+          "value": 319,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227870,
+          "value": 252,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228575,
+          "value": 705,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228867,
+          "value": 292,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229109,
+          "value": 242,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229259,
+          "value": 150,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230041,
+          "value": 781,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230233,
+          "value": 192,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230485,
+          "value": 252,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230646,
+          "value": 161,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231014,
+          "value": 368,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231462,
+          "value": 448,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231934,
+          "value": 472,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232039,
+          "value": 105,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232193,
+          "value": 154,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232342,
+          "value": 149,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232586,
+          "value": 244,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232696,
+          "value": 110,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232952,
+          "value": 256,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233613,
+          "value": 661,
+          "block": 0,
+          "proposers": []
+        }
+      ],
+      "executions": []
+    },
+    {
+      "replica": 1,
+      "start": 1651678223323,
+      "finish": 1651678233787,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [
+        {
+          "timestamp": 1651678223568,
+          "value": 242,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678224339,
+          "value": 770,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678224723,
+          "value": 384,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225121,
+          "value": 398,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226131,
+          "value": 1010,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226389,
+          "value": 258,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226787,
+          "value": 398,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227085,
+          "value": 298,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227355,
+          "value": 269,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227502,
+          "value": 147,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227713,
+          "value": 211,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228026,
+          "value": 313,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228917,
+          "value": 891,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229408,
+          "value": 491,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229661,
+          "value": 253,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229904,
+          "value": 243,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230140,
+          "value": 236,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230345,
+          "value": 205,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230545,
+          "value": 200,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230697,
+          "value": 152,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231110,
+          "value": 412,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231372,
+          "value": 262,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231568,
+          "value": 196,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231790,
+          "value": 222,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232142,
+          "value": 352,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232641,
+          "value": 499,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232852,
+          "value": 211,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233047,
+          "value": 195,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233205,
+          "value": 158,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233506,
+          "value": 301,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233664,
+          "value": 158,
+          "block": 0,
+          "proposers": []
+        }
+      ],
+      "executions": []
+    },
+    {
+      "replica": 2,
+      "start": 1651678223326,
+      "finish": 1651678233788,
+      "sent-messages": 0,
+      "recv-messages": 0,
+      "latencies": [],
+      "throughputs": [
+        {
+          "timestamp": 1651678223802,
+          "value": 472,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678224957,
+          "value": 1155,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225677,
+          "value": 720,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678225875,
+          "value": 198,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226482,
+          "value": 607,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678226845,
+          "value": 363,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227093,
+          "value": 248,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678227774,
+          "value": 681,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228081,
+          "value": 307,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228186,
+          "value": 105,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678228720,
+          "value": 534,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229118,
+          "value": 398,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678229607,
+          "value": 489,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230353,
+          "value": 746,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678230749,
+          "value": 396,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231213,
+          "value": 464,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678231678,
+          "value": 465,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678232047,
+          "value": 369,
+          "block": 0,
+          "proposers": []
+        },
+        {
+          "timestamp": 1651678233058,
+          "value": 1011,
+          "block": 0,
+          "proposers": []
+        }
+      ],
+      "executions": []
+    }
+  ]
+}

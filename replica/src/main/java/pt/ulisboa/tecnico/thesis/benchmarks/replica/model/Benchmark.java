@@ -65,10 +65,11 @@ public class Benchmark {
 
     private Benchmark() {}
 
-    public Benchmark(long start, List<Measurement> measurements, long finish) {
+    public Benchmark(long start, List<Measurement> measurements, List<Execution> executions, long finish) {
         this.startTime = start;
         this.finishTime = finish;
         this.measurements = measurements;
+        this.executions = executions;
     }
 
     public long getStartTime() {

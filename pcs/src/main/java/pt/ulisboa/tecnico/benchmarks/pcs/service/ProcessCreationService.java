@@ -48,6 +48,8 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
 
 
         ProcessBuilder processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString());
+
+        // By default, the output and error are redirected to pipes
         processBuilder.redirectOutput(Redirect.INHERIT);
         processBuilder.redirectError(Redirect.INHERIT);
 
