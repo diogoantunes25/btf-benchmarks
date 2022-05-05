@@ -4,8 +4,9 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor.CommandVisitor;
 
 public class SpawnPcsCommand extends Command {
 
-    private final String id;
-    private final String node;
+    private final String id; // Name to use within program
+    // TODO: Generalize to be able to acess Grid5000
+    private final String node; // Node name to ssh to (GSD is assumed)
 
     public SpawnPcsCommand(String id, String node) {
         this.id = id;

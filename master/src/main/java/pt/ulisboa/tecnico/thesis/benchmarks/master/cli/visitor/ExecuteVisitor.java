@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,6 +74,10 @@ public class ExecuteVisitor implements CommandVisitor {
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
 
+    private final int PCS_DEFAULT_PORT = 5000;
+
+    private final boolean RUNNING_GSD = true;
+
     public ExecuteVisitor(
             Config config,
             PcsRepository pcsRepository,
@@ -92,17 +98,38 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(SpawnPcsCommand cmd) {
-        // get client for region
+        /**
+         *  We adopt the following convention:
+         *       - Lauching of PCS main class has to be done manually on the remote
+         *  machine (thus this command only registers the PCS on the master process)
+         *       - The PCS within a machine will use port 5000.
+         *       - Each replica with id i will use port 5000 + i.
+         */
 
-        // FIXME: Get automatically (remove hard coded version)
-        String MY_ADDRESS = "127.0.0.1";
+        if (!RUNNING_GSD) {
+            String MY_ADDRESS = "127.0.0.1";
 
-        int port = 4000 + Integer.parseInt(cmd.getNode());
+            int port = 4000 + Integer.parseInt(cmd.getNode());
 
-        Pcs pcs = new Pcs(cmd.getId(), MY_ADDRESS, port);
+            Pcs pcs = new Pcs(cmd.getId(), MY_ADDRESS, port);
+            this.pcsRepository.add(pcs);
+
+            System.out.println("New pcs spawned");
+            return true;
+        }
+
+        InetAddress nodeAddress = null;
+        try {
+            nodeAddress = InetAddress.getByName(cmd.getNode());
+        }
+        catch (UnknownHostException e) {
+            System.out.println("PCS Spawning failed. Unknwon host.");
+        }
+
+        System.out.println("The IP is: " + nodeAddress.getHostAddress());
+
+        Pcs pcs = new Pcs(cmd.getId(), nodeAddress.getHostAddress(), PCS_DEFAULT_PORT);
         this.pcsRepository.add(pcs);
-
-        System.out.println("New pcs spawned");
 
         return true;
     }

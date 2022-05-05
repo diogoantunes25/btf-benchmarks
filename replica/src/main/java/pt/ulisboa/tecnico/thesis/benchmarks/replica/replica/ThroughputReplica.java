@@ -48,6 +48,7 @@ public class ThroughputReplica extends BenchmarkReplica {
     }
 
     public Benchmark stop() {
+        System.out.println("[ThroughputReplica.stop] started");
         final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
         // stop listeners
@@ -58,8 +59,16 @@ public class ThroughputReplica extends BenchmarkReplica {
         List<Execution> executions = new ArrayList<>();
         if (this.protocol instanceof Alea) {
 
+            System.out.println("[getExecutionLog.stop] called 1");
+
+            System.out.println((Alea) this.protocol);
+
+            System.out.println("[getExecutionLog.stop] call ended 1");
+
+            System.out.println("[getExecutionLog.stop] called 2");
             executions = ((Alea) this.protocol).getExecutionLog().getChildren().stream()
                     .map(e -> new Execution(e.getPid(), e.getStart(), e.getFinish(), e.getResult() instanceof Boolean ? (Boolean) e.getResult() : false)).collect(Collectors.toList());
+            System.out.println("[getExecutionLog.stop] call ended 2");
         }
 
         return new Benchmark.Builder(startTime)
