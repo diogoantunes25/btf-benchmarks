@@ -22,6 +22,8 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
     private final URI masterUri;
     private final List<Process> replicaProcesses = new ArrayList<>();
 
+    private final boolean DEBUG_MODE = true;
+
     public ProcessCreationService(URI masterUri) {
         this.masterUri = masterUri;
     }
@@ -47,7 +49,15 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         final String jarPath = "/home/diogo/MEGA/LEIC-A/Projeto BIG/Study material/code/alea-benchmarks/replica/target/replica-1.0-SNAPSHOT.jar";
 
 
-        ProcessBuilder processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString());
+        ProcessBuilder processBuilder;
+        if (DEBUG_MODE) {
+            // These arguments are needed to be able to attach a remote debugger to the replica processes
+            String debugParamenter = String.format("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=%d", 1044 + replicaProcesses.size());
+            processBuilder = new ProcessBuilder(javaPath, debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString());
+        }
+        else {
+            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString());
+        }
 
         // By default, the output and error are redirected to pipes
         processBuilder.redirectOutput(Redirect.INHERIT);

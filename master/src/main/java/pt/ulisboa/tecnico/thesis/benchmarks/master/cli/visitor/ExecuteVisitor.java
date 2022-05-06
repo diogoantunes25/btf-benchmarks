@@ -76,7 +76,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
     private final int PCS_DEFAULT_PORT = 5000;
 
-    private final boolean RUNNING_GSD = true;
+    private final boolean RUNNING_GSD = false;
 
     public ExecuteVisitor(
             Config config,
@@ -246,9 +246,10 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(ShutdownCommand cmd) {
-        // TODO: Implement shutdown properly
         // close all connections
         benchmarkService.shutdown(cmd.getTimer());
+
+        // TODO: Implement shutdown properly
 
         // stop all replicas
 

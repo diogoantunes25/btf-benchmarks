@@ -1,14 +1,14 @@
 {
   "protocol": "hb",
   "n": 3,
-  "batch-size": 10,
+  "batch-size": 60,
   "payload-size": 250,
   "fault": "free",
   "results": [
     {
       "replica": 0,
-      "start": 1651829047766,
-      "finish": 1651829052885,
+      "start": 1651828901491,
+      "finish": 1651828904695,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],
@@ -17,8 +17,8 @@
     },
     {
       "replica": 1,
-      "start": 1651829047772,
-      "finish": 1651829052883,
+      "start": 1651828901490,
+      "finish": 1651828904688,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],
@@ -27,8 +27,8 @@
     },
     {
       "replica": 2,
-      "start": 1651829047769,
-      "finish": 1651829052884,
+      "start": 1651828901491,
+      "finish": 1651828904689,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],

@@ -185,7 +185,7 @@ public class BenchmarkService {
 
             Alea.Params aleaParams = new Alea.Params.Builder()
                     .batchSize(batchSize)
-                    .benchmark(mode == BenchmarkMode.THROUGHPUT) // Why benchmark only in throughput mode?
+                    .benchmark(true)
                     .faults(faults)
                     .build();
 

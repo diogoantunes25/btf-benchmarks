@@ -27,7 +27,10 @@ public class ThroughputReplica extends BenchmarkReplica {
     private final Logger logger = LoggerFactory.getLogger(ThroughputReplica.class);
 
     private long startTime;
+
+    private long proposeTime;
     private final List<Measurement> measurements = new ArrayList<>();
+    private final List<Execution> executions = new ArrayList<>();
 
     public ThroughputReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         super(protocol, encoder, transport);
@@ -48,7 +51,6 @@ public class ThroughputReplica extends BenchmarkReplica {
     }
 
     public Benchmark stop() {
-        System.out.println("[ThroughputReplica.stop] started");
         final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
         // stop listeners
@@ -56,33 +58,39 @@ public class ThroughputReplica extends BenchmarkReplica {
             connection.setListener(null);
         }
 
-        List<Execution> executions = new ArrayList<>();
-        if (this.protocol instanceof Alea) {
-
-            System.out.println("[getExecutionLog.stop] called 1");
-
-            System.out.println((Alea) this.protocol);
-
-            System.out.println("[getExecutionLog.stop] call ended 1");
-
-            System.out.println("[getExecutionLog.stop] called 2");
-            executions = ((Alea) this.protocol).getExecutionLog().getChildren().stream()
-                    .map(e -> new Execution(e.getPid(), e.getStart(), e.getFinish(), e.getResult() instanceof Boolean ? (Boolean) e.getResult() : false)).collect(Collectors.toList());
-            System.out.println("[getExecutionLog.stop] call ended 2");
-        }
-
-        return new Benchmark.Builder(startTime)
-                .finishTime(finishTime)
-                .sentMessageCount(this.sentMessageCount.get())
-                .recvMessageCount(this.recvMessageCount.get())
-                .measurements(measurements)
-                .executions(executions)
-                .build();
+        return new Benchmark(startTime, measurements, executions, finishTime);
     }
+
+//    public Benchmark stop() {
+//        System.out.println("[ThroughputReplica.stop] started");
+//        final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
+//
+//        // stop listeners
+//        for (Connection connection: this.transport.getConnections()) {
+//            connection.setListener(null);
+//        }
+//
+//        List<Execution> executions = new ArrayList<>();
+//        if (this.protocol instanceof Alea) {
+//
+//            executions = ((Alea) this.protocol).getExecutionLog().getChildren().stream().filter(e->e.getFinish() != null)
+//                    .map(e -> new Execution(e.getPid(), e.getStart(), e.getFinish(), e.getResult() instanceof Boolean ? (Boolean) e.getResult() : false)).collect(Collectors.toList());
+//        }
+//
+//        return new Benchmark.Builder(startTime)
+//                .finishTime(finishTime)
+//                .sentMessageCount(this.sentMessageCount.get())
+//                .recvMessageCount(this.recvMessageCount.get())
+//                .measurements(measurements)
+//                .executions(executions)
+//                .build();
+//    }
 
     @Override
     public void deliver(Block block) {
+        final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
         logger.info("Delivered: {}", block.toString());
         this.measurements.add(new Measurement(block));
+        this.executions.add(new Execution("node", proposeTime , timestamp, true));
     }
 }

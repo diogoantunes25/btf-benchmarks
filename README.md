@@ -31,6 +31,16 @@ To run locally you'll also need to run `sudo ip address add <your_ip> dev wlp1s0
 - `aws <region>`: 
 - `terminate [id]`: 
 
+### Debug
+
+To debug in intelliJ the following steps must be taken:
+
+ - since the debug is per process and replicas are new processes we need to find a way to attach a debugger to the replicas
+
+ - to attach a debugger to a replica, we need to go to Run -> attach debugger or go to the process where the replica was lauch and click on attach debugger
+
+ - note that to attach a debugger, the process must be launched with special argumts (so DEBUG_MODE must be true for these arguments to be passed)
+
 --------
 
 It might be useful to run this `sudo ip address add <your ip>/32 dev wlp1s0` (when doing stuff locally)

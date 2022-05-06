@@ -10,6 +10,8 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println("PCS running...");
+
         // parse args
         Config config = Config.fromArgs(args);
 
