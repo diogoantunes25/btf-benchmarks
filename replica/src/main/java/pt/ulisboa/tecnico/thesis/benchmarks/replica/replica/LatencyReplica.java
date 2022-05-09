@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.replica;
 
+import java.util.PriorityQueue;
+
 import pt.tecnico.ulisboa.hbbft.MessageEncoder;
 import pt.tecnico.ulisboa.hbbft.Step;
 import pt.tecnico.ulisboa.hbbft.abc.Block;
@@ -26,7 +28,7 @@ public class LatencyReplica extends BenchmarkReplica {
     private final List<Measurement> measurements = new ArrayList<>();
     private final List<Execution> executions = new ArrayList<>();
 
-    private final Map<byte[],Long> proposeTimes = new HashMap<>();
+    private final Queue<Long> proposeTimes = new PriorityQueue<>();
 
     public LatencyReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         super(protocol, encoder, transport);
@@ -66,7 +68,7 @@ public class LatencyReplica extends BenchmarkReplica {
     public void deliver(Block block) {
         final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
         for (byte[] entry: block.getEntries()) {
-            Long proposeTime = proposeTimes.get(entry);
+            Long proposeTime = proposeTimes.poll();
             if (proposeTime != null) {
                 this.executions.add(new Execution("node", proposeTime , timestamp, true));
                 this.measurements.add(new Measurement(timestamp, (timestamp - proposeTime)));
@@ -74,6 +76,9 @@ public class LatencyReplica extends BenchmarkReplica {
                 // As soon as the proposal is delivered, a new random on is proposed
                 this.handleStep(this.propose());
                 break;
+            }
+            else {
+                System.out.println("[error] More delivers than proposals.");
             }
         }
     }
@@ -89,7 +94,7 @@ public class LatencyReplica extends BenchmarkReplica {
 
         long proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
-        this.proposeTimes.put(this.payload, proposeTime);
+        this.proposeTimes.add(proposeTime);
 
         System.out.println("Proposed new batch");
 

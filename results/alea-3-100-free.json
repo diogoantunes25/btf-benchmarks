@@ -7,33 +7,4855 @@
   "results": [
     {
       "replica": 0,
-      "start": 1651828062752,
-      "finish": 1651828071384,
+      "start": 1652089826963,
+      "finish": 1652089835087,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],
-      "throughputs": [],
-      "executions": []
+      "throughputs": [
+        {
+          "timestamp": 1652089827395,
+          "value": 100,
+          "block": 0,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827507,
+          "value": 100,
+          "block": 1,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827565,
+          "value": 100,
+          "block": 2,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827672,
+          "value": 100,
+          "block": 3,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827724,
+          "value": 100,
+          "block": 4,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827775,
+          "value": 100,
+          "block": 5,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827877,
+          "value": 100,
+          "block": 6,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827978,
+          "value": 100,
+          "block": 7,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828035,
+          "value": 100,
+          "block": 8,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828092,
+          "value": 100,
+          "block": 9,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828180,
+          "value": 100,
+          "block": 10,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828228,
+          "value": 100,
+          "block": 11,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828329,
+          "value": 100,
+          "block": 12,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828333,
+          "value": 100,
+          "block": 13,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828383,
+          "value": 100,
+          "block": 14,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828478,
+          "value": 100,
+          "block": 15,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828483,
+          "value": 100,
+          "block": 16,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828534,
+          "value": 100,
+          "block": 17,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828634,
+          "value": 100,
+          "block": 18,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828785,
+          "value": 100,
+          "block": 19,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828785,
+          "value": 100,
+          "block": 19,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828877,
+          "value": 100,
+          "block": 20,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828931,
+          "value": 100,
+          "block": 21,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828941,
+          "value": 100,
+          "block": 22,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829180,
+          "value": 100,
+          "block": 23,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829242,
+          "value": 100,
+          "block": 24,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829325,
+          "value": 100,
+          "block": 25,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829373,
+          "value": 100,
+          "block": 26,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829423,
+          "value": 100,
+          "block": 27,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829480,
+          "value": 100,
+          "block": 28,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829581,
+          "value": 100,
+          "block": 29,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829683,
+          "value": 100,
+          "block": 30,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829688,
+          "value": 100,
+          "block": 31,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829740,
+          "value": 100,
+          "block": 32,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829791,
+          "value": 100,
+          "block": 33,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829894,
+          "value": 100,
+          "block": 34,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829945,
+          "value": 100,
+          "block": 35,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829989,
+          "value": 100,
+          "block": 36,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830054,
+          "value": 100,
+          "block": 37,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830241,
+          "value": 100,
+          "block": 38,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830296,
+          "value": 100,
+          "block": 39,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830385,
+          "value": 100,
+          "block": 40,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830523,
+          "value": 100,
+          "block": 41,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830620,
+          "value": 100,
+          "block": 42,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830668,
+          "value": 100,
+          "block": 43,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830768,
+          "value": 100,
+          "block": 44,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830826,
+          "value": 100,
+          "block": 45,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830829,
+          "value": 100,
+          "block": 46,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830837,
+          "value": 100,
+          "block": 47,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830887,
+          "value": 100,
+          "block": 48,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830890,
+          "value": 100,
+          "block": 49,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830937,
+          "value": 100,
+          "block": 50,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831043,
+          "value": 100,
+          "block": 51,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831232,
+          "value": 100,
+          "block": 52,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831333,
+          "value": 100,
+          "block": 53,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831388,
+          "value": 100,
+          "block": 54,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831588,
+          "value": 100,
+          "block": 55,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831599,
+          "value": 100,
+          "block": 56,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831697,
+          "value": 100,
+          "block": 57,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831699,
+          "value": 100,
+          "block": 58,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831791,
+          "value": 100,
+          "block": 59,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831803,
+          "value": 100,
+          "block": 60,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831806,
+          "value": 100,
+          "block": 61,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831892,
+          "value": 100,
+          "block": 62,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831900,
+          "value": 100,
+          "block": 63,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831996,
+          "value": 100,
+          "block": 64,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832044,
+          "value": 100,
+          "block": 65,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832103,
+          "value": 100,
+          "block": 66,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832153,
+          "value": 100,
+          "block": 67,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832249,
+          "value": 100,
+          "block": 68,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832308,
+          "value": 100,
+          "block": 69,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832356,
+          "value": 100,
+          "block": 70,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832362,
+          "value": 100,
+          "block": 71,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832512,
+          "value": 100,
+          "block": 72,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832553,
+          "value": 100,
+          "block": 73,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832603,
+          "value": 100,
+          "block": 74,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832743,
+          "value": 100,
+          "block": 75,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832883,
+          "value": 100,
+          "block": 76,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833224,
+          "value": 100,
+          "block": 77,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833232,
+          "value": 100,
+          "block": 78,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833363,
+          "value": 100,
+          "block": 79,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833365,
+          "value": 100,
+          "block": 80,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833418,
+          "value": 100,
+          "block": 81,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833422,
+          "value": 100,
+          "block": 82,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833476,
+          "value": 100,
+          "block": 83,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833619,
+          "value": 100,
+          "block": 84,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833666,
+          "value": 100,
+          "block": 85,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833712,
+          "value": 100,
+          "block": 86,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833720,
+          "value": 100,
+          "block": 87,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833812,
+          "value": 100,
+          "block": 88,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833818,
+          "value": 100,
+          "block": 89,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834012,
+          "value": 100,
+          "block": 90,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834103,
+          "value": 100,
+          "block": 91,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834152,
+          "value": 100,
+          "block": 92,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834209,
+          "value": 100,
+          "block": 93,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834253,
+          "value": 100,
+          "block": 94,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834302,
+          "value": 100,
+          "block": 95,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834350,
+          "value": 100,
+          "block": 96,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834393,
+          "value": 100,
+          "block": 97,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834402,
+          "value": 100,
+          "block": 98,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834454,
+          "value": 100,
+          "block": 99,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834456,
+          "value": 100,
+          "block": 100,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834462,
+          "value": 100,
+          "block": 101,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834509,
+          "value": 100,
+          "block": 102,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834560,
+          "value": 100,
+          "block": 103,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834606,
+          "value": 100,
+          "block": 104,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834659,
+          "value": 100,
+          "block": 105,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834709,
+          "value": 100,
+          "block": 106,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834757,
+          "value": 100,
+          "block": 107,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834806,
+          "value": 100,
+          "block": 108,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834897,
+          "value": 100,
+          "block": 109,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834944,
+          "value": 100,
+          "block": 110,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834998,
+          "value": 100,
+          "block": 111,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089835000,
+          "value": 100,
+          "block": 112,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089835051,
+          "value": 100,
+          "block": 113,
+          "proposers": [
+            2
+          ]
+        }
+      ],
+      "executions": [
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827392,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827506,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827565,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827672,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827724,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827774,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827877,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827977,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828034,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828091,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828180,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828227,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828328,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828333,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828382,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828478,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828482,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828534,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828633,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828785,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828785,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828876,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828929,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828941,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829180,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829242,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829324,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829373,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829423,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829480,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829581,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829683,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829688,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829740,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829791,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829894,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829945,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829989,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830053,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830241,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830295,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830385,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830523,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830620,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830668,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830768,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830826,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830828,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830837,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830887,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830890,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830937,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831042,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831232,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831333,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831388,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831588,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831598,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831696,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831699,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831791,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831803,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831806,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831892,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831900,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831996,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832044,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832102,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832153,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832249,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832308,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832356,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832362,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832512,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832553,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832603,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832742,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832883,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833224,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833232,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833363,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833364,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833418,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833421,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833476,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833618,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833665,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833712,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833720,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833812,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833818,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834012,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834103,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834152,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834209,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834252,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834302,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834350,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834393,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834402,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834454,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834456,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834462,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834508,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834560,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834606,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834659,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834709,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834756,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834806,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834897,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834944,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834997,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835000,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835051,
+          "result": true
+        }
+      ]
     },
     {
       "replica": 1,
-      "start": 1651828062752,
-      "finish": 1651828071384,
+      "start": 1652089826962,
+      "finish": 1652089835088,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],
-      "throughputs": [],
-      "executions": []
+      "throughputs": [
+        {
+          "timestamp": 1652089827443,
+          "value": 100,
+          "block": 0,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827457,
+          "value": 100,
+          "block": 1,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827565,
+          "value": 100,
+          "block": 2,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827671,
+          "value": 100,
+          "block": 3,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827733,
+          "value": 100,
+          "block": 4,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827776,
+          "value": 100,
+          "block": 5,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827883,
+          "value": 100,
+          "block": 6,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827980,
+          "value": 100,
+          "block": 7,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828072,
+          "value": 100,
+          "block": 8,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828083,
+          "value": 100,
+          "block": 9,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828183,
+          "value": 100,
+          "block": 10,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828228,
+          "value": 100,
+          "block": 11,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828327,
+          "value": 100,
+          "block": 12,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828338,
+          "value": 100,
+          "block": 13,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828426,
+          "value": 100,
+          "block": 14,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828475,
+          "value": 100,
+          "block": 15,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828488,
+          "value": 100,
+          "block": 16,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828581,
+          "value": 100,
+          "block": 17,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828632,
+          "value": 100,
+          "block": 18,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828784,
+          "value": 100,
+          "block": 19,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828880,
+          "value": 100,
+          "block": 20,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828933,
+          "value": 100,
+          "block": 21,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828945,
+          "value": 100,
+          "block": 22,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829138,
+          "value": 100,
+          "block": 23,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829239,
+          "value": 100,
+          "block": 24,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829328,
+          "value": 100,
+          "block": 25,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829373,
+          "value": 100,
+          "block": 26,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829421,
+          "value": 100,
+          "block": 27,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829486,
+          "value": 100,
+          "block": 28,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829582,
+          "value": 100,
+          "block": 29,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829683,
+          "value": 100,
+          "block": 30,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829693,
+          "value": 100,
+          "block": 31,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829736,
+          "value": 100,
+          "block": 32,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829789,
+          "value": 100,
+          "block": 33,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829901,
+          "value": 100,
+          "block": 34,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829986,
+          "value": 100,
+          "block": 35,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829990,
+          "value": 100,
+          "block": 36,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830056,
+          "value": 100,
+          "block": 37,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830241,
+          "value": 100,
+          "block": 38,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830293,
+          "value": 100,
+          "block": 39,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830343,
+          "value": 100,
+          "block": 40,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830523,
+          "value": 100,
+          "block": 41,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830619,
+          "value": 100,
+          "block": 42,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830715,
+          "value": 100,
+          "block": 43,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830769,
+          "value": 100,
+          "block": 44,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830824,
+          "value": 100,
+          "block": 45,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830831,
+          "value": 100,
+          "block": 46,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830836,
+          "value": 100,
+          "block": 47,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830884,
+          "value": 100,
+          "block": 48,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830893,
+          "value": 100,
+          "block": 49,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830990,
+          "value": 100,
+          "block": 50,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830990,
+          "value": 100,
+          "block": 50,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831042,
+          "value": 100,
+          "block": 51,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831234,
+          "value": 100,
+          "block": 52,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831330,
+          "value": 100,
+          "block": 53,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831344,
+          "value": 100,
+          "block": 54,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831589,
+          "value": 100,
+          "block": 55,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831602,
+          "value": 100,
+          "block": 56,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831695,
+          "value": 100,
+          "block": 57,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831703,
+          "value": 100,
+          "block": 58,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831792,
+          "value": 100,
+          "block": 59,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831799,
+          "value": 100,
+          "block": 60,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831849,
+          "value": 100,
+          "block": 61,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831892,
+          "value": 100,
+          "block": 62,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831897,
+          "value": 100,
+          "block": 63,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831998,
+          "value": 100,
+          "block": 64,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832047,
+          "value": 100,
+          "block": 65,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832099,
+          "value": 100,
+          "block": 66,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832155,
+          "value": 100,
+          "block": 67,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832249,
+          "value": 100,
+          "block": 68,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832260,
+          "value": 100,
+          "block": 69,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832359,
+          "value": 100,
+          "block": 70,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832363,
+          "value": 100,
+          "block": 71,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832512,
+          "value": 100,
+          "block": 72,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832556,
+          "value": 100,
+          "block": 73,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832648,
+          "value": 100,
+          "block": 74,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832743,
+          "value": 100,
+          "block": 75,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832886,
+          "value": 100,
+          "block": 76,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833224,
+          "value": 100,
+          "block": 77,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833271,
+          "value": 100,
+          "block": 78,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833321,
+          "value": 100,
+          "block": 79,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833364,
+          "value": 100,
+          "block": 80,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833415,
+          "value": 100,
+          "block": 81,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833423,
+          "value": 100,
+          "block": 82,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833476,
+          "value": 100,
+          "block": 83,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833616,
+          "value": 100,
+          "block": 84,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833668,
+          "value": 100,
+          "block": 85,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833716,
+          "value": 100,
+          "block": 86,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833762,
+          "value": 100,
+          "block": 87,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833814,
+          "value": 100,
+          "block": 88,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833818,
+          "value": 100,
+          "block": 89,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834008,
+          "value": 100,
+          "block": 90,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834106,
+          "value": 100,
+          "block": 91,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834153,
+          "value": 100,
+          "block": 92,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834206,
+          "value": 100,
+          "block": 93,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834255,
+          "value": 100,
+          "block": 94,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834301,
+          "value": 100,
+          "block": 95,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834348,
+          "value": 100,
+          "block": 96,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834398,
+          "value": 100,
+          "block": 97,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834401,
+          "value": 100,
+          "block": 98,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834452,
+          "value": 100,
+          "block": 99,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834459,
+          "value": 100,
+          "block": 100,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834463,
+          "value": 100,
+          "block": 101,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834552,
+          "value": 100,
+          "block": 102,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834563,
+          "value": 100,
+          "block": 103,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834608,
+          "value": 100,
+          "block": 104,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834656,
+          "value": 100,
+          "block": 105,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834712,
+          "value": 100,
+          "block": 106,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834755,
+          "value": 100,
+          "block": 107,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834804,
+          "value": 100,
+          "block": 108,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834899,
+          "value": 100,
+          "block": 109,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834946,
+          "value": 100,
+          "block": 110,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834995,
+          "value": 100,
+          "block": 111,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089835003,
+          "value": 100,
+          "block": 112,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089835052,
+          "value": 100,
+          "block": 113,
+          "proposers": [
+            2
+          ]
+        }
+      ],
+      "executions": [
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827442,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827457,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827564,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827671,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827730,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827776,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827882,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827980,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828072,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828083,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828182,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828227,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828327,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828337,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828426,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828475,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828488,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828581,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828632,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828783,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828880,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828932,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828945,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829137,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829239,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829328,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829373,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829421,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829486,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829582,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829683,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829693,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829736,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829789,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829898,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829986,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829990,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830056,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830241,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830293,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830343,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830523,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830618,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830715,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830768,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830823,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830831,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830836,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830884,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830893,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830990,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830990,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831041,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831234,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831330,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831344,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831589,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831601,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831695,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831702,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831792,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831799,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831849,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831892,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831897,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831998,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832047,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832099,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832155,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832249,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832260,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832359,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832363,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832512,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832556,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832648,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832743,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832885,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833224,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833271,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833321,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833364,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833415,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833423,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833476,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833616,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833667,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833716,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833762,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833814,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833817,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834008,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834106,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834152,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834206,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834255,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834301,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834348,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834398,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834401,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834452,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834459,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834463,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834552,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834563,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834608,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834656,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834712,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834755,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834804,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834899,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834946,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834995,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835003,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835052,
+          "result": true
+        }
+      ]
     },
     {
       "replica": 2,
-      "start": 1651828062752,
-      "finish": 1651828071384,
+      "start": 1652089826962,
+      "finish": 1652089835085,
       "sent-messages": 0,
       "recv-messages": 0,
       "latencies": [],
-      "throughputs": [],
-      "executions": []
+      "throughputs": [
+        {
+          "timestamp": 1652089827439,
+          "value": 100,
+          "block": 0,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827501,
+          "value": 100,
+          "block": 1,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827564,
+          "value": 100,
+          "block": 2,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827678,
+          "value": 100,
+          "block": 3,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827767,
+          "value": 100,
+          "block": 4,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089827781,
+          "value": 100,
+          "block": 5,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089827880,
+          "value": 100,
+          "block": 6,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089827976,
+          "value": 100,
+          "block": 7,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828040,
+          "value": 100,
+          "block": 8,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828083,
+          "value": 100,
+          "block": 9,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828180,
+          "value": 100,
+          "block": 10,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828232,
+          "value": 100,
+          "block": 11,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828327,
+          "value": 100,
+          "block": 12,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828335,
+          "value": 100,
+          "block": 13,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828430,
+          "value": 100,
+          "block": 14,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828477,
+          "value": 100,
+          "block": 15,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828484,
+          "value": 100,
+          "block": 16,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828585,
+          "value": 100,
+          "block": 17,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828631,
+          "value": 100,
+          "block": 18,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828825,
+          "value": 100,
+          "block": 19,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089828878,
+          "value": 100,
+          "block": 20,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089828926,
+          "value": 100,
+          "block": 21,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089828941,
+          "value": 100,
+          "block": 22,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829141,
+          "value": 100,
+          "block": 23,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829278,
+          "value": 100,
+          "block": 24,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829328,
+          "value": 100,
+          "block": 25,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829377,
+          "value": 100,
+          "block": 26,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829423,
+          "value": 100,
+          "block": 27,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829479,
+          "value": 100,
+          "block": 28,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829586,
+          "value": 100,
+          "block": 29,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829684,
+          "value": 100,
+          "block": 30,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829691,
+          "value": 100,
+          "block": 31,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829741,
+          "value": 100,
+          "block": 32,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829789,
+          "value": 100,
+          "block": 33,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089829896,
+          "value": 100,
+          "block": 34,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089829949,
+          "value": 100,
+          "block": 35,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089829991,
+          "value": 100,
+          "block": 36,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830092,
+          "value": 100,
+          "block": 37,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830245,
+          "value": 100,
+          "block": 38,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830292,
+          "value": 100,
+          "block": 39,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830341,
+          "value": 100,
+          "block": 40,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830525,
+          "value": 100,
+          "block": 41,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830619,
+          "value": 100,
+          "block": 42,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830712,
+          "value": 100,
+          "block": 43,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830771,
+          "value": 100,
+          "block": 44,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830777,
+          "value": 100,
+          "block": 45,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830833,
+          "value": 100,
+          "block": 46,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830836,
+          "value": 100,
+          "block": 47,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089830884,
+          "value": 100,
+          "block": 48,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089830891,
+          "value": 100,
+          "block": 49,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089830988,
+          "value": 100,
+          "block": 50,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831043,
+          "value": 100,
+          "block": 51,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831235,
+          "value": 100,
+          "block": 52,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831339,
+          "value": 100,
+          "block": 53,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831343,
+          "value": 100,
+          "block": 54,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831587,
+          "value": 100,
+          "block": 55,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831603,
+          "value": 100,
+          "block": 56,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831696,
+          "value": 100,
+          "block": 57,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831700,
+          "value": 100,
+          "block": 58,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831796,
+          "value": 100,
+          "block": 59,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831798,
+          "value": 100,
+          "block": 60,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831807,
+          "value": 100,
+          "block": 61,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089831896,
+          "value": 100,
+          "block": 62,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089831899,
+          "value": 100,
+          "block": 63,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089831996,
+          "value": 100,
+          "block": 64,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832048,
+          "value": 100,
+          "block": 65,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832100,
+          "value": 100,
+          "block": 66,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832156,
+          "value": 100,
+          "block": 67,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832254,
+          "value": 100,
+          "block": 68,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832259,
+          "value": 100,
+          "block": 69,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832360,
+          "value": 100,
+          "block": 70,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832411,
+          "value": 100,
+          "block": 71,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832550,
+          "value": 100,
+          "block": 72,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832553,
+          "value": 100,
+          "block": 73,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089832606,
+          "value": 100,
+          "block": 74,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089832743,
+          "value": 100,
+          "block": 75,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089832882,
+          "value": 100,
+          "block": 76,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833228,
+          "value": 100,
+          "block": 77,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833230,
+          "value": 100,
+          "block": 78,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833321,
+          "value": 100,
+          "block": 79,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833369,
+          "value": 100,
+          "block": 80,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833416,
+          "value": 100,
+          "block": 81,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833423,
+          "value": 100,
+          "block": 82,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833516,
+          "value": 100,
+          "block": 83,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833616,
+          "value": 100,
+          "block": 84,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833664,
+          "value": 100,
+          "block": 85,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833716,
+          "value": 100,
+          "block": 86,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089833720,
+          "value": 100,
+          "block": 87,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089833812,
+          "value": 100,
+          "block": 88,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089833819,
+          "value": 100,
+          "block": 89,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834011,
+          "value": 100,
+          "block": 90,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834060,
+          "value": 100,
+          "block": 91,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834155,
+          "value": 100,
+          "block": 92,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834206,
+          "value": 100,
+          "block": 93,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834253,
+          "value": 100,
+          "block": 94,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834303,
+          "value": 100,
+          "block": 95,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834349,
+          "value": 100,
+          "block": 96,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834395,
+          "value": 100,
+          "block": 97,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834401,
+          "value": 100,
+          "block": 98,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834451,
+          "value": 100,
+          "block": 99,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834455,
+          "value": 100,
+          "block": 100,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834464,
+          "value": 100,
+          "block": 101,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834551,
+          "value": 100,
+          "block": 102,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834560,
+          "value": 100,
+          "block": 103,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834610,
+          "value": 100,
+          "block": 104,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834659,
+          "value": 100,
+          "block": 105,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834708,
+          "value": 100,
+          "block": 106,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834759,
+          "value": 100,
+          "block": 107,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834847,
+          "value": 100,
+          "block": 108,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089834896,
+          "value": 100,
+          "block": 109,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089834947,
+          "value": 100,
+          "block": 110,
+          "proposers": [
+            2
+          ]
+        },
+        {
+          "timestamp": 1652089834996,
+          "value": 100,
+          "block": 111,
+          "proposers": [
+            0
+          ]
+        },
+        {
+          "timestamp": 1652089835001,
+          "value": 100,
+          "block": 112,
+          "proposers": [
+            1
+          ]
+        },
+        {
+          "timestamp": 1652089835055,
+          "value": 100,
+          "block": 113,
+          "proposers": [
+            2
+          ]
+        }
+      ],
+      "executions": [
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827438,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827501,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827563,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827677,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827767,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827781,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827879,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089827976,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828039,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828083,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828180,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828232,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828327,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828334,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828429,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828476,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828484,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828585,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828631,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828825,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828877,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828926,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089828941,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829141,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829278,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829328,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829377,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829422,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829479,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829586,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829684,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829690,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829740,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829789,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829896,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829948,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089829991,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830092,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830245,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830292,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830341,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830525,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830618,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830712,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830771,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830777,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830833,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830836,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830884,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830891,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089830988,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831043,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831234,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831339,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831343,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831587,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831603,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831696,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831700,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831796,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831798,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831806,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831895,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831899,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089831996,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832046,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832100,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832156,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832254,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832259,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832360,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832411,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832550,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832553,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832606,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832743,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089832882,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833228,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833230,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833321,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833369,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833416,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833423,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833516,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833616,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833664,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833716,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833720,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833812,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089833819,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834010,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834060,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834155,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834206,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834252,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834303,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834349,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834394,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834400,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834451,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834455,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834464,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834551,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834559,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834610,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834659,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834708,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834759,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834847,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834896,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834947,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089834995,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835001,
+          "result": true
+        },
+        {
+          "pid": "node",
+          "start": 0,
+          "finish": 1652089835055,
+          "result": true
+        }
+      ]
     }
   ]
 }
