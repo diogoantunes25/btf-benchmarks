@@ -22,7 +22,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
     private final URI masterUri;
     private final List<Process> replicaProcesses = new ArrayList<>();
 
-    private final boolean DEBUG_MODE = true;
+    private final boolean DEBUG_MODE = false;
 
     public ProcessCreationService(URI masterUri) {
         this.masterUri = masterUri;

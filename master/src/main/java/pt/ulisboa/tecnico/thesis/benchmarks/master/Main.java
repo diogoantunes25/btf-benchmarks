@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final int DEFAULT_MASTER_PORT = 8080;
+    private static final int DEFAULT_MASTER_PORT = 10000;
     
     /**
      * @param args Resources server and master address (both optional). By default

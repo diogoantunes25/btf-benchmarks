@@ -18,8 +18,8 @@ public class Main {
 
     private static final int TOLERANCE = 1;
     private static final int NUM_REPLICAS = 3 * TOLERANCE + 1;
-    private static final int BASE_PORT = 8081;
-    private static final int BASE_CONTROL_PORT = 9420;
+    private static final int BASE_PORT = 9000;
+    private static final int BASE_CONTROL_PORT = 10000;
 
     public static void main(String[] args) {
         // System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
