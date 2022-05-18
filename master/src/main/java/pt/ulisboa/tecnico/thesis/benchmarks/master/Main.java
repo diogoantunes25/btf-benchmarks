@@ -35,6 +35,8 @@ public class Main {
         // parse args
         Config config = Config.fromArgs(args);
 
+        System.out.println("Master is running...");
+
         // init data repositories
         PcsRepository pcsRepository = new PcsRepository();
         ReplicaRepository replicaRepository = new ReplicaRepository();
