@@ -35,8 +35,6 @@ public class Main {
         // parse args
         Config config = Config.fromArgs(args);
 
-        System.out.println("Master is running...");
-
         // init data repositories
         PcsRepository pcsRepository = new PcsRepository();
         ReplicaRepository replicaRepository = new ReplicaRepository();
@@ -59,6 +57,8 @@ public class Main {
                 channel.shutdownNow();
             }
         }
+
+        System.out.println("Master running on port " + DEFAULT_MASTER_PORT);
 
         Server server = ServerBuilder
                 .forPort(DEFAULT_MASTER_PORT)

@@ -74,9 +74,7 @@ public class ExecuteVisitor implements CommandVisitor {
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
 
-    private final int PCS_DEFAULT_PORT = 5000;
-
-    private final boolean RUNNING_GSD = false;
+    private final int PCS_DEFAULT_PORT = 9000;
 
     public ExecuteVisitor(
             Config config,
@@ -102,23 +100,12 @@ public class ExecuteVisitor implements CommandVisitor {
          *  We adopt the following convention:
          *       - Lauching of PCS main class has to be done manually on the remote
          *  machine (thus this command only registers the PCS on the master process)
-         *       - The PCS within a machine will use port 5000.
+         *       - The PCS within a machine will use port 9000.
          *       - Each replica with id i will use port 5000 + i.
          */
 
-        if (!RUNNING_GSD) {
-            String MY_ADDRESS = "127.0.0.1";
-
-            int port = 4000 + Integer.parseInt(cmd.getNode());
-
-            Pcs pcs = new Pcs(cmd.getId(), MY_ADDRESS, port);
-            this.pcsRepository.add(pcs);
-
-            System.out.println("New pcs spawned");
-            return true;
-        }
-
         InetAddress nodeAddress = null;
+
         try {
             nodeAddress = InetAddress.getByName(cmd.getNode());
         }
@@ -126,7 +113,7 @@ public class ExecuteVisitor implements CommandVisitor {
             System.out.println("PCS Spawning failed. Unknwon host.");
         }
 
-        System.out.println("The IP is: " + nodeAddress.getHostAddress());
+        System.out.println("PCS IP: " + nodeAddress.getHostAddress() + ", port: " + PCS_DEFAULT_PORT);
 
         Pcs pcs = new Pcs(cmd.getId(), nodeAddress.getHostAddress(), PCS_DEFAULT_PORT);
         this.pcsRepository.add(pcs);
@@ -147,6 +134,8 @@ public class ExecuteVisitor implements CommandVisitor {
 
         ProcessCreationServiceOuterClass.CreateReplicaRequest request = ProcessCreationServiceOuterClass.CreateReplicaRequest.newBuilder()
                 .setReplicaId(cmd.getReplicaId()).build();
+
+        System.out.println("The id of the replica is " + cmd.getReplicaId());
 
         ProcessCreationServiceOuterClass.CreateReplicaResponse response = null;
         try {

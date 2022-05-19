@@ -10,7 +10,6 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("PCS is running...");
 
         // parse args
         Config config = Config.fromArgs(args);
@@ -20,6 +19,8 @@ public class Main {
                 .addService(new ProcessCreationService(config.getMasterUri()))
                 .addService(new PingService())
                 .build();
+
+        System.out.println("PCS running on port " + config.getPort());
 
         try {
             server.start();
