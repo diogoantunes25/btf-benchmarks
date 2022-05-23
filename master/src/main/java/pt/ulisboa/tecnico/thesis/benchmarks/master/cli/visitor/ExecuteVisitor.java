@@ -74,7 +74,7 @@ public class ExecuteVisitor implements CommandVisitor {
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
 
-    private final int PCS_DEFAULT_PORT = 9000;
+    private final int PCS_DEFAULT_PORT = 8500;
 
     public ExecuteVisitor(
             Config config,
@@ -133,7 +133,9 @@ public class ExecuteVisitor implements CommandVisitor {
                 .newBlockingStub(channel);
 
         ProcessCreationServiceOuterClass.CreateReplicaRequest request = ProcessCreationServiceOuterClass.CreateReplicaRequest.newBuilder()
-                .setReplicaId(cmd.getReplicaId()).build();
+                .setReplicaId(cmd.getReplicaId())
+                .setIpPcs(pcs.getAddress())
+                .build();
 
         System.out.println("The id of the replica is " + cmd.getReplicaId());
 

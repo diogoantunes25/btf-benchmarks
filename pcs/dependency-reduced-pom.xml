@@ -40,6 +40,11 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <transformers>
+            <transformer />
+          </transformers>
+        </configuration>
       </plugin>
     </plugins>
   </build>

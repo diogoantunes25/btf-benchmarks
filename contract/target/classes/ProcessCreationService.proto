@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.thesis.benchmarks.contract;
 
 message CreateReplicaRequest {
     int32 replicaId = 1;
+    string ip_pcs = 2;
 }
 
 message CreateReplicaResponse {

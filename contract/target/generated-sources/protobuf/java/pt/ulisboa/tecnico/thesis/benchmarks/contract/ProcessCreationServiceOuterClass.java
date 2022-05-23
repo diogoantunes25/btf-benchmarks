@@ -22,6 +22,16 @@ public final class ProcessCreationServiceOuterClass {
      * <code>int32 replicaId = 1;</code>
      */
     int getReplicaId();
+
+    /**
+     * <code>string ip_pcs = 2;</code>
+     */
+    java.lang.String getIpPcs();
+    /**
+     * <code>string ip_pcs = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpPcsBytes();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.CreateReplicaRequest}
@@ -37,6 +47,7 @@ public final class ProcessCreationServiceOuterClass {
     }
     private CreateReplicaRequest() {
       replicaId_ = 0;
+      ipPcs_ = "";
     }
 
     @java.lang.Override
@@ -75,6 +86,12 @@ public final class ProcessCreationServiceOuterClass {
               replicaId_ = input.readInt32();
               break;
             }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ipPcs_ = s;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -108,6 +125,40 @@ public final class ProcessCreationServiceOuterClass {
       return replicaId_;
     }
 
+    public static final int IP_PCS_FIELD_NUMBER = 2;
+    private volatile java.lang.Object ipPcs_;
+    /**
+     * <code>string ip_pcs = 2;</code>
+     */
+    public java.lang.String getIpPcs() {
+      java.lang.Object ref = ipPcs_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ipPcs_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ip_pcs = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpPcsBytes() {
+      java.lang.Object ref = ipPcs_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ipPcs_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -123,6 +174,9 @@ public final class ProcessCreationServiceOuterClass {
       if (replicaId_ != 0) {
         output.writeInt32(1, replicaId_);
       }
+      if (!getIpPcsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ipPcs_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -134,6 +188,9 @@ public final class ProcessCreationServiceOuterClass {
       if (replicaId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, replicaId_);
+      }
+      if (!getIpPcsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ipPcs_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -153,6 +210,8 @@ public final class ProcessCreationServiceOuterClass {
       boolean result = true;
       result = result && (getReplicaId()
           == other.getReplicaId());
+      result = result && getIpPcs()
+          .equals(other.getIpPcs());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -166,6 +225,8 @@ public final class ProcessCreationServiceOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + REPLICAID_FIELD_NUMBER;
       hash = (53 * hash) + getReplicaId();
+      hash = (37 * hash) + IP_PCS_FIELD_NUMBER;
+      hash = (53 * hash) + getIpPcs().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -297,6 +358,8 @@ public final class ProcessCreationServiceOuterClass {
         super.clear();
         replicaId_ = 0;
 
+        ipPcs_ = "";
+
         return this;
       }
 
@@ -320,6 +383,7 @@ public final class ProcessCreationServiceOuterClass {
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass.CreateReplicaRequest buildPartial() {
         pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass.CreateReplicaRequest result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass.CreateReplicaRequest(this);
         result.replicaId_ = replicaId_;
+        result.ipPcs_ = ipPcs_;
         onBuilt();
         return result;
       }
@@ -363,6 +427,10 @@ public final class ProcessCreationServiceOuterClass {
         if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass.CreateReplicaRequest.getDefaultInstance()) return this;
         if (other.getReplicaId() != 0) {
           setReplicaId(other.getReplicaId());
+        }
+        if (!other.getIpPcs().isEmpty()) {
+          ipPcs_ = other.ipPcs_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -413,6 +481,75 @@ public final class ProcessCreationServiceOuterClass {
       public Builder clearReplicaId() {
         
         replicaId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ipPcs_ = "";
+      /**
+       * <code>string ip_pcs = 2;</code>
+       */
+      public java.lang.String getIpPcs() {
+        java.lang.Object ref = ipPcs_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ipPcs_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ip_pcs = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpPcsBytes() {
+        java.lang.Object ref = ipPcs_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ipPcs_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ip_pcs = 2;</code>
+       */
+      public Builder setIpPcs(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ipPcs_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip_pcs = 2;</code>
+       */
+      public Builder clearIpPcs() {
+        
+        ipPcs_ = getDefaultInstance().getIpPcs();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip_pcs = 2;</code>
+       */
+      public Builder setIpPcsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ipPcs_ = value;
         onChanged();
         return this;
       }
@@ -937,14 +1074,14 @@ public final class ProcessCreationServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\034ProcessCreationService.proto\022-pt.ulisb" +
-      "oa.tecnico.thesis.benchmarks.contract\")\n" +
+      "oa.tecnico.thesis.benchmarks.contract\"9\n" +
       "\024CreateReplicaRequest\022\021\n\treplicaId\030\001 \001(\005" +
-      "\"#\n\025CreateReplicaResponse\022\n\n\002ok\030\001 \001(\0102\257\001" +
-      "\n\026ProcessCreationService\022\224\001\n\007replica\022C.p" +
-      "t.ulisboa.tecnico.thesis.benchmarks.cont" +
-      "ract.CreateReplicaRequest\032D.pt.ulisboa.t" +
-      "ecnico.thesis.benchmarks.contract.Create" +
-      "ReplicaResponseb\006proto3"
+      "\022\016\n\006ip_pcs\030\002 \001(\t\"#\n\025CreateReplicaRespons" +
+      "e\022\n\n\002ok\030\001 \001(\0102\257\001\n\026ProcessCreationService" +
+      "\022\224\001\n\007replica\022C.pt.ulisboa.tecnico.thesis" +
+      ".benchmarks.contract.CreateReplicaReques" +
+      "t\032D.pt.ulisboa.tecnico.thesis.benchmarks" +
+      ".contract.CreateReplicaResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -963,7 +1100,7 @@ public final class ProcessCreationServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_CreateReplicaRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_CreateReplicaRequest_descriptor,
-        new java.lang.String[] { "ReplicaId", });
+        new java.lang.String[] { "ReplicaId", "IpPcs", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_CreateReplicaResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_CreateReplicaResponse_fieldAccessorTable = new

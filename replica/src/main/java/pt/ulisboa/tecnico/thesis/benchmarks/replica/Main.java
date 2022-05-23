@@ -5,6 +5,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.protobuf.services.ProtoReflectionService;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc.BenchmarkGrpcService;
 
@@ -12,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -21,7 +23,7 @@ public class Main {
     private static final int BASE_PORT = 9000;
     private static final int BASE_CONTROL_PORT = 10000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         // System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
 
         // Parse args
@@ -34,20 +36,19 @@ public class Main {
                 .build();
         RegisterServiceGrpc.RegisterServiceBlockingStub stub = RegisterServiceGrpc.newBlockingStub(channel);
 
-        String ipAddr = null;
-        try {
-            URL whatsMyIp = new URL("http://checkip.amazonaws.com");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    whatsMyIp.openStream()));
-            ipAddr = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+//        try {
+//            URL whatsMyIp = new URL("http://checkip.amazonaws.com");
+//            BufferedReader in = new BufferedReader(new InputStreamReader(
+//                    whatsMyIp.openStream()));
+//            ipAddr = in.readLine();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
 
         RegisterServiceOuterClass.RegisterRequest request = RegisterServiceOuterClass.RegisterRequest.newBuilder()
                 //.setReplicaId(config.getReplicaId())
-                .setAddress(ipAddr)
+                .setAddress(config.getPcsIP().getHostAddress())
                 .setPort(BASE_PORT + config.getReplicaId())
                 .setControlPort(BASE_CONTROL_PORT + config.getReplicaId())
                 .build();
@@ -70,6 +71,7 @@ public class Main {
         Server server = ServerBuilder
                 .forPort(BASE_CONTROL_PORT + config.getReplicaId())
                 .addService(new BenchmarkGrpcService(replicaId))
+                .addService(ProtoReflectionService.newInstance())
                 .build();
         try {
             server.start();

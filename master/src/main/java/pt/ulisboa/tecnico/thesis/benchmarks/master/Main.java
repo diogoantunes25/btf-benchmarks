@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.master;
 import io.grpc.*;
+import io.grpc.protobuf.services.ProtoReflectionService;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.PingServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.PingServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.CommandParser;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final int DEFAULT_MASTER_PORT = 10000;
+    private static final int DEFAULT_MASTER_PORT = 15000;
     
     /**
      * @param args Resources server and master address (both optional). By default
@@ -63,6 +64,7 @@ public class Main {
         Server server = ServerBuilder
                 .forPort(DEFAULT_MASTER_PORT)
                 .addService(new RegisterGrpcService(replicaRepository))
+                .addService(ProtoReflectionService.newInstance())
                 .build();
 
 
