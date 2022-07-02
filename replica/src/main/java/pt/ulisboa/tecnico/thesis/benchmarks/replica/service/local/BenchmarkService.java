@@ -50,6 +50,7 @@ public class BenchmarkService {
     private BenchmarkReplica benchmarkReplica; // replica.replica.BenchmarkReplica
 
     public BenchmarkService(Integer replicaId) {
+        System.out.println("The replica id is " + replicaId);
         this.replicaId = replicaId;
     }
 
@@ -64,7 +65,14 @@ public class BenchmarkService {
 
         // ignore if not in topology
         Replica me = replicas.stream().filter(replica -> replica.getId() == replicaId).findAny().orElse(null);
-        if (me == null) return false;   // failure
+        if (me == null) {
+            System.out.println("Aborting topology set on replica " + replicaId);
+            System.out.println("The replicas involved are:");
+            for (Replica participant: replicas) {
+                System.out.println("  -> " + participant.getId());
+            }
+            return false;   // failure
+        }
 
         // close all connections
         if (this.transport != null)
@@ -77,7 +85,13 @@ public class BenchmarkService {
 
         // init transport layer
         // FIXME 2 channels?
+        // this.transport = new TcpTransport(me, replicas, 2);
         this.transport = new TcpTransport(me, replicas, 2);
+
+        logger.info("Connection status:");
+        for (Connection connection: this.transport.getConnections()) {
+            connection.printStatus(logger);
+        }
 
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");

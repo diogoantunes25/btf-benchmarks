@@ -20,8 +20,8 @@ public class RegisterGrpcService extends RegisterServiceGrpc.RegisterServiceImpl
             StreamObserver<RegisterServiceOuterClass.RegisterResponse> responseObserver
     ) {
 
-        // generate auto incremented replica id
-        int replicaId = repository.getAll().size();
+        // generate auto incremented replica id (staring at 0)
+        int replicaId = repository.getAll().size() - 1;
 
         // init replica
         Replica replica = new Replica(

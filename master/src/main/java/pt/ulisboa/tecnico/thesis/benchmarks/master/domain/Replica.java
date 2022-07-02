@@ -13,7 +13,7 @@ public class Replica {
 
     public Replica(int replicaId, String address, int port, int controlPort) {
         this.replicaId = replicaId;
-        this.address = address; //"127.0.0.1"; //
+        this.address = address;
         this.port = port;
         this.controlPort = controlPort;
     }

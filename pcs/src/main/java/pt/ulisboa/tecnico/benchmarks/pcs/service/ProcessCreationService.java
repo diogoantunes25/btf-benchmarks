@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+import java.io.File;
 
 public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCreationServiceImplBase {
 
@@ -33,7 +34,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
             ProcessCreationServiceOuterClass.CreateReplicaRequest request,
             StreamObserver<ProcessCreationServiceOuterClass.CreateReplicaResponse> responseObserver
     ) {
-        boolean result = _replica(request.getIpPcs());
+        boolean result = _replica(request.getIpPcs(), request.getReplicaId());
 
         ProcessCreationServiceOuterClass.CreateReplicaResponse response = ProcessCreationServiceOuterClass.CreateReplicaResponse
                 .newBuilder().setOk(result).build();
@@ -42,7 +43,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         responseObserver.onCompleted();
     }
 
-    private boolean _replica(String pcsIP) {
+    private boolean _replica(String pcsIP, int replicaID) {
         // FIXME: Remove hard coded version (use parameters or something)
         //final String javaPath = "/bin/java";
         final String javaPath = "/opt/java/openjdk/bin/java";
@@ -50,6 +51,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         // final String jarPath = "/home/diogo/MEGA/2 | LEIC-A/Projeto BIG/Study material/code/alea-benchmarks/replica/target/replica-1.0-SNAPSHOT.jar";
         final String jarPath = "/alea/replica.jar";
 
+        int offset = replicaProcesses.size();
 
         ProcessBuilder processBuilder;
         if (DEBUG_MODE) {
@@ -58,19 +60,27 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
             processBuilder = new ProcessBuilder(javaPath, debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
         }
         else {
-            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
+            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP));
         }
 
         // By default, the output and error are redirected to pipes
-        processBuilder.redirectOutput(Redirect.INHERIT);
-        processBuilder.redirectError(Redirect.INHERIT);
+        // processBuilder.redirectOutput(Redirect.INHERIT);
+        File outputFile = new File("./logs/replica" + replicaProcesses.size() + ".output");
+        File logFile = new File("./logs/replica" + replicaProcesses.size() + ".log");
+        processBuilder.redirectOutput(Redirect.to(outputFile));
+        processBuilder.redirectError(Redirect.to(logFile));
 
         try {
             Process process = processBuilder.start();
+
+            System.out.println("Replica " + replicaProcesses.size() + " was created.");
+
             replicaProcesses.add(process);
-            // StreamGobbler streamGobbler =
-            //         new StreamGobbler(process.getErrorStream(), System.out::println);
-            // Executors.newSingleThreadExecutor().submit(streamGobbler);
+
+            if (!process.isAlive()) {
+                System.out.println(process.exitValue());
+                return false;
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

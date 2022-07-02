@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.transport;
 
+import org.slf4j.Logger;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
 
@@ -31,16 +32,25 @@ public class Connection {
     private Thread workerThread;
     private BenchmarkReplica listener;
 
-    public Connection(Replica me, Replica other) {
-        this(0, me, other);
+
+    private Logger logger;
+
+    public Connection(Replica me, Replica other, Logger logger) {
+        this(0, me, other, logger);
     }
 
-    public Connection(Integer cid, Replica me, Replica other) {
+    public Connection(Integer cid, Replica me, Replica other, Logger logger) {
         this.cid = cid;
         this.me = me;
         this.other = other;
+        this.logger = logger;
 
-        if (this.shouldConnect()) connect();
+        if (this.shouldConnect()) {
+            connect();
+        }
+        else {
+            logger.info("Aborted connection to replica {} on channel {}.", me.getId(), other.getId());
+        }
     }
 
     public Boolean shouldConnect() {
@@ -107,16 +117,22 @@ public class Connection {
 
     private void connect() {
         try {
-            this.socket = new Socket(other.getAddress(), other.getPort());
+            int localPort = cid * 100 + 10 * me.getId() + other.getId() + 18000;
+            logger.info("[{}] Opening socket to {}:{}, from port {}", System.currentTimeMillis(), other.getAddress(), other.getPort(), localPort);
+            this.socket = new Socket(other.getAddress(), other.getPort(), null, localPort);
+            logger.info("[{} The socket port at host is {}]", System.currentTimeMillis(), this.socket.getLocalPort());
             this.socketOutStream = new DataOutputStream(socket.getOutputStream());
             this.socketInStream = new DataInputStream(socket.getInputStream());
-            new DataOutputStream(this.socket.getOutputStream()).writeInt(me.getId());
-            new DataOutputStream(this.socket.getOutputStream()).writeInt(cid);
-
+            this.socketOutStream.writeInt(me.getId());
+            this.socketOutStream.writeInt(cid);
+            logger.info("[{}] Socket to {}:{}, channel {} opened - {}", System.currentTimeMillis(), other.getAddress(), other.getId(), cid, socket.isConnected());
         } catch (IOException e) {
+            logger.info("[{}] Socket to {}:{} failed, trying again in 2 seconds", System.currentTimeMillis(), other.getAddress(), other.getPort());
+            e.printStackTrace();
             try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ignore) {}
+                Thread.sleep(500);
+            } catch (InterruptedException ignore) {
+            }
             this.connect();
         }
     }
@@ -161,4 +177,11 @@ public class Connection {
             sendLock.unlock();
         }
     }
+
+    public void printStatus(Logger logger) {
+        logger.info("[{}] from {}:{} to {}:{} - {}", System.currentTimeMillis(),
+                me.getAddress(), me.getPort(), other.getAddress(), other.getPort(),
+                socket.isConnected());
+    }
+
 }

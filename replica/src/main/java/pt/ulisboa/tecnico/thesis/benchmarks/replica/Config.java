@@ -13,6 +13,8 @@ public class Config {
 
     private final InetAddress ip;
 
+    private final int offset;
+
     /**
      * Creates a Config from list of arguments
      * @param args Replica ID and master URI (optional)
@@ -27,14 +29,16 @@ public class Config {
         int replicaId = Integer.parseInt(args[0]);
         URI masterUri = URI.create(args.length < 2 ? DEFAULT_MASTER_URI : args[1]);
         InetAddress ip = InetAddress.getByName(args[2]);
+        int offset = Integer.parseInt(args[3]);
 
-        return new Config(replicaId, masterUri, ip);
+        return new Config(replicaId, masterUri, ip, offset);
     }
 
-    public Config(int replicaId, URI masterUri, InetAddress ip) {
+    public Config(int replicaId, URI masterUri, InetAddress ip, int offset) {
         this.replicaId = replicaId;
         this.masterUri = masterUri;
         this.ip = ip;
+        this.offset = offset;
     }
 
     public int getReplicaId() {
@@ -47,5 +51,9 @@ public class Config {
 
     public InetAddress getPcsIP() {
         return ip;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 }

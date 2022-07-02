@@ -75,6 +75,8 @@ public class ExecuteVisitor implements CommandVisitor {
     private final AwsService awsService;
 
     private final int PCS_DEFAULT_PORT = 8500;
+    private final int REPLICA_BASE_PORT = 9000;
+    private final int REPLICA_BASE_CONTROL_PORT = 10000;
 
     public ExecuteVisitor(
             Config config,
@@ -100,8 +102,8 @@ public class ExecuteVisitor implements CommandVisitor {
          *  We adopt the following convention:
          *       - Lauching of PCS main class has to be done manually on the remote
          *  machine (thus this command only registers the PCS on the master process)
-         *       - The PCS within a machine will use port 9000.
-         *       - Each replica with id i will use port 5000 + i.
+         *       - The PCS within a machine will use port 8500.
+         *       - Each replica with id i will use port 9000 + i for regular port and 10000 + i for security port.
          */
 
         InetAddress nodeAddress = null;
@@ -151,6 +153,8 @@ public class ExecuteVisitor implements CommandVisitor {
         }
         else {
             System.out.println("New replica spawned");
+            this.replicaRepository.addReplica(new Replica(cmd.getReplicaId(), pcs.getAddress(),
+                    cmd.getReplicaId() + REPLICA_BASE_PORT, cmd.getReplicaId() + REPLICA_BASE_CONTROL_PORT));
         }
 
         // TODO: check this

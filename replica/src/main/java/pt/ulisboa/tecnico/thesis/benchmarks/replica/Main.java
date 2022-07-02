@@ -29,6 +29,12 @@ public class Main {
         // Parse args
         Config config = Config.fromArgs(args);
 
+        System.out.println("OUTPUT FILE FOR REPLICA " + config.getReplicaId());
+        System.err.println("LOG FILE FOR REPLICA " + config.getReplicaId());
+
+        System.out.println("Building replica...");
+        System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
+
         // Register with master
         ManagedChannel channel = ManagedChannelBuilder
                 .forAddress(config.getMasterUri().getHost(), config.getMasterUri().getPort())
@@ -36,21 +42,11 @@ public class Main {
                 .build();
         RegisterServiceGrpc.RegisterServiceBlockingStub stub = RegisterServiceGrpc.newBlockingStub(channel);
 
-//        try {
-//            URL whatsMyIp = new URL("http://checkip.amazonaws.com");
-//            BufferedReader in = new BufferedReader(new InputStreamReader(
-//                    whatsMyIp.openStream()));
-//            ipAddr = in.readLine();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-
         RegisterServiceOuterClass.RegisterRequest request = RegisterServiceOuterClass.RegisterRequest.newBuilder()
                 //.setReplicaId(config.getReplicaId())
                 .setAddress(config.getPcsIP().getHostAddress())
-                .setPort(BASE_PORT + config.getReplicaId())
-                .setControlPort(BASE_CONTROL_PORT + config.getReplicaId())
+                .setPort(BASE_PORT + config.getOffset())
+                .setControlPort(BASE_CONTROL_PORT + config.getOffset())
                 .build();
 
         RegisterServiceOuterClass.RegisterResponse response = stub.register(request);
@@ -69,12 +65,14 @@ public class Main {
 
         // Start server
         Server server = ServerBuilder
-                .forPort(BASE_CONTROL_PORT + config.getReplicaId())
+                .forPort(BASE_CONTROL_PORT + config.getOffset())
                 .addService(new BenchmarkGrpcService(replicaId))
                 .addService(ProtoReflectionService.newInstance())
                 .build();
+
         try {
             server.start();
+            System.out.println(String.format("Replica %d server started", config.getReplicaId()));
             server.awaitTermination();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

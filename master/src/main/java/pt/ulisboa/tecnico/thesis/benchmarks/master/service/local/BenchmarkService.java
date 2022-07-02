@@ -83,6 +83,7 @@ public class BenchmarkService {
             System.out.println("Waiting for replies...");
             responseLatch.await();
         } catch (InterruptedException e) {
+            System.out.println("Topology set failed...");
             e.printStackTrace();
         }
         this.topology = topology;
