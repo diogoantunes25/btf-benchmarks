@@ -60,20 +60,17 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
             processBuilder = new ProcessBuilder(javaPath, debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
         }
         else {
-            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP));
+            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP), String.valueOf(offset));
         }
-
-        // By default, the output and error are redirected to pipes
-        // processBuilder.redirectOutput(Redirect.INHERIT);
-        File outputFile = new File("./logs/replica" + replicaProcesses.size() + ".output");
-        File logFile = new File("./logs/replica" + replicaProcesses.size() + ".log");
+        File outputFile = new File("./logs/replica" + replicaID + ".output");
+        File logFile = new File("./logs/replica" + replicaID + ".log");
         processBuilder.redirectOutput(Redirect.to(outputFile));
         processBuilder.redirectError(Redirect.to(logFile));
 
         try {
             Process process = processBuilder.start();
 
-            System.out.println("Replica " + replicaProcesses.size() + " was created.");
+            System.out.println("Replica " + replicaID + " was created.");
 
             replicaProcesses.add(process);
 

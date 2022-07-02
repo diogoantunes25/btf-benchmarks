@@ -115,9 +115,8 @@ public class ExecuteVisitor implements CommandVisitor {
             System.out.println("PCS Spawning failed. Unknwon host.");
         }
 
-        System.out.println("PCS IP: " + nodeAddress.getHostAddress() + ", port: " + PCS_DEFAULT_PORT);
-
         Pcs pcs = new Pcs(cmd.getId(), nodeAddress.getHostAddress(), PCS_DEFAULT_PORT);
+        System.out.println("PCS IP: " + pcs.getAddress() + ", port: " + pcs.getPort());
         this.pcsRepository.add(pcs);
 
         return true;
