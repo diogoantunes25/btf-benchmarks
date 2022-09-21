@@ -243,12 +243,6 @@ public class ExecuteVisitor implements CommandVisitor {
         // close all connections
         benchmarkService.shutdown(cmd.getTimer());
 
-        // TODO: Implement shutdown properly
-
-        // stop all replicas
-
-        // stop pcs
-
         // shutdown master
         System.exit(0);
         return true;

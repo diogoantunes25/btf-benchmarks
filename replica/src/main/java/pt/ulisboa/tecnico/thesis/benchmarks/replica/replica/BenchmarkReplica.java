@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.replica;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.tecnico.ulisboa.hbbft.MessageEncoder;
 import pt.tecnico.ulisboa.hbbft.ProtocolMessage;
 import pt.tecnico.ulisboa.hbbft.Step;
@@ -15,10 +17,13 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class BenchmarkReplica {
+
+    protected final Logger logger = LoggerFactory.getLogger(BenchmarkReplica.class);
 
     protected IAtomicBroadcast protocol;
     protected MessageEncoder<String> encoder;
@@ -27,8 +32,8 @@ public abstract class BenchmarkReplica {
     protected final AtomicLong sentMessageCount = new AtomicLong();
     protected final AtomicLong recvMessageCount = new AtomicLong();
 
-    protected final List<Long> encodingTimes = new ArrayList<>();
-    protected final List<Long> decodingTimes = new ArrayList<>();
+    protected final List<Long> encodingTimes = Collections.synchronizedList(new ArrayList<>());
+    protected final List<Long> decodingTimes = Collections.synchronizedList(new ArrayList<>());
 
     public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         this.protocol = protocol;
@@ -40,7 +45,7 @@ public abstract class BenchmarkReplica {
 
     public abstract Benchmark stop();
 
-    public void handleMessage(String data) {
+    synchronized public void handleMessage(String data) {
         this.recvMessageCount.incrementAndGet();
 
         final long start = ZonedDateTime.now().toInstant().toEpochMilli();

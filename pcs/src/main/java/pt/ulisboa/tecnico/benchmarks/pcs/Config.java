@@ -4,28 +4,21 @@ import java.net.URI;
 
 public class Config {
 
-    private final int port;
     private final URI masterUri;
 
     public static Config fromArgs(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Use: java Pcs <port> <masterUri>");
+        if (args.length < 1) {
+            System.out.println("Use: java Pcs <masterUri>");
             System.exit(-1);
         }
 
-        int port = Integer.parseInt(args[0]);
-        URI masterUri = URI.create(args[1]);
+        URI masterUri = URI.create(args[0]);
 
-        return new Config(port, masterUri);
+        return new Config(masterUri);
     }
 
-    public Config(int port, URI masterUri) {
-        this.port = port;
+    public Config(URI masterUri) {
         this.masterUri = masterUri;
-    }
-
-    public int getPort() {
-        return port;
     }
 
     public URI getMasterUri() {

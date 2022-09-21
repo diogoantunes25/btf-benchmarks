@@ -20,6 +20,8 @@ import pt.tecnico.ulisboa.hbbft.abc.alea.benchmark.ExecutionLog;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.stream.Collectors;
 
 public class ThroughputReplica extends BenchmarkReplica {
@@ -28,7 +30,7 @@ public class ThroughputReplica extends BenchmarkReplica {
 
     private long startTime;
 
-    private long proposeTime;
+    private final Queue<Long> proposeTimes = new PriorityBlockingQueue<>();
     private final List<Measurement> measurements = new ArrayList<>();
     private final List<Execution> executions = new ArrayList<>();
 
@@ -46,7 +48,9 @@ public class ThroughputReplica extends BenchmarkReplica {
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
         // input any random value into the protocol (in benchmark mode)
+        logger.info("Handle Input");
         Step<Block> step = this.protocol.handleInput(new byte[0]);
+        logger.info("Handle step");
         this.handleStep(step);
     }
 
@@ -57,6 +61,7 @@ public class ThroughputReplica extends BenchmarkReplica {
         for (Connection connection: this.transport.getConnections()) {
             connection.setListener(null);
         }
+        logger.info("setListener finished");
 
         return new Benchmark(startTime, measurements, executions, finishTime);
     }
@@ -91,6 +96,7 @@ public class ThroughputReplica extends BenchmarkReplica {
         final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
         logger.info("Delivered: {}", block.toString());
         this.measurements.add(new Measurement(block));
+        long proposeTime = this.proposeTimes.poll();
         this.executions.add(new Execution("node", proposeTime , timestamp, true));
     }
 }

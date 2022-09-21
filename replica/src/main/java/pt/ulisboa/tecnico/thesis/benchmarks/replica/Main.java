@@ -33,6 +33,7 @@ public class Main {
         System.err.println("LOG FILE FOR REPLICA " + config.getReplicaId());
 
         System.out.println("Building replica...");
+        System.out.println("URI: " + config.getMasterUri());
         System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
 
         // Register with master

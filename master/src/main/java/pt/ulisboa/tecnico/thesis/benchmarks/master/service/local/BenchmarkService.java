@@ -341,5 +341,7 @@ public class BenchmarkService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // TODO: Probably need to shutdown PCS also
     }
 }

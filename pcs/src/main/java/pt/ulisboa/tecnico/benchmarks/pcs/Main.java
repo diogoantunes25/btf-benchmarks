@@ -18,7 +18,6 @@ public class Main {
         Config config = Config.fromArgs(args);
 
         Server server = ServerBuilder
-                //.forPort(config.getPort())
                 .forPort(DEFAULT_PCS_PORT)
                 .addService(new ProcessCreationService(config.getMasterUri()))
                 .addService(new PingService())

@@ -133,7 +133,7 @@ public class BenchmarkService {
 
     public boolean start() {
         logger.info("------------------------------------------------------------------------");
-        logger.info("Starting benchmark");
+        logger.info("Starting benchmark.");
         logger.info("------------------------------------------------------------------------");
         this.benchmarkReplica.start();
         logger.info("Success.");
@@ -143,7 +143,7 @@ public class BenchmarkService {
 
     public Benchmark stop() {
         logger.info("------------------------------------------------------------------------");
-        logger.info("Stopping benchmark");
+        logger.info("Stopping benchmark.");
         logger.info("------------------------------------------------------------------------");
         Benchmark benchmark = this.benchmarkReplica.stop();
         logger.info("Success.");

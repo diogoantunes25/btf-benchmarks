@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.thesis.benchmarks.replica.replica;
 
 import java.util.PriorityQueue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.tecnico.ulisboa.hbbft.MessageEncoder;
 import pt.tecnico.ulisboa.hbbft.Step;
 import pt.tecnico.ulisboa.hbbft.abc.Block;
@@ -14,21 +16,22 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.concurrent.PriorityBlockingQueue;
 
 // replica.replica.BenchmarkReplica
 public class LatencyReplica extends BenchmarkReplica {
+
 
     private static int proposalCount = 0;
     
     private long startTime;
 
     private long proposeTime;
+    private long deliverTime = 0;
     private byte[] payload;
 
-    private final List<Measurement> measurements = new ArrayList<>();
-    private final List<Execution> executions = new ArrayList<>();
-
-    private final Queue<Long> proposeTimes = new PriorityQueue<>();
+    private final List<Measurement> measurements = Collections.synchronizedList(new ArrayList<>());
+    private final List<Execution> executions = Collections.synchronizedList(new ArrayList<>());
 
     public LatencyReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         super(protocol, encoder, transport);
@@ -43,61 +46,58 @@ public class LatencyReplica extends BenchmarkReplica {
     public void start() {
         // log starting time
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        logger.info("Starting");
 
-        System.out.println("Starting...");
         Step<Block> step = this.propose();
-        System.out.println("Proposed...");
         this.handleStep(step);
-        System.out.println("Handled step...");
     }
 
 
     @Override
     public Benchmark stop() {
         final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        logger.info("Stopping");
 
         // stop listeners
         for (Connection connection: this.transport.getConnections()) {
             connection.setListener(null);
         }
 
+        executions.add(new Execution("commiter", this.proposeTime, this.deliverTime, this.deliverTime != 0));
+
         return new Benchmark(startTime, measurements, executions, finishTime);
     }
 
     @Override
     public void deliver(Block block) {
+        // logger.info("deliver called - {}", block);
         final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
         for (byte[] entry: block.getEntries()) {
-            Long proposeTime = proposeTimes.poll();
-            if (proposeTime != null) {
-                this.executions.add(new Execution("node", proposeTime , timestamp, true));
-                this.measurements.add(new Measurement(timestamp, (timestamp - proposeTime)));
-
-                // As soon as the proposal is delivered, a new random on is proposed
-                this.handleStep(this.propose());
-                break;
-            }
-            else {
-                System.out.println("[error] More delivers than proposals.");
+            // Check if my payload was delivered
+            if (this.payload != null && Arrays.equals(entry, this.payload)) {
+                try {
+                    logger.info("My payload was delivered (latency = {})", timestamp - this.proposeTime);
+                }
+                catch (MissingFormatArgumentException e) {
+                    e.printStackTrace();
+                }
+                this.deliverTime = timestamp;
             }
         }
     }
 
     private Step<Block> propose() {
 
-        // Generates a random proposal
-        // FIXME: in alea doesn't work
-
+        // Generate a random command to submit
         Random rng = new Random();
         this.payload = new byte[250];
         rng.nextBytes(payload);
+        // Make the random unique for all replicas
+        // TODO: Place replica id at beginning of payload (or something unique for the replica)
 
-        long proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        this.logger.info("Proposed new entry");
 
-        this.proposeTimes.add(proposeTime);
-
-        System.out.println("Proposed new batch");
-
+        this.proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
         return this.protocol.handleInput(this.payload);
     }
 }

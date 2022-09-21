@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -25,12 +26,11 @@ public class Connection {
 
     private final Lock connectLock = new ReentrantLock();
     private final Lock sendLock = new ReentrantLock();
-    private final Lock recvLock = new ReentrantLock();
 
     private BlockingDeque<byte[]> pendingQueue = new LinkedBlockingDeque<>();
     private Thread listenerThread;
     private Thread workerThread;
-    private BenchmarkReplica listener;
+    private AtomicReference<BenchmarkReplica> listener = new AtomicReference<>();
 
 
     private Logger logger;
@@ -58,9 +58,9 @@ public class Connection {
     }
 
     public void setListener(BenchmarkReplica replica) {
-        recvLock.lock();
-        this.listener = replica;
-        recvLock.unlock();
+
+        pendingQueue.clear();
+        this.listener.set(replica);
 
         if (this.listenerThread == null || !this.listenerThread.isAlive()) {
             this.listenerThread = new Thread(() -> {
@@ -91,6 +91,16 @@ public class Connection {
             this.listenerThread.start();
         }
 
+        if (this.workerThread != null) {
+            try {
+                this.workerThread.interrupt();
+                this.workerThread = null;
+            }
+            catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (this.workerThread == null || !this.workerThread.isAlive()) {
             this.workerThread = new Thread(() -> {
                while (!Thread.currentThread().isInterrupted()) {
@@ -99,9 +109,10 @@ public class Connection {
                        byte[] data = pendingQueue.take();
 
                        // process message
-                       recvLock.lock();
-                       if (listener != null) listener.handleMessage(new String(data));
-                       recvLock.unlock();
+                       BenchmarkReplica listener_replica = listener.get();
+                       if (listener_replica != null) {
+                           listener_replica.handleMessage(new String(data));
+                       }
 
                    } catch (InterruptedException e) {
                        e.printStackTrace();
@@ -117,20 +128,21 @@ public class Connection {
 
     private void connect() {
         try {
-            int localPort = cid * 100 + 10 * me.getId() + other.getId() + 18000;
-            logger.info("[{}] Opening socket to {}:{}, from port {}", System.currentTimeMillis(), other.getAddress(), other.getPort(), localPort);
-            this.socket = new Socket(other.getAddress(), other.getPort(), null, localPort);
-            logger.info("[{} The socket port at host is {}]", System.currentTimeMillis(), this.socket.getLocalPort());
+            // int localPort = cid * 100 + 10 * me.getId() + other.getId() + 18000;
+            // logger.info("[{}] Opening socket to {}:{}, from port {}", System.currentTimeMillis(), other.getAddress(), other.getPort(), localPort);
+            //this.socket = new Socket(other.getAddress(), other.getPort(), null, localPort);
+            this.socket = new Socket(other.getAddress(), other.getPort());
+            // logger.info("[{} The socket port at host is {}]", System.currentTimeMillis(), this.socket.getLocalPort());
             this.socketOutStream = new DataOutputStream(socket.getOutputStream());
             this.socketInStream = new DataInputStream(socket.getInputStream());
             this.socketOutStream.writeInt(me.getId());
             this.socketOutStream.writeInt(cid);
             logger.info("[{}] Socket to {}:{}, channel {} opened - {}", System.currentTimeMillis(), other.getAddress(), other.getId(), cid, socket.isConnected());
         } catch (IOException e) {
-            logger.info("[{}] Socket to {}:{} failed, trying again in 2 seconds", System.currentTimeMillis(), other.getAddress(), other.getPort());
+            logger.info("[{}] Socket to {}:{} failed, trying again in 0.1 seconds", System.currentTimeMillis(), other.getAddress(), other.getPort());
             e.printStackTrace();
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException ignore) {
             }
             this.connect();
