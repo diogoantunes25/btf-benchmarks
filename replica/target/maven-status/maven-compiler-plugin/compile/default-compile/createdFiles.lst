@@ -3,6 +3,7 @@ pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Benchmark.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/state/InitialState.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/replica/ThroughputReplica.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/Main.class
+pt/ulisboa/tecnico/thesis/benchmarks/replica/replica/ThroughputReplica$Entry.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/transport/TcpTransport.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Replica.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/TcpTransportOld$Connection$SocketReader.class
@@ -14,6 +15,7 @@ pt/ulisboa/tecnico/thesis/benchmarks/replica/service/grpc/BenchmarkGrpcService.c
 pt/ulisboa/tecnico/thesis/benchmarks/replica/service/local/BenchmarkService.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Measurement.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/BenchmarkReplica$1.class
+pt/ulisboa/tecnico/thesis/benchmarks/replica/replica/ThroughputReplica$LoadGenerator.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/BenchmarkResults.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Execution.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/BenchmarkResults$ThroughputMeasurement.class

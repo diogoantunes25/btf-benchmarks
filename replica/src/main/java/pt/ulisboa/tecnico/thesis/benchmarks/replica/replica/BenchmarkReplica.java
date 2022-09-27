@@ -41,7 +41,7 @@ public abstract class BenchmarkReplica {
         this.transport = transport;
     }
 
-    public abstract void start();
+    public abstract void start(boolean first, int load);
 
     public abstract Benchmark stop();
 
@@ -60,6 +60,7 @@ public abstract class BenchmarkReplica {
     }
 
     public void handleStep(Step<Block> step) {
+        // logger.info("handleStep called");
         // send messages generated during protocol execution
         for (TargetedMessage message: step.getMessages()) {
             final long start = ZonedDateTime.now().toInstant().toEpochMilli();

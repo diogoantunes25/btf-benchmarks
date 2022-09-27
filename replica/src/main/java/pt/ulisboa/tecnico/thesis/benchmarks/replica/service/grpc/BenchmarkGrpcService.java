@@ -119,7 +119,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.StartBenchmarkRequest request,
             StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver
     ) {
-        boolean result = benchmarkService.start();
+        boolean result = benchmarkService.start(request.getFirst(), request.getLoad());
 
         BenchmarkServiceOuterClass.StartBenchmarkResponse response = BenchmarkServiceOuterClass.StartBenchmarkResponse
                 .newBuilder()

@@ -91,7 +91,10 @@ message BenchmarkResponse {
     repeated ThroughputMeasurement throughput = 5;
 }
 
-message StartBenchmarkRequest {}
+message StartBenchmarkRequest {
+    bool first = 1;
+    int32 load = 2;
+}
 message StartBenchmarkResponse {
     bool ok = 1;
 }

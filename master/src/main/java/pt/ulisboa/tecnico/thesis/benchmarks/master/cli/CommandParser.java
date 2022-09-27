@@ -58,7 +58,10 @@ public class CommandParser {
             }
 
             case "start": {
-                return new StartCommand();
+                List <String> args = tokens.subList(1, tokens.size());
+                if (args.size() < 1) throw new InvalidCommandException(line);
+                final int load = Integer.parseInt(args.get(0));
+                return new StartCommand(load);
             }
 
             case "stop": {

@@ -222,7 +222,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(StartCommand cmd) {
-        benchmarkService.startBenchmark();
+        benchmarkService.startBenchmark(cmd.getLoad());
         return true;
     }
 

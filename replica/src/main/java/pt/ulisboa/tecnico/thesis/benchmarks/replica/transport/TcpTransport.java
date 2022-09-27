@@ -19,6 +19,8 @@ public class TcpTransport implements Transport<String> {
 
     private final Logger logger = LoggerFactory.getLogger(TcpTransport.class);
 
+    private Replica me;
+
     private final List<Replica> replicas;
     private final Map<Integer, Connection> connections = new ConcurrentHashMap<>();
 
@@ -38,6 +40,7 @@ public class TcpTransport implements Transport<String> {
 
     private void init(Replica me, Integer numChannels) throws IOException, InterruptedException {
         logger.info("[{}] Running TCP server at port {}.", System.currentTimeMillis(), me.getPort());
+        this.me = me;
         ServerSocket serverSocket = new ServerSocket(me.getPort());
 
         // active connection
@@ -88,6 +91,10 @@ public class TcpTransport implements Transport<String> {
     @Override
     public int countKnownReplicas() {
         return this.replicas.size();
+    }
+
+    public int getMyId() {
+        return this.me.getId();
     }
 
     @Override

@@ -179,7 +179,7 @@ public class BenchmarkService {
         this.protocol = protocol;
     }
 
-    public void startBenchmark() {
+    public void startBenchmark(int load) {
         // init response listener
         final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
         StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver = new StreamObserver<>() {
@@ -204,16 +204,18 @@ public class BenchmarkService {
         System.out.println("[start benchmark] Setting up request");
 
         // setup request
-        BenchmarkServiceOuterClass.StartBenchmarkRequest request = BenchmarkServiceOuterClass.StartBenchmarkRequest
-                .getDefaultInstance();
-
-        System.out.println("[start benchmark] Sending request");
+        BenchmarkServiceOuterClass.StartBenchmarkRequest.Builder requestBuilder = BenchmarkServiceOuterClass.StartBenchmarkRequest.newBuilder();
 
         // send request
+        System.out.println("[start benchmark] Sending request");
+        boolean first = true;
         for (Replica replica: topology.getReplicas()) {
+            BenchmarkServiceOuterClass.StartBenchmarkRequest request = requestBuilder.setFirst(first).setLoad(load).build();
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.start(request, responseObserver);
+
+            first = false;
         }
 
         System.out.println("[start benchmark] Waiting for responses");

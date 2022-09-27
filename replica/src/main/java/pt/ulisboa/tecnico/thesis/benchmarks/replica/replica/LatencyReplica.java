@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.replica;
 
+import java.math.BigInteger;
 import java.util.PriorityQueue;
 
 import org.slf4j.Logger;
@@ -22,8 +23,8 @@ import java.util.concurrent.PriorityBlockingQueue;
 public class LatencyReplica extends BenchmarkReplica {
 
 
-    private static int proposalCount = 0;
-    
+    private static BigInteger proposalCount = BigInteger.ZERO;
+
     private long startTime;
 
     private long proposeTime;
@@ -43,12 +44,14 @@ public class LatencyReplica extends BenchmarkReplica {
     }
 
     @Override
-    public void start() {
+    public void start(boolean first, int load) {
         // log starting time
+        protocol.reset();
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
         logger.info("Starting");
 
         Step<Block> step = this.propose();
+        logger.info("Handling following steps");
         this.handleStep(step);
     }
 
@@ -63,40 +66,55 @@ public class LatencyReplica extends BenchmarkReplica {
             connection.setListener(null);
         }
 
-        executions.add(new Execution("commiter", this.proposeTime, this.deliverTime, this.deliverTime != 0));
-
         return new Benchmark(startTime, measurements, executions, finishTime);
     }
 
     @Override
     public void deliver(Block block) {
-        // logger.info("deliver called - {}", block);
+
         final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
-        for (byte[] entry: block.getEntries()) {
-            // Check if my payload was delivered
-            if (this.payload != null && Arrays.equals(entry, this.payload)) {
-                try {
-                    logger.info("My payload was delivered (latency = {})", timestamp - this.proposeTime);
+
+        synchronized (this) {
+            for (byte[] entry: block.getEntries()) {
+                // Check if my payload was delivered
+                if (this.payload != null && Arrays.equals(entry, this.payload)) {
+                    try {
+                        logger.info("{}", entry);
+                        logger.info("Payload number {} was delivered (latency = {}). Submitting new payload.", this.proposalCount, timestamp - this.proposeTime);
+                    }
+                    catch (MissingFormatArgumentException e) {
+                        e.printStackTrace();
+                    }
+                    this.deliverTime = timestamp;
+                    this.executions.add(new Execution("commiter", this.proposeTime, timestamp, true));
+
+                    this.handleStep(this.propose());
                 }
-                catch (MissingFormatArgumentException e) {
-                    e.printStackTrace();
-                }
-                this.deliverTime = timestamp;
             }
         }
     }
 
+    private byte[] getPayload() {
+            byte[] load = new byte[250];
+            System.arraycopy(this.proposalCount.toByteArray(), 0, load, 250 - this.proposalCount.toByteArray().length, this.proposalCount.toByteArray().length);
+
+            return load;
+    }
+
     private Step<Block> propose() {
 
-        // Generate a random command to submit
-        Random rng = new Random();
-        this.payload = new byte[250];
-        rng.nextBytes(payload);
-        // Make the random unique for all replicas
-        // TODO: Place replica id at beginning of payload (or something unique for the replica)
+        this.proposalCount = this.proposalCount.add(BigInteger.ONE);
 
-        this.logger.info("Proposed new entry");
+        synchronized (this) {
+            // Generate a command to submit
+            this.payload = this.getPayload();
+        }
 
+        // Add current turn number to proposal
+
+        // logger.info("Proposed new payload for turn {}", this.proposalCount);
+
+        logger.info("{}", this.payload);
         this.proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
         return this.protocol.handleInput(this.payload);
     }

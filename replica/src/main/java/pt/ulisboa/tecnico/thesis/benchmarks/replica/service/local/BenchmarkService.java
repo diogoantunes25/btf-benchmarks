@@ -131,11 +131,12 @@ public class BenchmarkService {
         return true;    // success
     }
 
-    public boolean start() {
+
+    public boolean start(boolean first, int load) {
         logger.info("------------------------------------------------------------------------");
-        logger.info("Starting benchmark.");
+        logger.info("Starting benchmark (first: {}, load: {}).", first, load);
         logger.info("------------------------------------------------------------------------");
-        this.benchmarkReplica.start();
+        this.benchmarkReplica.start(first, load);
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
         return true;

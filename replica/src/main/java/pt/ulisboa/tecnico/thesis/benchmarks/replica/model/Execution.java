@@ -2,7 +2,14 @@ package pt.ulisboa.tecnico.thesis.benchmarks.replica.model;
 
 public class Execution {
     private final String pid;
+
+    /**
+     *  Time transaction was submitted at
+     */
     private final Long start;
+    /**
+     * Time transaction was confirmed (whether it was submitted by me or not)
+     */
     private final Long finish;
     private final Boolean result;
 

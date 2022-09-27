@@ -7700,6 +7700,16 @@ public final class BenchmarkServiceOuterClass {
   public interface StartBenchmarkRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.StartBenchmarkRequest)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool first = 1;</code>
+     */
+    boolean getFirst();
+
+    /**
+     * <code>int32 load = 2;</code>
+     */
+    int getLoad();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.StartBenchmarkRequest}
@@ -7714,6 +7724,8 @@ public final class BenchmarkServiceOuterClass {
       super(builder);
     }
     private StartBenchmarkRequest() {
+      first_ = false;
+      load_ = 0;
     }
 
     @java.lang.Override
@@ -7729,6 +7741,7 @@ public final class BenchmarkServiceOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7744,6 +7757,16 @@ public final class BenchmarkServiceOuterClass {
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
+              break;
+            }
+            case 8: {
+
+              first_ = input.readBool();
+              break;
+            }
+            case 16: {
+
+              load_ = input.readInt32();
               break;
             }
           }
@@ -7770,6 +7793,24 @@ public final class BenchmarkServiceOuterClass {
               pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest.Builder.class);
     }
 
+    public static final int FIRST_FIELD_NUMBER = 1;
+    private boolean first_;
+    /**
+     * <code>bool first = 1;</code>
+     */
+    public boolean getFirst() {
+      return first_;
+    }
+
+    public static final int LOAD_FIELD_NUMBER = 2;
+    private int load_;
+    /**
+     * <code>int32 load = 2;</code>
+     */
+    public int getLoad() {
+      return load_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -7782,6 +7823,12 @@ public final class BenchmarkServiceOuterClass {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (first_ != false) {
+        output.writeBool(1, first_);
+      }
+      if (load_ != 0) {
+        output.writeInt32(2, load_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -7790,6 +7837,14 @@ public final class BenchmarkServiceOuterClass {
       if (size != -1) return size;
 
       size = 0;
+      if (first_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, first_);
+      }
+      if (load_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, load_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -7806,6 +7861,10 @@ public final class BenchmarkServiceOuterClass {
       pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest) obj;
 
       boolean result = true;
+      result = result && (getFirst()
+          == other.getFirst());
+      result = result && (getLoad()
+          == other.getLoad());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -7817,6 +7876,11 @@ public final class BenchmarkServiceOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FIRST_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFirst());
+      hash = (37 * hash) + LOAD_FIELD_NUMBER;
+      hash = (53 * hash) + getLoad();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7946,6 +8010,10 @@ public final class BenchmarkServiceOuterClass {
       }
       public Builder clear() {
         super.clear();
+        first_ = false;
+
+        load_ = 0;
+
         return this;
       }
 
@@ -7968,6 +8036,8 @@ public final class BenchmarkServiceOuterClass {
 
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest buildPartial() {
         pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest(this);
+        result.first_ = first_;
+        result.load_ = load_;
         onBuilt();
         return result;
       }
@@ -8009,6 +8079,12 @@ public final class BenchmarkServiceOuterClass {
 
       public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest other) {
         if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StartBenchmarkRequest.getDefaultInstance()) return this;
+        if (other.getFirst() != false) {
+          setFirst(other.getFirst());
+        }
+        if (other.getLoad() != 0) {
+          setLoad(other.getLoad());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -8033,6 +8109,58 @@ public final class BenchmarkServiceOuterClass {
             mergeFrom(parsedMessage);
           }
         }
+        return this;
+      }
+
+      private boolean first_ ;
+      /**
+       * <code>bool first = 1;</code>
+       */
+      public boolean getFirst() {
+        return first_;
+      }
+      /**
+       * <code>bool first = 1;</code>
+       */
+      public Builder setFirst(boolean value) {
+        
+        first_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool first = 1;</code>
+       */
+      public Builder clearFirst() {
+        
+        first_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int load_ ;
+      /**
+       * <code>int32 load = 2;</code>
+       */
+      public int getLoad() {
+        return load_;
+      }
+      /**
+       * <code>int32 load = 2;</code>
+       */
+      public Builder setLoad(int value) {
+        
+        load_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 load = 2;</code>
+       */
+      public Builder clearLoad() {
+        
+        load_ = 0;
+        onChanged();
         return this;
       }
       public final Builder setUnknownFields(
@@ -12815,45 +12943,45 @@ public final class BenchmarkServiceOuterClass {
       "LatencyMeasurement\022\020\n\010emission\030\001 \001(\004\022\020\n\010" +
       "delivery\030\002 \001(\004\022\r\n\005value\030\003 \001(\004\0329\n\025Through" +
       "putMeasurement\022\021\n\ttimestamp\030\001 \001(\004\022\r\n\005val" +
-      "ue\030\002 \001(\004\"\027\n\025StartBenchmarkRequest\"$\n\026Sta" +
-      "rtBenchmarkResponse\022\n\n\002ok\030\001 \001(\010\"\026\n\024StopB" +
-      "enchmarkRequest\"\341\003\n\025StopBenchmarkRespons" +
-      "e\022\017\n\007replica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006fin" +
-      "ish\030\003 \001(\004\022\024\n\014sentMessages\030\004 \001(\004\022\024\n\014recvM" +
-      "essages\030\005 \001(\004\022f\n\014measurements\030\006 \003(\0132P.pt" +
-      ".ulisboa.tecnico.thesis.benchmarks.contr" +
-      "act.StopBenchmarkResponse.Measurement\022b\n" +
-      "\nexecutions\030\007 \003(\0132N.pt.ulisboa.tecnico.t" +
-      "hesis.benchmarks.contract.StopBenchmarkR" +
-      "esponse.Execution\032W\n\013Measurement\022\021\n\ttime" +
-      "stamp\030\001 \001(\004\022\r\n\005value\030\002 \001(\004\022\023\n\013blockNumbe" +
-      "r\030\003 \001(\004\022\021\n\tproposers\030\004 \003(\r\032G\n\tExecution\022" +
-      "\013\n\003pid\030\001 \001(\t\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 " +
-      "\001(\004\022\016\n\006result\030\004 \001(\010\" \n\017ShutdownRequest\022\r" +
-      "\n\005timer\030\001 \001(\005\"\022\n\020ShutdownResponse2\366\006\n\020Be" +
-      "nchmarkService\022\213\001\n\010topology\022>.pt.ulisboa" +
-      ".tecnico.thesis.benchmarks.contract.Topo" +
-      "logyRequest\032?.pt.ulisboa.tecnico.thesis." +
-      "benchmarks.contract.TopologyResponse\022\213\001\n" +
-      "\010protocol\022>.pt.ulisboa.tecnico.thesis.be" +
-      "nchmarks.contract.ProtocolRequest\032?.pt.u" +
-      "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.ProtocolResponse\022\224\001\n\005start\022D.pt.ulisbo" +
-      "a.tecnico.thesis.benchmarks.contract.Sta" +
-      "rtBenchmarkRequest\032E.pt.ulisboa.tecnico." +
-      "thesis.benchmarks.contract.StartBenchmar" +
-      "kResponse\022\221\001\n\004stop\022C.pt.ulisboa.tecnico." +
-      "thesis.benchmarks.contract.StopBenchmark" +
-      "Request\032D.pt.ulisboa.tecnico.thesis.benc" +
-      "hmarks.contract.StopBenchmarkResponse\022\214\001" +
-      "\n\007execute\022?.pt.ulisboa.tecnico.thesis.be" +
-      "nchmarks.contract.BenchmarkRequest\032@.pt." +
-      "ulisboa.tecnico.thesis.benchmarks.contra" +
-      "ct.BenchmarkResponse\022\213\001\n\010shutdown\022>.pt.u" +
-      "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.ShutdownRequest\032?.pt.ulisboa.tecnico.t" +
-      "hesis.benchmarks.contract.ShutdownRespon" +
-      "seb\006proto3"
+      "ue\030\002 \001(\004\"4\n\025StartBenchmarkRequest\022\r\n\005fir" +
+      "st\030\001 \001(\010\022\014\n\004load\030\002 \001(\005\"$\n\026StartBenchmark" +
+      "Response\022\n\n\002ok\030\001 \001(\010\"\026\n\024StopBenchmarkReq" +
+      "uest\"\341\003\n\025StopBenchmarkResponse\022\017\n\007replic" +
+      "a\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022\024" +
+      "\n\014sentMessages\030\004 \001(\004\022\024\n\014recvMessages\030\005 \001" +
+      "(\004\022f\n\014measurements\030\006 \003(\0132P.pt.ulisboa.te" +
+      "cnico.thesis.benchmarks.contract.StopBen" +
+      "chmarkResponse.Measurement\022b\n\nexecutions" +
+      "\030\007 \003(\0132N.pt.ulisboa.tecnico.thesis.bench" +
+      "marks.contract.StopBenchmarkResponse.Exe" +
+      "cution\032W\n\013Measurement\022\021\n\ttimestamp\030\001 \001(\004" +
+      "\022\r\n\005value\030\002 \001(\004\022\023\n\013blockNumber\030\003 \001(\004\022\021\n\t" +
+      "proposers\030\004 \003(\r\032G\n\tExecution\022\013\n\003pid\030\001 \001(" +
+      "\t\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022\016\n\006resu" +
+      "lt\030\004 \001(\010\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001" +
+      "(\005\"\022\n\020ShutdownResponse2\366\006\n\020BenchmarkServ" +
+      "ice\022\213\001\n\010topology\022>.pt.ulisboa.tecnico.th" +
+      "esis.benchmarks.contract.TopologyRequest" +
+      "\032?.pt.ulisboa.tecnico.thesis.benchmarks." +
+      "contract.TopologyResponse\022\213\001\n\010protocol\022>" +
+      ".pt.ulisboa.tecnico.thesis.benchmarks.co" +
+      "ntract.ProtocolRequest\032?.pt.ulisboa.tecn" +
+      "ico.thesis.benchmarks.contract.ProtocolR" +
+      "esponse\022\224\001\n\005start\022D.pt.ulisboa.tecnico.t" +
+      "hesis.benchmarks.contract.StartBenchmark" +
+      "Request\032E.pt.ulisboa.tecnico.thesis.benc" +
+      "hmarks.contract.StartBenchmarkResponse\022\221" +
+      "\001\n\004stop\022C.pt.ulisboa.tecnico.thesis.benc" +
+      "hmarks.contract.StopBenchmarkRequest\032D.p" +
+      "t.ulisboa.tecnico.thesis.benchmarks.cont" +
+      "ract.StopBenchmarkResponse\022\214\001\n\007execute\022?" +
+      ".pt.ulisboa.tecnico.thesis.benchmarks.co" +
+      "ntract.BenchmarkRequest\032@.pt.ulisboa.tec" +
+      "nico.thesis.benchmarks.contract.Benchmar" +
+      "kResponse\022\213\001\n\010shutdown\022>.pt.ulisboa.tecn" +
+      "ico.thesis.benchmarks.contract.ShutdownR" +
+      "equest\032?.pt.ulisboa.tecnico.thesis.bench" +
+      "marks.contract.ShutdownResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12932,7 +13060,7 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StartBenchmarkRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StartBenchmarkRequest_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "First", "Load", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StartBenchmarkResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StartBenchmarkResponse_fieldAccessorTable = new
