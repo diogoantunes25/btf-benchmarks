@@ -28,11 +28,8 @@ public class LatencyReplica extends BenchmarkReplica {
     private long startTime;
 
     private long proposeTime;
-    private long deliverTime = 0;
     private byte[] payload;
 
-    private final List<Measurement> measurements = Collections.synchronizedList(new ArrayList<>());
-    private final List<Execution> executions = Collections.synchronizedList(new ArrayList<>());
 
     public LatencyReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         super(protocol, encoder, transport);
@@ -44,7 +41,7 @@ public class LatencyReplica extends BenchmarkReplica {
     }
 
     @Override
-    public void start(boolean first, int load) {
+    public void start(boolean first) {
         // log starting time
         protocol.reset();
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
@@ -66,7 +63,12 @@ public class LatencyReplica extends BenchmarkReplica {
             connection.setListener(null);
         }
 
-        return new Benchmark(startTime, measurements, executions, finishTime);
+        return new Benchmark.Builder(startTime).
+                finishTime(finishTime).
+                executions(executions).
+                sentMessageCount(sentMessageCount.get()).
+                recvMessageCount(recvMessageCount.get()).
+                build();
     }
 
     @Override
@@ -79,14 +81,13 @@ public class LatencyReplica extends BenchmarkReplica {
                 // Check if my payload was delivered
                 if (this.payload != null && Arrays.equals(entry, this.payload)) {
                     try {
-                        logger.info("{}", entry);
+                        // logger.info("{}", entry);
                         logger.info("Payload number {} was delivered (latency = {}). Submitting new payload.", this.proposalCount, timestamp - this.proposeTime);
                     }
                     catch (MissingFormatArgumentException e) {
                         e.printStackTrace();
                     }
-                    this.deliverTime = timestamp;
-                    this.executions.add(new Execution("commiter", this.proposeTime, timestamp, true));
+                    this.executions.add(new Execution( this.proposeTime, timestamp));
 
                     this.handleStep(this.propose());
                 }
@@ -114,7 +115,7 @@ public class LatencyReplica extends BenchmarkReplica {
 
         // logger.info("Proposed new payload for turn {}", this.proposalCount);
 
-        logger.info("{}", this.payload);
+        // logger.info("{}", this.payload);
         this.proposeTime = ZonedDateTime.now().toInstant().toEpochMilli();
         return this.protocol.handleInput(this.payload);
     }

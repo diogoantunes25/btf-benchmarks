@@ -2,15 +2,19 @@ package pt.ulisboa.tecnico.thesis.benchmarks.master.service.local;
 
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Benchmark;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.BenchmarkResult;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Commit;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.JsonService;
 
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -24,6 +28,9 @@ public class BenchmarkService {
 
     private Benchmark.Topology topology;
     private Benchmark.Protocol protocol;
+
+    // Thread that periodically retrieves information from replicas
+    private InformationCollector informationCollector = null;
 
     public BenchmarkService(ReplicaRepository replicaRepository, BenchmarkRepository benchmarkRepository) {
         this.replicaRepository = replicaRepository;
@@ -160,6 +167,7 @@ public class BenchmarkService {
                 .setBatchSize(protocol.getBatchSize())
                 .setBenchmark(benchmarkMode)
                 .setFault(faultMode)
+                .setLoad(protocol.getLoad())
                 .addAllFaulty(replicas.stream().limit(topology.getF()).map(Replica::getReplicaId).collect(Collectors.toList()))
                 .buildPartial();
 
@@ -179,7 +187,7 @@ public class BenchmarkService {
         this.protocol = protocol;
     }
 
-    public void startBenchmark(int load) {
+    public void startBenchmark() {
         // init response listener
         final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
         StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver = new StreamObserver<>() {
@@ -210,7 +218,7 @@ public class BenchmarkService {
         System.out.println("[start benchmark] Sending request");
         boolean first = true;
         for (Replica replica: topology.getReplicas()) {
-            BenchmarkServiceOuterClass.StartBenchmarkRequest request = requestBuilder.setFirst(first).setLoad(load).build();
+            BenchmarkServiceOuterClass.StartBenchmarkRequest request = requestBuilder.setFirst(first).build();
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.start(request, responseObserver);
@@ -218,15 +226,19 @@ public class BenchmarkService {
             first = false;
         }
 
-        System.out.println("[start benchmark] Waiting for responses");
 
         // wait for responses
         try {
-            System.out.println("Waiting for replies...");
+            System.out.println("[start benchmark] Waiting for responses");
             responseLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        this.informationCollector = new InformationCollector();
+        this.informationCollector.start();
+        System.out.println("[start benchmark] started information collector");
+
     }
 
     public void stopBenchmark() {
@@ -253,6 +265,11 @@ public class BenchmarkService {
             }
         };
 
+        this.informationCollector.stop();
+        Map<Integer,List<Commit>> history = this.informationCollector.getHistory();
+        this.informationCollector = null;
+        System.out.println("[stop benchmark] stopped information collector");
+
         System.out.println("[stop benchmark] Setting up request");
 
         // setup request
@@ -278,31 +295,20 @@ public class BenchmarkService {
             System.out.println("Something went wrong!");
         }
 
+        // FIXME: add correct things to JSON service
+
         // parse replies
-        List<BenchmarkResult> results = responses.values().stream()
+        List<BenchmarkResult> overview = responses.values().stream()
                 .map(r -> new BenchmarkResult(
                         r.getReplica(),
                         r.getStart(),
                         r.getFinish(),
                         r.getSentMessages(),
-                        r.getRecvMessages(),
-                        new ArrayList<>(), // FIXME: empty list passed to latencies?
-                        r.getMeasurementsList().stream().map(m -> new BenchmarkResult.ThroughputMeasurement(
-                                m.getTimestamp(),
-                                m.getValue(),
-                                m.getBlockNumber(),
-                                m.getProposersList()
-                        )).collect(Collectors.toList()),
-                        r.getExecutionsList().stream().map(e -> new BenchmarkResult.Execution(
-                                e.getPid(),
-                                e.getStart(),
-                                e.getFinish(),
-                                e.getResult()
-                        )).collect(Collectors.toList())
+                        r.getRecvMessages()
                 )).collect(Collectors.toList());
 
         // save results
-        JsonService.write(results, topology.getN(), protocol.getName(), protocol.getBatchSize(), protocol.getFaultMode());
+        JsonService.write(overview, history, topology.getN(), protocol.getName(), protocol.getBatchSize(), protocol.getFaultMode(), protocol.getLoad());
     }
 
     public void shutdown(int timer) {
@@ -345,5 +351,106 @@ public class BenchmarkService {
         }
 
         // TODO: Probably need to shutdown PCS also
+    }
+
+    // Thread that periodically requests information from replicas
+    private class InformationCollector {
+
+        private final Logger logger = LoggerFactory.getLogger(InformationCollector.class);
+        private final int WAIT_PERIOD = 5000; // Milliseconds
+
+        private final Map<Integer, List<Commit>> history = new HashMap<>();
+
+        private Thread thread = null;
+
+
+        public InformationCollector() {
+            topology.getN();
+            for (int i = 0; i < topology.getN(); i++) {
+                history.put(i, new ArrayList<>());
+            }
+        }
+
+        public void start() {
+
+            if (this.thread != null) {
+                return;
+            }
+
+            this.thread = new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(WAIT_PERIOD);
+                        sendRetrieveRequests();
+                    } catch(InterruptedException e) {
+                        return;
+                    }
+                }
+            });
+
+            this.thread.start();
+        }
+
+        public void stop() {
+            this.thread.interrupt();
+        }
+
+        public Map<Integer, List<Commit>> getHistory() {
+            return history;
+        }
+
+        public void sendRetrieveRequests() {
+            logger.info("Retrieving information from replicas");
+
+            final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
+            final Map<Integer, BenchmarkServiceOuterClass.InformResponse> responses = new ConcurrentHashMap<>();
+
+            StreamObserver<BenchmarkServiceOuterClass.InformResponse> responseObserver = new StreamObserver<>() {
+                @Override
+                public void onNext(BenchmarkServiceOuterClass.InformResponse response) {
+                    responses.put(response.getReplica(), response);
+                    logger.info("New information arrived from {} ({} commits)", response.getReplica(), response.getCommitsCount());
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    System.out.println("start benchmark failed");
+                    throwable.printStackTrace();
+                    responseLatch.countDown();
+                }
+
+                @Override
+                public void onCompleted() {
+                    responseLatch.countDown();
+                }
+            };
+
+            BenchmarkServiceOuterClass.InformRequest.Builder requestBuilder = BenchmarkServiceOuterClass.InformRequest.newBuilder();
+
+            logger.info("Sending retrieval requests");
+
+            for(Replica replica: topology.getReplicas()) {
+                ManagedChannel channel = replica.getChannel();
+                BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
+                stub.inform(requestBuilder.build(), responseObserver);
+            }
+
+
+            try {
+                logger.info("Waiting for responses");
+                responseLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            logger.info("All responses collected");
+
+            // Add response info to history
+            for (int i = 0; i < topology.getN(); i++) {
+                for(BenchmarkServiceOuterClass.InformResponse.TransactionCommit c: responses.get(i).getCommitsList()) {
+                    history.get(i).add(new Commit(c.getStart(), c.getFinish()));
+                }
+            }
+        }
     }
 }

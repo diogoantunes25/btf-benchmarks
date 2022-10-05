@@ -83,12 +83,14 @@ public class Benchmark {
 
         private final String benchmarkMode;
         private final String faultMode;
+        private final int load;
 
-        public Protocol(String name, Integer batchSize, String benchmarkMode, String faultMode) {
+        public Protocol(String name, Integer batchSize, String benchmarkMode, String faultMode, int load) {
             this.name = name;
             this.batchSize = batchSize;
             this.benchmarkMode = benchmarkMode;
             this.faultMode = faultMode;
+            this.load = load;
         }
 
         public String getName() {
@@ -106,5 +108,7 @@ public class Benchmark {
         public String getFaultMode() {
             return faultMode;
         }
+
+        public int getLoad() { return load; }
     }
 }

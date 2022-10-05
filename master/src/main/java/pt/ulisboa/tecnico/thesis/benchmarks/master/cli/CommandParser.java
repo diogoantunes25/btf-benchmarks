@@ -49,19 +49,17 @@ public class CommandParser {
 
             case "protocol": {
                 List<String> args = tokens.subList(1, tokens.size());
-                if (args.size() < 4) throw new InvalidCommandException(line);
+                if (args.size() < 5) throw new InvalidCommandException(line);
                 final String protocol = args.get(0);
                 final int batchSize = Integer.parseInt(args.get(1));
                 final String mode = args.get(2);
                 final String fault = args.get(3);
-                return new SetProtocolCommand(protocol, batchSize, mode, fault);
+                final int load = Integer.parseInt(args.get(4));
+                return new SetProtocolCommand(protocol, batchSize, mode, fault, load);
             }
 
             case "start": {
-                List <String> args = tokens.subList(1, tokens.size());
-                if (args.size() < 1) throw new InvalidCommandException(line);
-                final int load = Integer.parseInt(args.get(0));
-                return new StartCommand(load);
+                return new StartCommand();
             }
 
             case "stop": {

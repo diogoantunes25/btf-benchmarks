@@ -47,7 +47,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         // FIXME: Remove hard coded version (use parameters or something)
         //final String javaPath = "/bin/java";
         // final String javaPath = "/opt/java/openjdk/bin/java";
-        final String javaPath = "/usr/bin/java";
+        // final String javaPath = "/usr/bin/java";
 
         // final String jarPath = "D:\\Code\\benchmarks\\replica\\target\\replica-1.0-SNAPSHOT.jar";
         // final String jarPath = "/home/diogo/MEGA/2 | LEIC-A/Projeto BIG/Study material/code/alea-benchmarks/replica/target/replica-1.0-SNAPSHOT.jar";
@@ -60,10 +60,10 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         if (DEBUG_MODE) {
             // These arguments are needed to be able to attach a remote debugger to the replica processes
             String debugParamenter = String.format("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=%d", 1044 + replicaProcesses.size());
-            processBuilder = new ProcessBuilder(javaPath, debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
+            processBuilder = new ProcessBuilder("java", debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
         }
         else {
-            processBuilder = new ProcessBuilder(javaPath, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP), String.valueOf(offset));
+            processBuilder = new ProcessBuilder("java", "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP), String.valueOf(offset));
         }
         File outputFile = new File("./logs/replica" + replicaID + ".output");
         File logFile = new File("./logs/replica" + replicaID + ".log");

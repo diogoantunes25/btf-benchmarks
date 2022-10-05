@@ -12,6 +12,7 @@ import pt.tecnico.ulisboa.hbbft.abc.IAtomicBroadcast;
 import pt.tecnico.ulisboa.hbbft.abc.alea.Alea;
 import pt.tecnico.ulisboa.hbbft.binaryagreement.BinaryAgreementMessage;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
@@ -32,8 +33,11 @@ public abstract class BenchmarkReplica {
     protected final AtomicLong sentMessageCount = new AtomicLong();
     protected final AtomicLong recvMessageCount = new AtomicLong();
 
+    protected List<Execution> executions = Collections.synchronizedList(new ArrayList<>());
     protected final List<Long> encodingTimes = Collections.synchronizedList(new ArrayList<>());
     protected final List<Long> decodingTimes = Collections.synchronizedList(new ArrayList<>());
+
+
 
     public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         this.protocol = protocol;
@@ -41,9 +45,18 @@ public abstract class BenchmarkReplica {
         this.transport = transport;
     }
 
-    public abstract void start(boolean first, int load);
+    public abstract void start(boolean first);
 
     public abstract Benchmark stop();
+
+    public List<Execution> getInfoAndReset() {
+        List<Execution> previousExecutions;
+        synchronized (this.executions) {
+            previousExecutions = this.executions;
+            this.executions = Collections.synchronizedList(new ArrayList<>());
+        }
+        return previousExecutions;
+    }
 
     synchronized public void handleMessage(String data) {
         this.recvMessageCount.incrementAndGet();

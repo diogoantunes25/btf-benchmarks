@@ -12,6 +12,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.BenchmarkResults;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.local.BenchmarkService;
 
@@ -104,7 +105,9 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
         }
         List<Integer> faulty = request.getFaultyList();
 
-        boolean result = benchmarkService.setProtocol(protocol, batchSize, mode, fault, faulty);
+        int load = request.getLoad();
+
+        boolean result = benchmarkService.setProtocol(protocol, batchSize, mode, fault, faulty, load);
         // TODO deprecated boolean result = this.benchmarkReplica.setProtocol(protocol, batchSize);
 
         // send protocol response
@@ -119,7 +122,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.StartBenchmarkRequest request,
             StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver
     ) {
-        boolean result = benchmarkService.start(request.getFirst(), request.getLoad());
+        boolean result = benchmarkService.start(request.getFirst());
 
         BenchmarkServiceOuterClass.StartBenchmarkResponse response = BenchmarkServiceOuterClass.StartBenchmarkResponse
                 .newBuilder()
@@ -144,25 +147,44 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
                 .setFinish(benchmark.getFinishTime())
                 .setSentMessages(benchmark.getSentMessageCount())
                 .setRecvMessages(benchmark.getRecvMessageCount())
-                .addAllMeasurements(benchmark.getMeasurements().stream().map(
-                        m -> BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.newBuilder()
-                                .setTimestamp(m.getTimestamp())
-                                .setValue(m.getValue())
-                                .setBlockNumber(m.getBlockNumber())
-                                .addAllProposers(m.getProposers())
-                        .build()
-                ).collect(Collectors.toList()))
                 .addAllExecutions(benchmark.getExecutions().stream().map(
                         e -> BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.newBuilder()
-                                .setPid(e.getPid())
                                 .setStart(e.getStart())
                                 .setFinish(e.getFinish())
-                                .setResult(e.getResult())
                         .build()
                 ).collect(Collectors.toList()))
                 .build();
 
         responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void inform(
+            BenchmarkServiceOuterClass.InformRequest request,
+            StreamObserver<BenchmarkServiceOuterClass.InformResponse> responseObserver
+    ) {
+
+        List<Execution> info = benchmarkService.inform();
+
+        // TODO: Handle this
+        BenchmarkServiceOuterClass.InformResponse.Builder builder = BenchmarkServiceOuterClass.InformResponse
+                .newBuilder()
+                .setReplica(this.replicaId);
+
+        for (Execution e: info) {
+            BenchmarkServiceOuterClass.InformResponse.TransactionCommit transcation =
+                        BenchmarkServiceOuterClass.InformResponse.TransactionCommit
+                                .newBuilder()
+                                .setStart(e.getStart())
+                                .setFinish(e.getFinish())
+                                .build();
+
+            builder.addCommits(transcation);
+        }
+
+        System.out.println("I was asked to inform master of progress");
+        responseObserver.onNext(builder.build());
         responseObserver.onCompleted();
     }
 

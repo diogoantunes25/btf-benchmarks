@@ -35,13 +35,14 @@ public class ThroughputReplica extends BenchmarkReplica {
      */
     private final Map<Entry, Long> pendingPayloads = new ConcurrentHashMap<>();
     private final Queue<Long> proposeTimes = new PriorityBlockingQueue<>();
-    private final List<Measurement> measurements = new ArrayList<>();
-    private final List<Execution> executions = new ArrayList<>();
+
+    private int load;
 
     private Thread loader;
 
-    public ThroughputReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
+    public ThroughputReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport, int load) {
         super(protocol, encoder, transport);
+        this.load = load;
 
         // start listeners
         for (Connection connection: this.transport.getConnections()) {
@@ -52,23 +53,16 @@ public class ThroughputReplica extends BenchmarkReplica {
     /**
      *
      * @param first Whether this if the replica selected to input
-     * @param load Load to keep on the system (tx/sec)
      */
-    public void start(boolean first, int load) {
+    public void start(boolean first) {
 
         // log starting time
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
         this.protocol.reset();
 
-        this.loader = (new Thread(new LoadGenerator(load)));
+        this.loader = (new Thread(new LoadGenerator(this.load)));
         this.loader.start();
         logger.info("Load generator started");
-
-        // input any random value into the protocol (in benchmark mode)
-//        logger.info("Handle Input");
-//        Step<Block> step = this.protocol.handleInput(new byte[0]);
-//        logger.info("Handle step");
-//        this.handleStep(step);
     }
 
     public Benchmark stop() {
@@ -83,33 +77,13 @@ public class ThroughputReplica extends BenchmarkReplica {
         }
         logger.info("setListener finished");
 
-        return new Benchmark(startTime, measurements, executions, finishTime);
+        return new Benchmark.Builder(startTime).
+                finishTime(finishTime).
+                executions(executions).
+                sentMessageCount(sentMessageCount.get()).
+                recvMessageCount(recvMessageCount.get()).
+                build();
     }
-
-//    public Benchmark stop() {
-//        System.out.println("[ThroughputReplica.stop] started");
-//        final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
-//
-//        // stop listeners
-//        for (Connection connection: this.transport.getConnections()) {
-//            connection.setListener(null);
-//        }
-//
-//        List<Execution> executions = new ArrayList<>();
-//        if (this.protocol instanceof Alea) {
-//
-//            executions = ((Alea) this.protocol).getExecutionLog().getChildren().stream().filter(e->e.getFinish() != null)
-//                    .map(e -> new Execution(e.getPid(), e.getStart(), e.getFinish(), e.getResult() instanceof Boolean ? (Boolean) e.getResult() : false)).collect(Collectors.toList());
-//        }
-//
-//        return new Benchmark.Builder(startTime)
-//                .finishTime(finishTime)
-//                .sentMessageCount(this.sentMessageCount.get())
-//                .recvMessageCount(this.recvMessageCount.get())
-//                .measurements(measurements)
-//                .executions(executions)
-//                .build();
-//    }
 
     /**
      * Generates random payload, specific to current replica
@@ -147,7 +121,7 @@ public class ThroughputReplica extends BenchmarkReplica {
                     logger.info("A payload of mine came back (latency = {})", timestamp - submitTime);
 
                     // Save measurement
-                    this.executions.add(new Execution("committer", submitTime, timestamp, true));
+                    this.executions.add(new Execution(submitTime, timestamp));
                 } else {
                     // logger.info("Received foreign payload");
                 }
@@ -175,7 +149,7 @@ public class ThroughputReplica extends BenchmarkReplica {
                         handleStep(protocol.handleInput(payload));
                         pendingPayloads.put(new Entry(payload), submitTime);
 
-                        logger.info("Payload #{} sent", ++counter);
+                        // logger.info("Payload #{} sent", ++counter);
                     }
                 } catch(InterruptedException e) {
                     return;

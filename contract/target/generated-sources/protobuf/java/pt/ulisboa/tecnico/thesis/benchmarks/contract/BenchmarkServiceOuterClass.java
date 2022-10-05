@@ -3175,6 +3175,11 @@ public final class BenchmarkServiceOuterClass {
      * <code>.pt.ulisboa.tecnico.thesis.benchmarks.contract.ProtocolRequest.Benchmark benchmark = 6;</code>
      */
     pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.ProtocolRequest.Benchmark getBenchmark();
+
+    /**
+     * <code>int32 load = 7;</code>
+     */
+    int getLoad();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.ProtocolRequest}
@@ -3195,6 +3200,7 @@ public final class BenchmarkServiceOuterClass {
       fault_ = 0;
       faulty_ = java.util.Collections.emptyList();
       benchmark_ = 0;
+      load_ = 0;
     }
 
     @java.lang.Override
@@ -3275,6 +3281,11 @@ public final class BenchmarkServiceOuterClass {
               int rawValue = input.readEnum();
 
               benchmark_ = rawValue;
+              break;
+            }
+            case 56: {
+
+              load_ = input.readInt32();
               break;
             }
           }
@@ -3715,6 +3726,15 @@ public final class BenchmarkServiceOuterClass {
       return result == null ? pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.ProtocolRequest.Benchmark.UNRECOGNIZED : result;
     }
 
+    public static final int LOAD_FIELD_NUMBER = 7;
+    private int load_;
+    /**
+     * <code>int32 load = 7;</code>
+     */
+    public int getLoad() {
+      return load_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3749,6 +3769,9 @@ public final class BenchmarkServiceOuterClass {
       }
       if (benchmark_ != pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.ProtocolRequest.Benchmark.LATENCY.getNumber()) {
         output.writeEnum(6, benchmark_);
+      }
+      if (load_ != 0) {
+        output.writeInt32(7, load_);
       }
       unknownFields.writeTo(output);
     }
@@ -3792,6 +3815,10 @@ public final class BenchmarkServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(6, benchmark_);
       }
+      if (load_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, load_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3817,6 +3844,8 @@ public final class BenchmarkServiceOuterClass {
       result = result && getFaultyList()
           .equals(other.getFaultyList());
       result = result && benchmark_ == other.benchmark_;
+      result = result && (getLoad()
+          == other.getLoad());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3842,6 +3871,8 @@ public final class BenchmarkServiceOuterClass {
       }
       hash = (37 * hash) + BENCHMARK_FIELD_NUMBER;
       hash = (53 * hash) + benchmark_;
+      hash = (37 * hash) + LOAD_FIELD_NUMBER;
+      hash = (53 * hash) + getLoad();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3983,6 +4014,8 @@ public final class BenchmarkServiceOuterClass {
         bitField0_ = (bitField0_ & ~0x00000010);
         benchmark_ = 0;
 
+        load_ = 0;
+
         return this;
       }
 
@@ -4017,6 +4050,7 @@ public final class BenchmarkServiceOuterClass {
         }
         result.faulty_ = faulty_;
         result.benchmark_ = benchmark_;
+        result.load_ = load_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4083,6 +4117,9 @@ public final class BenchmarkServiceOuterClass {
         }
         if (other.benchmark_ != 0) {
           setBenchmarkValue(other.getBenchmarkValue());
+        }
+        if (other.getLoad() != 0) {
+          setLoad(other.getLoad());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4358,6 +4395,32 @@ public final class BenchmarkServiceOuterClass {
       public Builder clearBenchmark() {
         
         benchmark_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int load_ ;
+      /**
+       * <code>int32 load = 7;</code>
+       */
+      public int getLoad() {
+        return load_;
+      }
+      /**
+       * <code>int32 load = 7;</code>
+       */
+      public Builder setLoad(int value) {
+        
+        load_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 load = 7;</code>
+       */
+      public Builder clearLoad() {
+        
+        load_ = 0;
         onChanged();
         return this;
       }
@@ -9081,30 +9144,6 @@ public final class BenchmarkServiceOuterClass {
     long getRecvMessages();
 
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> 
-        getMeasurementsList();
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getMeasurements(int index);
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    int getMeasurementsCount();
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder> 
-        getMeasurementsOrBuilderList();
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder getMeasurementsOrBuilder(
-        int index);
-
-    /**
      * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
      */
     java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> 
@@ -9146,7 +9185,6 @@ public final class BenchmarkServiceOuterClass {
       finish_ = 0L;
       sentMessages_ = 0L;
       recvMessages_ = 0L;
-      measurements_ = java.util.Collections.emptyList();
       executions_ = java.util.Collections.emptyList();
     }
 
@@ -9206,19 +9244,10 @@ public final class BenchmarkServiceOuterClass {
               recvMessages_ = input.readUInt64();
               break;
             }
-            case 50: {
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
-                measurements_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement>();
-                mutable_bitField0_ |= 0x00000020;
-              }
-              measurements_.add(
-                  input.readMessage(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.parser(), extensionRegistry));
-              break;
-            }
             case 58: {
-              if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
+              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
                 executions_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution>();
-                mutable_bitField0_ |= 0x00000040;
+                mutable_bitField0_ |= 0x00000020;
               }
               executions_.add(
                   input.readMessage(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.parser(), extensionRegistry));
@@ -9233,9 +9262,6 @@ public final class BenchmarkServiceOuterClass {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
-          measurements_ = java.util.Collections.unmodifiableList(measurements_);
-        }
-        if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
           executions_ = java.util.Collections.unmodifiableList(executions_);
         }
         this.unknownFields = unknownFields.build();
@@ -9254,791 +9280,19 @@ public final class BenchmarkServiceOuterClass {
               pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Builder.class);
     }
 
-    public interface MeasurementOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>uint64 timestamp = 1;</code>
-       */
-      long getTimestamp();
-
-      /**
-       * <code>uint64 value = 2;</code>
-       */
-      long getValue();
-
-      /**
-       * <code>uint64 blockNumber = 3;</code>
-       */
-      long getBlockNumber();
-
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      java.util.List<java.lang.Integer> getProposersList();
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      int getProposersCount();
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      int getProposers(int index);
-    }
-    /**
-     * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement}
-     */
-    public  static final class Measurement extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement)
-        MeasurementOrBuilder {
-    private static final long serialVersionUID = 0L;
-      // Use Measurement.newBuilder() to construct.
-      private Measurement(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private Measurement() {
-        timestamp_ = 0L;
-        value_ = 0L;
-        blockNumber_ = 0L;
-        proposers_ = java.util.Collections.emptyList();
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Measurement(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownFieldProto3(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-
-                timestamp_ = input.readUInt64();
-                break;
-              }
-              case 16: {
-
-                value_ = input.readUInt64();
-                break;
-              }
-              case 24: {
-
-                blockNumber_ = input.readUInt64();
-                break;
-              }
-              case 32: {
-                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-                  proposers_ = new java.util.ArrayList<java.lang.Integer>();
-                  mutable_bitField0_ |= 0x00000008;
-                }
-                proposers_.add(input.readUInt32());
-                break;
-              }
-              case 34: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
-                  proposers_ = new java.util.ArrayList<java.lang.Integer>();
-                  mutable_bitField0_ |= 0x00000008;
-                }
-                while (input.getBytesUntilLimit() > 0) {
-                  proposers_.add(input.readUInt32());
-                }
-                input.popLimit(limit);
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
-        } finally {
-          if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-            proposers_ = java.util.Collections.unmodifiableList(proposers_);
-          }
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder.class);
-      }
-
-      private int bitField0_;
-      public static final int TIMESTAMP_FIELD_NUMBER = 1;
-      private long timestamp_;
-      /**
-       * <code>uint64 timestamp = 1;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-
-      public static final int VALUE_FIELD_NUMBER = 2;
-      private long value_;
-      /**
-       * <code>uint64 value = 2;</code>
-       */
-      public long getValue() {
-        return value_;
-      }
-
-      public static final int BLOCKNUMBER_FIELD_NUMBER = 3;
-      private long blockNumber_;
-      /**
-       * <code>uint64 blockNumber = 3;</code>
-       */
-      public long getBlockNumber() {
-        return blockNumber_;
-      }
-
-      public static final int PROPOSERS_FIELD_NUMBER = 4;
-      private java.util.List<java.lang.Integer> proposers_;
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      public java.util.List<java.lang.Integer>
-          getProposersList() {
-        return proposers_;
-      }
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      public int getProposersCount() {
-        return proposers_.size();
-      }
-      /**
-       * <code>repeated uint32 proposers = 4;</code>
-       */
-      public int getProposers(int index) {
-        return proposers_.get(index);
-      }
-      private int proposersMemoizedSerializedSize = -1;
-
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (timestamp_ != 0L) {
-          output.writeUInt64(1, timestamp_);
-        }
-        if (value_ != 0L) {
-          output.writeUInt64(2, value_);
-        }
-        if (blockNumber_ != 0L) {
-          output.writeUInt64(3, blockNumber_);
-        }
-        if (getProposersList().size() > 0) {
-          output.writeUInt32NoTag(34);
-          output.writeUInt32NoTag(proposersMemoizedSerializedSize);
-        }
-        for (int i = 0; i < proposers_.size(); i++) {
-          output.writeUInt32NoTag(proposers_.get(i));
-        }
-        unknownFields.writeTo(output);
-      }
-
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (timestamp_ != 0L) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(1, timestamp_);
-        }
-        if (value_ != 0L) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(2, value_);
-        }
-        if (blockNumber_ != 0L) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(3, blockNumber_);
-        }
-        {
-          int dataSize = 0;
-          for (int i = 0; i < proposers_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeUInt32SizeNoTag(proposers_.get(i));
-          }
-          size += dataSize;
-          if (!getProposersList().isEmpty()) {
-            size += 1;
-            size += com.google.protobuf.CodedOutputStream
-                .computeInt32SizeNoTag(dataSize);
-          }
-          proposersMemoizedSerializedSize = dataSize;
-        }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
-        return size;
-      }
-
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement)) {
-          return super.equals(obj);
-        }
-        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement) obj;
-
-        boolean result = true;
-        result = result && (getTimestamp()
-            == other.getTimestamp());
-        result = result && (getValue()
-            == other.getValue());
-        result = result && (getBlockNumber()
-            == other.getBlockNumber());
-        result = result && getProposersList()
-            .equals(other.getProposersList());
-        result = result && unknownFields.equals(other.unknownFields);
-        return result;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getTimestamp());
-        hash = (37 * hash) + VALUE_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getValue());
-        hash = (37 * hash) + BLOCKNUMBER_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getBlockNumber());
-        if (getProposersCount() > 0) {
-          hash = (37 * hash) + PROPOSERS_FIELD_NUMBER;
-          hash = (53 * hash) + getProposersList().hashCode();
-        }
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement)
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder.class);
-        }
-
-        // Construct using pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-          }
-        }
-        public Builder clear() {
-          super.clear();
-          timestamp_ = 0L;
-
-          value_ = 0L;
-
-          blockNumber_ = 0L;
-
-          proposers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-          return this;
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor;
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getDefaultInstanceForType() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.getDefaultInstance();
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement build() {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement buildPartial() {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          result.timestamp_ = timestamp_;
-          result.value_ = value_;
-          result.blockNumber_ = blockNumber_;
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
-            proposers_ = java.util.Collections.unmodifiableList(proposers_);
-            bitField0_ = (bitField0_ & ~0x00000008);
-          }
-          result.proposers_ = proposers_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder clone() {
-          return (Builder) super.clone();
-        }
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.setField(field, value);
-        }
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
-        }
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
-        }
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
-        }
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.addRepeatedField(field, value);
-        }
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement) {
-            return mergeFrom((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement other) {
-          if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.getDefaultInstance()) return this;
-          if (other.getTimestamp() != 0L) {
-            setTimestamp(other.getTimestamp());
-          }
-          if (other.getValue() != 0L) {
-            setValue(other.getValue());
-          }
-          if (other.getBlockNumber() != 0L) {
-            setBlockNumber(other.getBlockNumber());
-          }
-          if (!other.proposers_.isEmpty()) {
-            if (proposers_.isEmpty()) {
-              proposers_ = other.proposers_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-            } else {
-              ensureProposersIsMutable();
-              proposers_.addAll(other.proposers_);
-            }
-            onChanged();
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-        private int bitField0_;
-
-        private long timestamp_ ;
-        /**
-         * <code>uint64 timestamp = 1;</code>
-         */
-        public long getTimestamp() {
-          return timestamp_;
-        }
-        /**
-         * <code>uint64 timestamp = 1;</code>
-         */
-        public Builder setTimestamp(long value) {
-          
-          timestamp_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>uint64 timestamp = 1;</code>
-         */
-        public Builder clearTimestamp() {
-          
-          timestamp_ = 0L;
-          onChanged();
-          return this;
-        }
-
-        private long value_ ;
-        /**
-         * <code>uint64 value = 2;</code>
-         */
-        public long getValue() {
-          return value_;
-        }
-        /**
-         * <code>uint64 value = 2;</code>
-         */
-        public Builder setValue(long value) {
-          
-          value_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>uint64 value = 2;</code>
-         */
-        public Builder clearValue() {
-          
-          value_ = 0L;
-          onChanged();
-          return this;
-        }
-
-        private long blockNumber_ ;
-        /**
-         * <code>uint64 blockNumber = 3;</code>
-         */
-        public long getBlockNumber() {
-          return blockNumber_;
-        }
-        /**
-         * <code>uint64 blockNumber = 3;</code>
-         */
-        public Builder setBlockNumber(long value) {
-          
-          blockNumber_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>uint64 blockNumber = 3;</code>
-         */
-        public Builder clearBlockNumber() {
-          
-          blockNumber_ = 0L;
-          onChanged();
-          return this;
-        }
-
-        private java.util.List<java.lang.Integer> proposers_ = java.util.Collections.emptyList();
-        private void ensureProposersIsMutable() {
-          if (!((bitField0_ & 0x00000008) == 0x00000008)) {
-            proposers_ = new java.util.ArrayList<java.lang.Integer>(proposers_);
-            bitField0_ |= 0x00000008;
-           }
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public java.util.List<java.lang.Integer>
-            getProposersList() {
-          return java.util.Collections.unmodifiableList(proposers_);
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public int getProposersCount() {
-          return proposers_.size();
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public int getProposers(int index) {
-          return proposers_.get(index);
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public Builder setProposers(
-            int index, int value) {
-          ensureProposersIsMutable();
-          proposers_.set(index, value);
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public Builder addProposers(int value) {
-          ensureProposersIsMutable();
-          proposers_.add(value);
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public Builder addAllProposers(
-            java.lang.Iterable<? extends java.lang.Integer> values) {
-          ensureProposersIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, proposers_);
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>repeated uint32 proposers = 4;</code>
-         */
-        public Builder clearProposers() {
-          proposers_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-          onChanged();
-          return this;
-        }
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFieldsProto3(unknownFields);
-        }
-
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement)
-      }
-
-      // @@protoc_insertion_point(class_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement)
-      private static final pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement();
-      }
-
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<Measurement>
-          PARSER = new com.google.protobuf.AbstractParser<Measurement>() {
-        public Measurement parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Measurement(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<Measurement> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Measurement> getParserForType() {
-        return PARSER;
-      }
-
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
-    }
-
     public interface ExecutionOrBuilder extends
         // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution)
         com.google.protobuf.MessageOrBuilder {
 
       /**
-       * <code>string pid = 1;</code>
-       */
-      java.lang.String getPid();
-      /**
-       * <code>string pid = 1;</code>
-       */
-      com.google.protobuf.ByteString
-          getPidBytes();
-
-      /**
-       * <code>uint64 start = 2;</code>
+       * <code>uint64 start = 1;</code>
        */
       long getStart();
 
       /**
-       * <code>uint64 finish = 3;</code>
+       * <code>uint64 finish = 2;</code>
        */
       long getFinish();
-
-      /**
-       * <code>bool result = 4;</code>
-       */
-      boolean getResult();
     }
     /**
      * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution}
@@ -10053,10 +9307,8 @@ public final class BenchmarkServiceOuterClass {
         super(builder);
       }
       private Execution() {
-        pid_ = "";
         start_ = 0L;
         finish_ = 0L;
-        result_ = false;
       }
 
       @java.lang.Override
@@ -10090,25 +9342,14 @@ public final class BenchmarkServiceOuterClass {
                 }
                 break;
               }
-              case 10: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                pid_ = s;
-                break;
-              }
-              case 16: {
+              case 8: {
 
                 start_ = input.readUInt64();
                 break;
               }
-              case 24: {
+              case 16: {
 
                 finish_ = input.readUInt64();
-                break;
-              }
-              case 32: {
-
-                result_ = input.readBool();
                 break;
               }
             }
@@ -10135,65 +9376,22 @@ public final class BenchmarkServiceOuterClass {
                 pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder.class);
       }
 
-      public static final int PID_FIELD_NUMBER = 1;
-      private volatile java.lang.Object pid_;
-      /**
-       * <code>string pid = 1;</code>
-       */
-      public java.lang.String getPid() {
-        java.lang.Object ref = pid_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          pid_ = s;
-          return s;
-        }
-      }
-      /**
-       * <code>string pid = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPidBytes() {
-        java.lang.Object ref = pid_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          pid_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int START_FIELD_NUMBER = 2;
+      public static final int START_FIELD_NUMBER = 1;
       private long start_;
       /**
-       * <code>uint64 start = 2;</code>
+       * <code>uint64 start = 1;</code>
        */
       public long getStart() {
         return start_;
       }
 
-      public static final int FINISH_FIELD_NUMBER = 3;
+      public static final int FINISH_FIELD_NUMBER = 2;
       private long finish_;
       /**
-       * <code>uint64 finish = 3;</code>
+       * <code>uint64 finish = 2;</code>
        */
       public long getFinish() {
         return finish_;
-      }
-
-      public static final int RESULT_FIELD_NUMBER = 4;
-      private boolean result_;
-      /**
-       * <code>bool result = 4;</code>
-       */
-      public boolean getResult() {
-        return result_;
       }
 
       private byte memoizedIsInitialized = -1;
@@ -10208,17 +9406,11 @@ public final class BenchmarkServiceOuterClass {
 
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
-        if (!getPidBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pid_);
-        }
         if (start_ != 0L) {
-          output.writeUInt64(2, start_);
+          output.writeUInt64(1, start_);
         }
         if (finish_ != 0L) {
-          output.writeUInt64(3, finish_);
-        }
-        if (result_ != false) {
-          output.writeBool(4, result_);
+          output.writeUInt64(2, finish_);
         }
         unknownFields.writeTo(output);
       }
@@ -10228,20 +9420,13 @@ public final class BenchmarkServiceOuterClass {
         if (size != -1) return size;
 
         size = 0;
-        if (!getPidBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pid_);
-        }
         if (start_ != 0L) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(2, start_);
+            .computeUInt64Size(1, start_);
         }
         if (finish_ != 0L) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(3, finish_);
-        }
-        if (result_ != false) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBoolSize(4, result_);
+            .computeUInt64Size(2, finish_);
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -10259,14 +9444,10 @@ public final class BenchmarkServiceOuterClass {
         pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution) obj;
 
         boolean result = true;
-        result = result && getPid()
-            .equals(other.getPid());
         result = result && (getStart()
             == other.getStart());
         result = result && (getFinish()
             == other.getFinish());
-        result = result && (getResult()
-            == other.getResult());
         result = result && unknownFields.equals(other.unknownFields);
         return result;
       }
@@ -10278,17 +9459,12 @@ public final class BenchmarkServiceOuterClass {
         }
         int hash = 41;
         hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + PID_FIELD_NUMBER;
-        hash = (53 * hash) + getPid().hashCode();
         hash = (37 * hash) + START_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getStart());
         hash = (37 * hash) + FINISH_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getFinish());
-        hash = (37 * hash) + RESULT_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-            getResult());
         hash = (29 * hash) + unknownFields.hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -10418,13 +9594,9 @@ public final class BenchmarkServiceOuterClass {
         }
         public Builder clear() {
           super.clear();
-          pid_ = "";
-
           start_ = 0L;
 
           finish_ = 0L;
-
-          result_ = false;
 
           return this;
         }
@@ -10448,10 +9620,8 @@ public final class BenchmarkServiceOuterClass {
 
         public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution buildPartial() {
           pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution(this);
-          result.pid_ = pid_;
           result.start_ = start_;
           result.finish_ = finish_;
-          result.result_ = result_;
           onBuilt();
           return result;
         }
@@ -10493,18 +9663,11 @@ public final class BenchmarkServiceOuterClass {
 
         public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution other) {
           if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.getDefaultInstance()) return this;
-          if (!other.getPid().isEmpty()) {
-            pid_ = other.pid_;
-            onChanged();
-          }
           if (other.getStart() != 0L) {
             setStart(other.getStart());
           }
           if (other.getFinish() != 0L) {
             setFinish(other.getFinish());
-          }
-          if (other.getResult() != false) {
-            setResult(other.getResult());
           }
           this.mergeUnknownFields(other.unknownFields);
           onChanged();
@@ -10533,84 +9696,15 @@ public final class BenchmarkServiceOuterClass {
           return this;
         }
 
-        private java.lang.Object pid_ = "";
-        /**
-         * <code>string pid = 1;</code>
-         */
-        public java.lang.String getPid() {
-          java.lang.Object ref = pid_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            pid_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>string pid = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-            getPidBytes() {
-          java.lang.Object ref = pid_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            pid_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>string pid = 1;</code>
-         */
-        public Builder setPid(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          pid_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string pid = 1;</code>
-         */
-        public Builder clearPid() {
-          
-          pid_ = getDefaultInstance().getPid();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>string pid = 1;</code>
-         */
-        public Builder setPidBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          pid_ = value;
-          onChanged();
-          return this;
-        }
-
         private long start_ ;
         /**
-         * <code>uint64 start = 2;</code>
+         * <code>uint64 start = 1;</code>
          */
         public long getStart() {
           return start_;
         }
         /**
-         * <code>uint64 start = 2;</code>
+         * <code>uint64 start = 1;</code>
          */
         public Builder setStart(long value) {
           
@@ -10619,7 +9713,7 @@ public final class BenchmarkServiceOuterClass {
           return this;
         }
         /**
-         * <code>uint64 start = 2;</code>
+         * <code>uint64 start = 1;</code>
          */
         public Builder clearStart() {
           
@@ -10630,13 +9724,13 @@ public final class BenchmarkServiceOuterClass {
 
         private long finish_ ;
         /**
-         * <code>uint64 finish = 3;</code>
+         * <code>uint64 finish = 2;</code>
          */
         public long getFinish() {
           return finish_;
         }
         /**
-         * <code>uint64 finish = 3;</code>
+         * <code>uint64 finish = 2;</code>
          */
         public Builder setFinish(long value) {
           
@@ -10645,37 +9739,11 @@ public final class BenchmarkServiceOuterClass {
           return this;
         }
         /**
-         * <code>uint64 finish = 3;</code>
+         * <code>uint64 finish = 2;</code>
          */
         public Builder clearFinish() {
           
           finish_ = 0L;
-          onChanged();
-          return this;
-        }
-
-        private boolean result_ ;
-        /**
-         * <code>bool result = 4;</code>
-         */
-        public boolean getResult() {
-          return result_;
-        }
-        /**
-         * <code>bool result = 4;</code>
-         */
-        public Builder setResult(boolean value) {
-          
-          result_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>bool result = 4;</code>
-         */
-        public Builder clearResult() {
-          
-          result_ = false;
           onChanged();
           return this;
         }
@@ -10774,41 +9842,6 @@ public final class BenchmarkServiceOuterClass {
       return recvMessages_;
     }
 
-    public static final int MEASUREMENTS_FIELD_NUMBER = 6;
-    private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> measurements_;
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> getMeasurementsList() {
-      return measurements_;
-    }
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder> 
-        getMeasurementsOrBuilderList() {
-      return measurements_;
-    }
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    public int getMeasurementsCount() {
-      return measurements_.size();
-    }
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getMeasurements(int index) {
-      return measurements_.get(index);
-    }
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-     */
-    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder getMeasurementsOrBuilder(
-        int index) {
-      return measurements_.get(index);
-    }
-
     public static final int EXECUTIONS_FIELD_NUMBER = 7;
     private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> executions_;
     /**
@@ -10871,9 +9904,6 @@ public final class BenchmarkServiceOuterClass {
       if (recvMessages_ != 0L) {
         output.writeUInt64(5, recvMessages_);
       }
-      for (int i = 0; i < measurements_.size(); i++) {
-        output.writeMessage(6, measurements_.get(i));
-      }
       for (int i = 0; i < executions_.size(); i++) {
         output.writeMessage(7, executions_.get(i));
       }
@@ -10905,10 +9935,6 @@ public final class BenchmarkServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(5, recvMessages_);
       }
-      for (int i = 0; i < measurements_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, measurements_.get(i));
-      }
       for (int i = 0; i < executions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(7, executions_.get(i));
@@ -10939,8 +9965,6 @@ public final class BenchmarkServiceOuterClass {
           == other.getSentMessages());
       result = result && (getRecvMessages()
           == other.getRecvMessages());
-      result = result && getMeasurementsList()
-          .equals(other.getMeasurementsList());
       result = result && getExecutionsList()
           .equals(other.getExecutionsList());
       result = result && unknownFields.equals(other.unknownFields);
@@ -10968,10 +9992,6 @@ public final class BenchmarkServiceOuterClass {
       hash = (37 * hash) + RECVMESSAGES_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getRecvMessages());
-      if (getMeasurementsCount() > 0) {
-        hash = (37 * hash) + MEASUREMENTS_FIELD_NUMBER;
-        hash = (53 * hash) + getMeasurementsList().hashCode();
-      }
       if (getExecutionsCount() > 0) {
         hash = (37 * hash) + EXECUTIONS_FIELD_NUMBER;
         hash = (53 * hash) + getExecutionsList().hashCode();
@@ -11101,7 +10121,6 @@ public final class BenchmarkServiceOuterClass {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getMeasurementsFieldBuilder();
           getExecutionsFieldBuilder();
         }
       }
@@ -11117,15 +10136,9 @@ public final class BenchmarkServiceOuterClass {
 
         recvMessages_ = 0L;
 
-        if (measurementsBuilder_ == null) {
-          measurements_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
-        } else {
-          measurementsBuilder_.clear();
-        }
         if (executionsBuilder_ == null) {
           executions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
         } else {
           executionsBuilder_.clear();
         }
@@ -11158,19 +10171,10 @@ public final class BenchmarkServiceOuterClass {
         result.finish_ = finish_;
         result.sentMessages_ = sentMessages_;
         result.recvMessages_ = recvMessages_;
-        if (measurementsBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) == 0x00000020)) {
-            measurements_ = java.util.Collections.unmodifiableList(measurements_);
-            bitField0_ = (bitField0_ & ~0x00000020);
-          }
-          result.measurements_ = measurements_;
-        } else {
-          result.measurements_ = measurementsBuilder_.build();
-        }
         if (executionsBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
             executions_ = java.util.Collections.unmodifiableList(executions_);
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.executions_ = executions_;
         } else {
@@ -11233,37 +10237,11 @@ public final class BenchmarkServiceOuterClass {
         if (other.getRecvMessages() != 0L) {
           setRecvMessages(other.getRecvMessages());
         }
-        if (measurementsBuilder_ == null) {
-          if (!other.measurements_.isEmpty()) {
-            if (measurements_.isEmpty()) {
-              measurements_ = other.measurements_;
-              bitField0_ = (bitField0_ & ~0x00000020);
-            } else {
-              ensureMeasurementsIsMutable();
-              measurements_.addAll(other.measurements_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.measurements_.isEmpty()) {
-            if (measurementsBuilder_.isEmpty()) {
-              measurementsBuilder_.dispose();
-              measurementsBuilder_ = null;
-              measurements_ = other.measurements_;
-              bitField0_ = (bitField0_ & ~0x00000020);
-              measurementsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getMeasurementsFieldBuilder() : null;
-            } else {
-              measurementsBuilder_.addAllMessages(other.measurements_);
-            }
-          }
-        }
         if (executionsBuilder_ == null) {
           if (!other.executions_.isEmpty()) {
             if (executions_.isEmpty()) {
               executions_ = other.executions_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000020);
             } else {
               ensureExecutionsIsMutable();
               executions_.addAll(other.executions_);
@@ -11276,7 +10254,7 @@ public final class BenchmarkServiceOuterClass {
               executionsBuilder_.dispose();
               executionsBuilder_ = null;
               executions_ = other.executions_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000020);
               executionsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getExecutionsFieldBuilder() : null;
@@ -11443,252 +10421,12 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
 
-      private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> measurements_ =
-        java.util.Collections.emptyList();
-      private void ensureMeasurementsIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
-          measurements_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement>(measurements_);
-          bitField0_ |= 0x00000020;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder> measurementsBuilder_;
-
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> getMeasurementsList() {
-        if (measurementsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(measurements_);
-        } else {
-          return measurementsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public int getMeasurementsCount() {
-        if (measurementsBuilder_ == null) {
-          return measurements_.size();
-        } else {
-          return measurementsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement getMeasurements(int index) {
-        if (measurementsBuilder_ == null) {
-          return measurements_.get(index);
-        } else {
-          return measurementsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder setMeasurements(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement value) {
-        if (measurementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMeasurementsIsMutable();
-          measurements_.set(index, value);
-          onChanged();
-        } else {
-          measurementsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder setMeasurements(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder builderForValue) {
-        if (measurementsBuilder_ == null) {
-          ensureMeasurementsIsMutable();
-          measurements_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          measurementsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder addMeasurements(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement value) {
-        if (measurementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMeasurementsIsMutable();
-          measurements_.add(value);
-          onChanged();
-        } else {
-          measurementsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder addMeasurements(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement value) {
-        if (measurementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMeasurementsIsMutable();
-          measurements_.add(index, value);
-          onChanged();
-        } else {
-          measurementsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder addMeasurements(
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder builderForValue) {
-        if (measurementsBuilder_ == null) {
-          ensureMeasurementsIsMutable();
-          measurements_.add(builderForValue.build());
-          onChanged();
-        } else {
-          measurementsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder addMeasurements(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder builderForValue) {
-        if (measurementsBuilder_ == null) {
-          ensureMeasurementsIsMutable();
-          measurements_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          measurementsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder addAllMeasurements(
-          java.lang.Iterable<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement> values) {
-        if (measurementsBuilder_ == null) {
-          ensureMeasurementsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, measurements_);
-          onChanged();
-        } else {
-          measurementsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder clearMeasurements() {
-        if (measurementsBuilder_ == null) {
-          measurements_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
-          onChanged();
-        } else {
-          measurementsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public Builder removeMeasurements(int index) {
-        if (measurementsBuilder_ == null) {
-          ensureMeasurementsIsMutable();
-          measurements_.remove(index);
-          onChanged();
-        } else {
-          measurementsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder getMeasurementsBuilder(
-          int index) {
-        return getMeasurementsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder getMeasurementsOrBuilder(
-          int index) {
-        if (measurementsBuilder_ == null) {
-          return measurements_.get(index);  } else {
-          return measurementsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder> 
-           getMeasurementsOrBuilderList() {
-        if (measurementsBuilder_ != null) {
-          return measurementsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(measurements_);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder addMeasurementsBuilder() {
-        return getMeasurementsFieldBuilder().addBuilder(
-            pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder addMeasurementsBuilder(
-          int index) {
-        return getMeasurementsFieldBuilder().addBuilder(
-            index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Measurement measurements = 6;</code>
-       */
-      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder> 
-           getMeasurementsBuilderList() {
-        return getMeasurementsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder> 
-          getMeasurementsFieldBuilder() {
-        if (measurementsBuilder_ == null) {
-          measurementsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Measurement.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.MeasurementOrBuilder>(
-                  measurements_,
-                  ((bitField0_ & 0x00000020) == 0x00000020),
-                  getParentForChildren(),
-                  isClean());
-          measurements_ = null;
-        }
-        return measurementsBuilder_;
-      }
-
       private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> executions_ =
         java.util.Collections.emptyList();
       private void ensureExecutionsIsMutable() {
-        if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
           executions_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution>(executions_);
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
          }
       }
 
@@ -11838,7 +10576,7 @@ public final class BenchmarkServiceOuterClass {
       public Builder clearExecutions() {
         if (executionsBuilder_ == null) {
           executions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
           executionsBuilder_.clear();
@@ -11915,7 +10653,7 @@ public final class BenchmarkServiceOuterClass {
           executionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder>(
                   executions_,
-                  ((bitField0_ & 0x00000040) == 0x00000040),
+                  ((bitField0_ & 0x00000020) == 0x00000020),
                   getParentForChildren(),
                   isClean());
           executions_ = null;
@@ -11966,6 +10704,1732 @@ public final class BenchmarkServiceOuterClass {
     }
 
     public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface InformRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest}
+   */
+  public  static final class InformRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest)
+      InformRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use InformRequest.newBuilder() to construct.
+    private InformRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InformRequest() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InformRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest)) {
+        return super.equals(obj);
+      }
+      pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest) obj;
+
+      boolean result = true;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest)
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.Builder.class);
+      }
+
+      // Construct using pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor;
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest getDefaultInstanceForType() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.getDefaultInstance();
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest build() {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest buildPartial() {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest) {
+          return mergeFrom((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest other) {
+        if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformRequest)
+    private static final pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest();
+    }
+
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<InformRequest>
+        PARSER = new com.google.protobuf.AbstractParser<InformRequest>() {
+      public InformRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InformRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InformRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InformRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface InformResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint32 replica = 1;</code>
+     */
+    int getReplica();
+
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> 
+        getCommitsList();
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index);
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    int getCommitsCount();
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
+        getCommitsOrBuilderList();
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse}
+   */
+  public  static final class InformResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse)
+      InformResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use InformResponse.newBuilder() to construct.
+    private InformResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InformResponse() {
+      replica_ = 0;
+      commits_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InformResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              replica_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                commits_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              commits_.add(
+                  input.readMessage(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          commits_ = java.util.Collections.unmodifiableList(commits_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.Builder.class);
+    }
+
+    public interface TransactionCommitOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>uint64 start = 1;</code>
+       */
+      long getStart();
+
+      /**
+       * <code>uint64 finish = 2;</code>
+       */
+      long getFinish();
+    }
+    /**
+     * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit}
+     */
+    public  static final class TransactionCommit extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
+        TransactionCommitOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use TransactionCommit.newBuilder() to construct.
+      private TransactionCommit(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private TransactionCommit() {
+        start_ = 0L;
+        finish_ = 0L;
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private TransactionCommit(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 8: {
+
+                start_ = input.readUInt64();
+                break;
+              }
+              case 16: {
+
+                finish_ = input.readUInt64();
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder.class);
+      }
+
+      public static final int START_FIELD_NUMBER = 1;
+      private long start_;
+      /**
+       * <code>uint64 start = 1;</code>
+       */
+      public long getStart() {
+        return start_;
+      }
+
+      public static final int FINISH_FIELD_NUMBER = 2;
+      private long finish_;
+      /**
+       * <code>uint64 finish = 2;</code>
+       */
+      public long getFinish() {
+        return finish_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (start_ != 0L) {
+          output.writeUInt64(1, start_);
+        }
+        if (finish_ != 0L) {
+          output.writeUInt64(2, finish_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (start_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt64Size(1, start_);
+        }
+        if (finish_ != 0L) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt64Size(2, finish_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit)) {
+          return super.equals(obj);
+        }
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) obj;
+
+        boolean result = true;
+        result = result && (getStart()
+            == other.getStart());
+        result = result && (getFinish()
+            == other.getFinish());
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + START_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getStart());
+        hash = (37 * hash) + FINISH_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFinish());
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder.class);
+        }
+
+        // Construct using pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        public Builder clear() {
+          super.clear();
+          start_ = 0L;
+
+          finish_ = 0L;
+
+          return this;
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
+        }
+
+        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstanceForType() {
+          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance();
+        }
+
+        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit build() {
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit buildPartial() {
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit(this);
+          result.start_ = start_;
+          result.finish_ = finish_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) {
+            return mergeFrom((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit other) {
+          if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance()) return this;
+          if (other.getStart() != 0L) {
+            setStart(other.getStart());
+          }
+          if (other.getFinish() != 0L) {
+            setFinish(other.getFinish());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private long start_ ;
+        /**
+         * <code>uint64 start = 1;</code>
+         */
+        public long getStart() {
+          return start_;
+        }
+        /**
+         * <code>uint64 start = 1;</code>
+         */
+        public Builder setStart(long value) {
+          
+          start_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>uint64 start = 1;</code>
+         */
+        public Builder clearStart() {
+          
+          start_ = 0L;
+          onChanged();
+          return this;
+        }
+
+        private long finish_ ;
+        /**
+         * <code>uint64 finish = 2;</code>
+         */
+        public long getFinish() {
+          return finish_;
+        }
+        /**
+         * <code>uint64 finish = 2;</code>
+         */
+        public Builder setFinish(long value) {
+          
+          finish_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>uint64 finish = 2;</code>
+         */
+        public Builder clearFinish() {
+          
+          finish_ = 0L;
+          onChanged();
+          return this;
+        }
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
+      }
+
+      // @@protoc_insertion_point(class_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
+      private static final pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit();
+      }
+
+      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<TransactionCommit>
+          PARSER = new com.google.protobuf.AbstractParser<TransactionCommit>() {
+        public TransactionCommit parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new TransactionCommit(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<TransactionCommit> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<TransactionCommit> getParserForType() {
+        return PARSER;
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    private int bitField0_;
+    public static final int REPLICA_FIELD_NUMBER = 1;
+    private int replica_;
+    /**
+     * <code>uint32 replica = 1;</code>
+     */
+    public int getReplica() {
+      return replica_;
+    }
+
+    public static final int COMMITS_FIELD_NUMBER = 2;
+    private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> commits_;
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> getCommitsList() {
+      return commits_;
+    }
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
+        getCommitsOrBuilderList() {
+      return commits_;
+    }
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    public int getCommitsCount() {
+      return commits_.size();
+    }
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index) {
+      return commits_.get(index);
+    }
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     */
+    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
+        int index) {
+      return commits_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (replica_ != 0) {
+        output.writeUInt32(1, replica_);
+      }
+      for (int i = 0; i < commits_.size(); i++) {
+        output.writeMessage(2, commits_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (replica_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, replica_);
+      }
+      for (int i = 0; i < commits_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, commits_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse)) {
+        return super.equals(obj);
+      }
+      pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse) obj;
+
+      boolean result = true;
+      result = result && (getReplica()
+          == other.getReplica());
+      result = result && getCommitsList()
+          .equals(other.getCommitsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REPLICA_FIELD_NUMBER;
+      hash = (53 * hash) + getReplica();
+      if (getCommitsCount() > 0) {
+        hash = (37 * hash) + COMMITS_FIELD_NUMBER;
+        hash = (53 * hash) + getCommitsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse)
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.Builder.class);
+      }
+
+      // Construct using pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCommitsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        replica_ = 0;
+
+        if (commitsBuilder_ == null) {
+          commits_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          commitsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor;
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse getDefaultInstanceForType() {
+        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.getDefaultInstance();
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse build() {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse buildPartial() {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.replica_ = replica_;
+        if (commitsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            commits_ = java.util.Collections.unmodifiableList(commits_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.commits_ = commits_;
+        } else {
+          result.commits_ = commitsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse) {
+          return mergeFrom((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse other) {
+        if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.getDefaultInstance()) return this;
+        if (other.getReplica() != 0) {
+          setReplica(other.getReplica());
+        }
+        if (commitsBuilder_ == null) {
+          if (!other.commits_.isEmpty()) {
+            if (commits_.isEmpty()) {
+              commits_ = other.commits_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureCommitsIsMutable();
+              commits_.addAll(other.commits_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.commits_.isEmpty()) {
+            if (commitsBuilder_.isEmpty()) {
+              commitsBuilder_.dispose();
+              commitsBuilder_ = null;
+              commits_ = other.commits_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              commitsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCommitsFieldBuilder() : null;
+            } else {
+              commitsBuilder_.addAllMessages(other.commits_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int replica_ ;
+      /**
+       * <code>uint32 replica = 1;</code>
+       */
+      public int getReplica() {
+        return replica_;
+      }
+      /**
+       * <code>uint32 replica = 1;</code>
+       */
+      public Builder setReplica(int value) {
+        
+        replica_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 replica = 1;</code>
+       */
+      public Builder clearReplica() {
+        
+        replica_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> commits_ =
+        java.util.Collections.emptyList();
+      private void ensureCommitsIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          commits_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit>(commits_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> commitsBuilder_;
+
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> getCommitsList() {
+        if (commitsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(commits_);
+        } else {
+          return commitsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public int getCommitsCount() {
+        if (commitsBuilder_ == null) {
+          return commits_.size();
+        } else {
+          return commitsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index) {
+        if (commitsBuilder_ == null) {
+          return commits_.get(index);
+        } else {
+          return commitsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder setCommits(
+          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
+        if (commitsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCommitsIsMutable();
+          commits_.set(index, value);
+          onChanged();
+        } else {
+          commitsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder setCommits(
+          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          commitsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder addCommits(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
+        if (commitsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCommitsIsMutable();
+          commits_.add(value);
+          onChanged();
+        } else {
+          commitsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder addCommits(
+          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
+        if (commitsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCommitsIsMutable();
+          commits_.add(index, value);
+          onChanged();
+        } else {
+          commitsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder addCommits(
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.add(builderForValue.build());
+          onChanged();
+        } else {
+          commitsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder addCommits(
+          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          commitsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder addAllCommits(
+          java.lang.Iterable<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> values) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, commits_);
+          onChanged();
+        } else {
+          commitsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder clearCommits() {
+        if (commitsBuilder_ == null) {
+          commits_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          commitsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public Builder removeCommits(int index) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.remove(index);
+          onChanged();
+        } else {
+          commitsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder getCommitsBuilder(
+          int index) {
+        return getCommitsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
+          int index) {
+        if (commitsBuilder_ == null) {
+          return commits_.get(index);  } else {
+          return commitsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
+           getCommitsOrBuilderList() {
+        if (commitsBuilder_ != null) {
+          return commitsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(commits_);
+        }
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder addCommitsBuilder() {
+        return getCommitsFieldBuilder().addBuilder(
+            pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder addCommitsBuilder(
+          int index) {
+        return getCommitsFieldBuilder().addBuilder(
+            index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       */
+      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder> 
+           getCommitsBuilderList() {
+        return getCommitsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
+          getCommitsFieldBuilder() {
+        if (commitsBuilder_ == null) {
+          commitsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder>(
+                  commits_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          commits_ = null;
+        }
+        return commitsBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse)
+    private static final pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse();
+    }
+
+    public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<InformResponse>
+        PARSER = new com.google.protobuf.AbstractParser<InformResponse>() {
+      public InformResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InformResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InformResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InformResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12880,15 +13344,25 @@ public final class BenchmarkServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor;
   private static final 
@@ -12919,7 +13393,7 @@ public final class BenchmarkServiceOuterClass {
       "\030\001 \001(\005\022\014\n\004addr\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\0326\n\010Gr" +
       "oupKey\022\t\n\001k\030\001 \001(\005\022\t\n\001l\030\002 \001(\005\022\t\n\001e\030\003 \001(\t\022" +
       "\t\n\001n\030\004 \001(\t\"\036\n\020TopologyResponse\022\n\n\002ok\030\001 \001" +
-      "(\010\"\361\003\n\017ProtocolRequest\022Y\n\010protocol\030\001 \001(\016" +
+      "(\010\"\377\003\n\017ProtocolRequest\022Y\n\010protocol\030\001 \001(\016" +
       "2G.pt.ulisboa.tecnico.thesis.benchmarks." +
       "contract.ProtocolRequest.Protocol\022\021\n\tbat" +
       "chSize\030\002 \001(\005\022\023\n\013payloadSize\030\003 \001(\005\022S\n\005fau" +
@@ -12927,61 +13401,65 @@ public final class BenchmarkServiceOuterClass {
       "chmarks.contract.ProtocolRequest.Fault\022\016" +
       "\n\006faulty\030\005 \003(\r\022[\n\tbenchmark\030\006 \001(\0162H.pt.u" +
       "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.ProtocolRequest.Benchmark\"B\n\010Protocol\022" +
-      "\020\n\014HONEY_BADGER\020\000\022\t\n\005DUMBO\020\001\022\013\n\007DUMBO_2\020" +
-      "\002\022\014\n\010ALEA_BFT\020\003\"+\n\005Fault\022\010\n\004FREE\020\000\022\t\n\005CR" +
-      "ASH\020\001\022\r\n\tBYZANTINE\020\002\"(\n\tBenchmark\022\013\n\007LAT" +
-      "ENCY\020\000\022\016\n\nTHROUGHPUT\020\001\"\036\n\020ProtocolRespon" +
-      "se\022\n\n\002ok\030\001 \001(\010\"\022\n\020BenchmarkRequest\"\233\003\n\021B" +
-      "enchmarkResponse\022\021\n\treplicaId\030\001 \001(\005\022\r\n\005s" +
-      "tart\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022d\n\007latency\030\004 " +
-      "\003(\0132S.pt.ulisboa.tecnico.thesis.benchmar" +
-      "ks.contract.BenchmarkResponse.LatencyMea" +
-      "surement\022j\n\nthroughput\030\005 \003(\0132V.pt.ulisbo" +
-      "a.tecnico.thesis.benchmarks.contract.Ben" +
-      "chmarkResponse.ThroughputMeasurement\032G\n\022" +
-      "LatencyMeasurement\022\020\n\010emission\030\001 \001(\004\022\020\n\010" +
-      "delivery\030\002 \001(\004\022\r\n\005value\030\003 \001(\004\0329\n\025Through" +
-      "putMeasurement\022\021\n\ttimestamp\030\001 \001(\004\022\r\n\005val" +
-      "ue\030\002 \001(\004\"4\n\025StartBenchmarkRequest\022\r\n\005fir" +
-      "st\030\001 \001(\010\022\014\n\004load\030\002 \001(\005\"$\n\026StartBenchmark" +
-      "Response\022\n\n\002ok\030\001 \001(\010\"\026\n\024StopBenchmarkReq" +
-      "uest\"\341\003\n\025StopBenchmarkResponse\022\017\n\007replic" +
-      "a\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022\024" +
-      "\n\014sentMessages\030\004 \001(\004\022\024\n\014recvMessages\030\005 \001" +
-      "(\004\022f\n\014measurements\030\006 \003(\0132P.pt.ulisboa.te" +
-      "cnico.thesis.benchmarks.contract.StopBen" +
-      "chmarkResponse.Measurement\022b\n\nexecutions" +
-      "\030\007 \003(\0132N.pt.ulisboa.tecnico.thesis.bench" +
-      "marks.contract.StopBenchmarkResponse.Exe" +
-      "cution\032W\n\013Measurement\022\021\n\ttimestamp\030\001 \001(\004" +
-      "\022\r\n\005value\030\002 \001(\004\022\023\n\013blockNumber\030\003 \001(\004\022\021\n\t" +
-      "proposers\030\004 \003(\r\032G\n\tExecution\022\013\n\003pid\030\001 \001(" +
-      "\t\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022\016\n\006resu" +
-      "lt\030\004 \001(\010\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001" +
-      "(\005\"\022\n\020ShutdownResponse2\366\006\n\020BenchmarkServ" +
-      "ice\022\213\001\n\010topology\022>.pt.ulisboa.tecnico.th" +
-      "esis.benchmarks.contract.TopologyRequest" +
-      "\032?.pt.ulisboa.tecnico.thesis.benchmarks." +
-      "contract.TopologyResponse\022\213\001\n\010protocol\022>" +
-      ".pt.ulisboa.tecnico.thesis.benchmarks.co" +
-      "ntract.ProtocolRequest\032?.pt.ulisboa.tecn" +
-      "ico.thesis.benchmarks.contract.ProtocolR" +
-      "esponse\022\224\001\n\005start\022D.pt.ulisboa.tecnico.t" +
-      "hesis.benchmarks.contract.StartBenchmark" +
-      "Request\032E.pt.ulisboa.tecnico.thesis.benc" +
-      "hmarks.contract.StartBenchmarkResponse\022\221" +
-      "\001\n\004stop\022C.pt.ulisboa.tecnico.thesis.benc" +
-      "hmarks.contract.StopBenchmarkRequest\032D.p" +
+      "t.ProtocolRequest.Benchmark\022\014\n\004load\030\007 \001(" +
+      "\005\"B\n\010Protocol\022\020\n\014HONEY_BADGER\020\000\022\t\n\005DUMBO" +
+      "\020\001\022\013\n\007DUMBO_2\020\002\022\014\n\010ALEA_BFT\020\003\"+\n\005Fault\022\010" +
+      "\n\004FREE\020\000\022\t\n\005CRASH\020\001\022\r\n\tBYZANTINE\020\002\"(\n\tBe" +
+      "nchmark\022\013\n\007LATENCY\020\000\022\016\n\nTHROUGHPUT\020\001\"\036\n\020" +
+      "ProtocolResponse\022\n\n\002ok\030\001 \001(\010\"\022\n\020Benchmar" +
+      "kRequest\"\233\003\n\021BenchmarkResponse\022\021\n\treplic" +
+      "aId\030\001 \001(\005\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004" +
+      "\022d\n\007latency\030\004 \003(\0132S.pt.ulisboa.tecnico.t" +
+      "hesis.benchmarks.contract.BenchmarkRespo" +
+      "nse.LatencyMeasurement\022j\n\nthroughput\030\005 \003" +
+      "(\0132V.pt.ulisboa.tecnico.thesis.benchmark" +
+      "s.contract.BenchmarkResponse.ThroughputM" +
+      "easurement\032G\n\022LatencyMeasurement\022\020\n\010emis" +
+      "sion\030\001 \001(\004\022\020\n\010delivery\030\002 \001(\004\022\r\n\005value\030\003 " +
+      "\001(\004\0329\n\025ThroughputMeasurement\022\021\n\ttimestam" +
+      "p\030\001 \001(\004\022\r\n\005value\030\002 \001(\004\"4\n\025StartBenchmark" +
+      "Request\022\r\n\005first\030\001 \001(\010\022\014\n\004load\030\002 \001(\005\"$\n\026" +
+      "StartBenchmarkResponse\022\n\n\002ok\030\001 \001(\010\"\026\n\024St" +
+      "opBenchmarkRequest\"\203\002\n\025StopBenchmarkResp" +
+      "onse\022\017\n\007replica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006" +
+      "finish\030\003 \001(\004\022\024\n\014sentMessages\030\004 \001(\004\022\024\n\014re" +
+      "cvMessages\030\005 \001(\004\022b\n\nexecutions\030\007 \003(\0132N.p" +
       "t.ulisboa.tecnico.thesis.benchmarks.cont" +
-      "ract.StopBenchmarkResponse\022\214\001\n\007execute\022?" +
-      ".pt.ulisboa.tecnico.thesis.benchmarks.co" +
-      "ntract.BenchmarkRequest\032@.pt.ulisboa.tec" +
-      "nico.thesis.benchmarks.contract.Benchmar" +
-      "kResponse\022\213\001\n\010shutdown\022>.pt.ulisboa.tecn" +
-      "ico.thesis.benchmarks.contract.ShutdownR" +
-      "equest\032?.pt.ulisboa.tecnico.thesis.bench" +
-      "marks.contract.ShutdownResponseb\006proto3"
+      "ract.StopBenchmarkResponse.Execution\032*\n\t" +
+      "Execution\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 \001(\004" +
+      "\"\017\n\rInformRequest\"\267\001\n\016InformResponse\022\017\n\007" +
+      "replica\030\001 \001(\r\022`\n\007commits\030\002 \003(\0132O.pt.ulis" +
+      "boa.tecnico.thesis.benchmarks.contract.I" +
+      "nformResponse.TransactionCommit\0322\n\021Trans" +
+      "actionCommit\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 " +
+      "\001(\004\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022\n" +
+      "\020ShutdownResponse2\376\007\n\020BenchmarkService\022\213" +
+      "\001\n\010topology\022>.pt.ulisboa.tecnico.thesis." +
+      "benchmarks.contract.TopologyRequest\032?.pt" +
+      ".ulisboa.tecnico.thesis.benchmarks.contr" +
+      "act.TopologyResponse\022\213\001\n\010protocol\022>.pt.u" +
+      "lisboa.tecnico.thesis.benchmarks.contrac" +
+      "t.ProtocolRequest\032?.pt.ulisboa.tecnico.t" +
+      "hesis.benchmarks.contract.ProtocolRespon" +
+      "se\022\224\001\n\005start\022D.pt.ulisboa.tecnico.thesis" +
+      ".benchmarks.contract.StartBenchmarkReque" +
+      "st\032E.pt.ulisboa.tecnico.thesis.benchmark" +
+      "s.contract.StartBenchmarkResponse\022\221\001\n\004st" +
+      "op\022C.pt.ulisboa.tecnico.thesis.benchmark" +
+      "s.contract.StopBenchmarkRequest\032D.pt.uli" +
+      "sboa.tecnico.thesis.benchmarks.contract." +
+      "StopBenchmarkResponse\022\205\001\n\006inform\022<.pt.ul" +
+      "isboa.tecnico.thesis.benchmarks.contract" +
+      ".InformRequest\032=.pt.ulisboa.tecnico.thes" +
+      "is.benchmarks.contract.InformResponse\022\214\001" +
+      "\n\007execute\022?.pt.ulisboa.tecnico.thesis.be" +
+      "nchmarks.contract.BenchmarkRequest\032@.pt." +
+      "ulisboa.tecnico.thesis.benchmarks.contra" +
+      "ct.BenchmarkResponse\022\213\001\n\010shutdown\022>.pt.u" +
+      "lisboa.tecnico.thesis.benchmarks.contrac" +
+      "t.ShutdownRequest\032?.pt.ulisboa.tecnico.t" +
+      "hesis.benchmarks.contract.ShutdownRespon" +
+      "seb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -13024,7 +13502,7 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ProtocolRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ProtocolRequest_descriptor,
-        new java.lang.String[] { "Protocol", "BatchSize", "PayloadSize", "Fault", "Faulty", "Benchmark", });
+        new java.lang.String[] { "Protocol", "BatchSize", "PayloadSize", "Fault", "Faulty", "Benchmark", "Load", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ProtocolResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ProtocolResponse_fieldAccessorTable = new
@@ -13078,27 +13556,39 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor,
-        new java.lang.String[] { "Replica", "Start", "Finish", "SentMessages", "RecvMessages", "Measurements", "Executions", });
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor =
-      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor.getNestedTypes().get(0);
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Measurement_descriptor,
-        new java.lang.String[] { "Timestamp", "Value", "BlockNumber", "Proposers", });
+        new java.lang.String[] { "Replica", "Start", "Finish", "SentMessages", "RecvMessages", "Executions", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_descriptor =
-      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor.getNestedTypes().get(1);
+      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor.getNestedTypes().get(0);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_descriptor,
-        new java.lang.String[] { "Pid", "Start", "Finish", "Result", });
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor =
+        new java.lang.String[] { "Start", "Finish", });
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor,
+        new java.lang.String[] { "Replica", "Commits", });
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor =
+      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor.getNestedTypes().get(0);
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor,
+        new java.lang.String[] { "Start", "Finish", });
+    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor,
         new java.lang.String[] { "Timer", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownResponse_descriptor,

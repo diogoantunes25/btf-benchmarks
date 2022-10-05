@@ -49,6 +49,8 @@ message ProtocolRequest {
         THROUGHPUT = 1;
     }
     Benchmark benchmark = 6;
+
+    int32 load = 7;
 }
 
 message ProtocolResponse {
@@ -107,21 +109,23 @@ message StopBenchmarkResponse {
     uint64 sentMessages = 4;
     uint64 recvMessages = 5;
 
-    message Measurement {
-        uint64 timestamp = 1;
-        uint64 value = 2;
-        uint64 blockNumber = 3;
-        repeated uint32 proposers = 4;
-    }
-    repeated Measurement measurements = 6;
-
     message Execution {
-        string pid = 1;
-        uint64 start = 2;
-        uint64 finish = 3;
-        bool result = 4;
+        uint64 start = 1;
+        uint64 finish = 2;
     }
     repeated Execution executions = 7;
+}
+
+message InformRequest {}
+message InformResponse {
+    uint32 replica = 1;
+
+    message TransactionCommit {
+        uint64 start = 1;
+        uint64 finish = 2;
+    }
+
+    repeated TransactionCommit commits = 2;
 }
 
 message ShutdownRequest {
@@ -138,6 +142,7 @@ service BenchmarkService {
     // benchmark control
     rpc start(StartBenchmarkRequest) returns (StartBenchmarkResponse);
     rpc stop(StopBenchmarkRequest) returns (StopBenchmarkResponse);
+    rpc inform(InformRequest) returns (InformResponse);
 
     // others... TODO delete?
     rpc execute(BenchmarkRequest) returns (BenchmarkResponse);

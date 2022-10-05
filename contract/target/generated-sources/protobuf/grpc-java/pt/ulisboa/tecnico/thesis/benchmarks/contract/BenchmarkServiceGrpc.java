@@ -139,6 +139,37 @@ public final class BenchmarkServiceGrpc {
     return getStopMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest,
+      pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> getInformMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "inform",
+      requestType = pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.class,
+      responseType = pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest,
+      pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> getInformMethod() {
+    io.grpc.MethodDescriptor<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> getInformMethod;
+    if ((getInformMethod = BenchmarkServiceGrpc.getInformMethod) == null) {
+      synchronized (BenchmarkServiceGrpc.class) {
+        if ((getInformMethod = BenchmarkServiceGrpc.getInformMethod) == null) {
+          BenchmarkServiceGrpc.getInformMethod = getInformMethod =
+              io.grpc.MethodDescriptor.<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "inform"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new BenchmarkServiceMethodDescriptorSupplier("inform"))
+              .build();
+        }
+      }
+    }
+    return getInformMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.BenchmarkRequest,
       pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.BenchmarkResponse> getExecuteMethod;
 
@@ -284,6 +315,13 @@ public final class BenchmarkServiceGrpc {
     }
 
     /**
+     */
+    public void inform(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest request,
+        io.grpc.stub.StreamObserver<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getInformMethod(), responseObserver);
+    }
+
+    /**
      * <pre>
      * others... TODO delete?
      * </pre>
@@ -330,6 +368,13 @@ public final class BenchmarkServiceGrpc {
                 pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkRequest,
                 pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse>(
                   this, METHODID_STOP)))
+          .addMethod(
+            getInformMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest,
+                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse>(
+                  this, METHODID_INFORM)))
           .addMethod(
             getExecuteMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -401,6 +446,14 @@ public final class BenchmarkServiceGrpc {
     }
 
     /**
+     */
+    public void inform(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest request,
+        io.grpc.stub.StreamObserver<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getInformMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
      * <pre>
      * others... TODO delete?
      * </pre>
@@ -466,6 +519,13 @@ public final class BenchmarkServiceGrpc {
     public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse stop(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getStopMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse inform(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getInformMethod(), getCallOptions(), request);
     }
 
     /**
@@ -539,6 +599,14 @@ public final class BenchmarkServiceGrpc {
     }
 
     /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse> inform(
+        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getInformMethod(), getCallOptions()), request);
+    }
+
+    /**
      * <pre>
      * others... TODO delete?
      * </pre>
@@ -562,8 +630,9 @@ public final class BenchmarkServiceGrpc {
   private static final int METHODID_PROTOCOL = 1;
   private static final int METHODID_START = 2;
   private static final int METHODID_STOP = 3;
-  private static final int METHODID_EXECUTE = 4;
-  private static final int METHODID_SHUTDOWN = 5;
+  private static final int METHODID_INFORM = 4;
+  private static final int METHODID_EXECUTE = 5;
+  private static final int METHODID_SHUTDOWN = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -597,6 +666,10 @@ public final class BenchmarkServiceGrpc {
         case METHODID_STOP:
           serviceImpl.stop((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkRequest) request,
               (io.grpc.stub.StreamObserver<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse>) responseObserver);
+          break;
+        case METHODID_INFORM:
+          serviceImpl.inform((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformRequest) request,
+              (io.grpc.stub.StreamObserver<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse>) responseObserver);
           break;
         case METHODID_EXECUTE:
           serviceImpl.execute((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.BenchmarkRequest) request,
@@ -671,6 +744,7 @@ public final class BenchmarkServiceGrpc {
               .addMethod(getProtocolMethod())
               .addMethod(getStartMethod())
               .addMethod(getStopMethod())
+              .addMethod(getInformMethod())
               .addMethod(getExecuteMethod())
               .addMethod(getShutdownMethod())
               .build();

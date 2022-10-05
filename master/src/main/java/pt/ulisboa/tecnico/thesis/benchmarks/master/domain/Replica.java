@@ -36,7 +36,8 @@ public class Replica {
 
     public ManagedChannel getChannel() {
         if (channel == null)
-            channel = ManagedChannelBuilder.forAddress(address, controlPort).usePlaintext().build();
+            // channel = ManagedChannelBuilder.forAddress(address, controlPort).usePlaintext().build();
+            channel = ManagedChannelBuilder.forAddress(address, controlPort).usePlaintext().maxInboundMessageSize(10000000).build();
         return channel;
     }
 

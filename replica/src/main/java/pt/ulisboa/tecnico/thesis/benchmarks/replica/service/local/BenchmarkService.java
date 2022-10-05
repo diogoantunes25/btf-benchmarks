@@ -27,6 +27,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkMode;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.LatencyReplica;
@@ -98,7 +99,7 @@ public class BenchmarkService {
         return true;    // success
     }
 
-    public boolean setProtocol(Protocol protocol, Integer batchSize, BenchmarkMode mode, Fault fault, List<Integer> faulty) {
+    public boolean setProtocol(Protocol protocol, Integer batchSize, BenchmarkMode mode, Fault fault, List<Integer> faulty, int load) {
         logger.info("setProtocol - protocol:{}, batchSize:{}", protocol, batchSize);
 
         // ignore if topology not set
@@ -121,7 +122,7 @@ public class BenchmarkService {
                 break;
             case THROUGHPUT:
             default: {
-                this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport);
+                this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport, load);
                 System.out.println("Throughtput replica spawned");
             }
         }
@@ -132,11 +133,11 @@ public class BenchmarkService {
     }
 
 
-    public boolean start(boolean first, int load) {
+    public boolean start(boolean first) {
         logger.info("------------------------------------------------------------------------");
-        logger.info("Starting benchmark (first: {}, load: {}).", first, load);
+        logger.info("Starting benchmark (first: {}).", first);
         logger.info("------------------------------------------------------------------------");
-        this.benchmarkReplica.start(first, load);
+        this.benchmarkReplica.start(first);
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
         return true;
@@ -152,6 +153,18 @@ public class BenchmarkService {
 
         return benchmark;
     }
+
+    public List<Execution> inform() {
+        logger.info("------------------------------------------------------------------------");
+        logger.info("Getting information.");
+        logger.info("------------------------------------------------------------------------");
+        List<Execution> info = this.benchmarkReplica.getInfoAndReset();
+        logger.info("Success.");
+        logger.info("------------------------------------------------------------------------\n");
+
+        return info;
+    }
+
 
     private MessageEncoder<String> getEncoder(Protocol protocol) {
         // our protocol

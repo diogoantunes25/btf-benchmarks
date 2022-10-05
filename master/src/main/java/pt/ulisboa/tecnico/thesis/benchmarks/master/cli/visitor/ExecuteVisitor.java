@@ -214,7 +214,7 @@ public class ExecuteVisitor implements CommandVisitor {
     public boolean visit(SetProtocolCommand cmd) {
         // set protocol
         Benchmark.Protocol protocol = new Benchmark.Protocol(
-                cmd.getProtocol(), cmd.getBatchSize(), cmd.getBenchmarkMode(), cmd.getFaultMode());
+                cmd.getProtocol(), cmd.getBatchSize(), cmd.getBenchmarkMode(), cmd.getFaultMode(), cmd.getLoad());
         benchmarkService.setProtocol(protocol);
 
         return true;
@@ -222,7 +222,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(StartCommand cmd) {
-        benchmarkService.startBenchmark(cmd.getLoad());
+        benchmarkService.startBenchmark();
         return true;
     }
 
