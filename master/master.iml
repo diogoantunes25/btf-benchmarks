@@ -56,7 +56,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.netty:netty-transport-native-unix-common:4.1.66.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.typesafe.netty:netty-reactive-streams-http:2.0.5" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.typesafe.netty:netty-reactive-streams:2.0.5" level="project" />
-    <orderEntry type="module" module-name="replica" />
     <orderEntry type="library" name="Maven: io.grpc:grpc-protobuf:1.40.1" level="project" />
     <orderEntry type="library" name="Maven: io.grpc:grpc-api:1.40.1" level="project" />
     <orderEntry type="library" name="Maven: io.grpc:grpc-context:1.40.1" level="project" />

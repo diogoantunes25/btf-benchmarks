@@ -51,8 +51,8 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
 
         // final String jarPath = "D:\\Code\\benchmarks\\replica\\target\\replica-1.0-SNAPSHOT.jar";
         // final String jarPath = "/home/diogo/MEGA/2 | LEIC-A/Projeto BIG/Study material/code/alea-benchmarks/replica/target/replica-1.0-SNAPSHOT.jar";
-        // final String jarPath = "/alea/replica.jar";
-        final String jarPath = "/jars/replica-1.0-SNAPSHOT.jar";
+        final String jarPath = "/alea/replica.jar";
+        // final String jarPath = "/jars/replica-1.0-SNAPSHOT.jar";
 
         int offset = replicaProcesses.size();
 

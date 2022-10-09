@@ -125,11 +125,17 @@ public class BenchmarkService {
                 "crash", BenchmarkServiceOuterClass.ProtocolRequest.Fault.CRASH,
                 "byzantine", BenchmarkServiceOuterClass.ProtocolRequest.Fault.BYZANTINE
         );
+
         BenchmarkServiceOuterClass.ProtocolRequest.Fault faultMode = faultMap
                 .getOrDefault(protocol.getFaultMode(), null);
+
         if (faultMode == null) {
             System.out.println("Unknown fault model.");
             return;
+        } else {
+            System.out.println("Fault mode: " + protocol.getFaultMode());
+            System.out.println("Faulty replicas are: " +
+                    this.topology.getReplicas().stream().limit(topology.getF()).map(Replica::getReplicaId).collect(Collectors.toList()));
         }
 
         // get benchmark config
@@ -400,7 +406,7 @@ public class BenchmarkService {
         }
 
         public void sendRetrieveRequests() {
-            logger.info("Retrieving information from replicas");
+            // logger.info("Retrieving information from replicas");
 
             final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
             final Map<Integer, BenchmarkServiceOuterClass.InformResponse> responses = new ConcurrentHashMap<>();
@@ -409,7 +415,7 @@ public class BenchmarkService {
                 @Override
                 public void onNext(BenchmarkServiceOuterClass.InformResponse response) {
                     responses.put(response.getReplica(), response);
-                    logger.info("New information arrived from {} ({} commits)", response.getReplica(), response.getCommitsCount());
+                    // logger.info("New information arrived from {} ({} commits)", response.getReplica(), response.getCommitsCount());
                 }
 
                 @Override
@@ -427,7 +433,7 @@ public class BenchmarkService {
 
             BenchmarkServiceOuterClass.InformRequest.Builder requestBuilder = BenchmarkServiceOuterClass.InformRequest.newBuilder();
 
-            logger.info("Sending retrieval requests");
+            // logger.info("Sending retrieval requests");
 
             for(Replica replica: topology.getReplicas()) {
                 ManagedChannel channel = replica.getChannel();
@@ -437,13 +443,13 @@ public class BenchmarkService {
 
 
             try {
-                logger.info("Waiting for responses");
+                // logger.info("Waiting for responses");
                 responseLatch.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            logger.info("All responses collected");
+            // logger.info("All responses collected");
 
             // Add response info to history
             for (int i = 0; i < topology.getN(); i++) {

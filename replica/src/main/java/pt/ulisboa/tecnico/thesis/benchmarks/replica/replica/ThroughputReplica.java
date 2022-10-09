@@ -108,13 +108,12 @@ public class ThroughputReplica extends BenchmarkReplica {
     @Override
     public void deliver(Block block) {
 
-        // logger.info("delivered called");
-
         final long timestamp = ZonedDateTime.now().toInstant().toEpochMilli();
 
         synchronized (this) {
             for (byte[] entry: block.getEntries()) {
                 // Check if my payload was delivered
+                logger.info("New payload arrived");
                 Long submitTime = pendingPayloads.remove(new Entry(entry));
                 if (submitTime != null) {
 
@@ -149,7 +148,7 @@ public class ThroughputReplica extends BenchmarkReplica {
                         handleStep(protocol.handleInput(payload));
                         pendingPayloads.put(new Entry(payload), submitTime);
 
-                        // logger.info("Payload #{} sent", ++counter);
+                        logger.info("Payload sent");
                     }
                 } catch(InterruptedException e) {
                     return;

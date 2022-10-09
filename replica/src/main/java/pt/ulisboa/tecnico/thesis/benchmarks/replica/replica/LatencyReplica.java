@@ -88,7 +88,6 @@ public class LatencyReplica extends BenchmarkReplica {
                         e.printStackTrace();
                     }
                     this.executions.add(new Execution( this.proposeTime, timestamp));
-
                     this.handleStep(this.propose());
                 }
             }
