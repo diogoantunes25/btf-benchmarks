@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.BenchmarkResult;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Commit;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonService {
-    public static void write(List<BenchmarkResult> results, Map<Integer,List<Commit>> history, int n, String protocol, Integer batchSize, String faultMode, int load) {
+    public static void write(List<BenchmarkResult> results, Map<Integer,List<Summary>> history, int n, String protocol, Integer batchSize, String faultMode, int load) {
         JsonObject root = new JsonObject();
         root.addProperty("protocol", protocol);
         root.addProperty("n", n);
@@ -34,11 +35,13 @@ public class JsonService {
             jsonResult.addProperty("recv-messages", result.getRecvMessageCount());
 
             JsonArray jsonExecutions = new JsonArray();
-            for (Commit commit: history.get(result.getReplicaId())) {
+            for (Summary s: history.get(result.getReplicaId())) {
                 JsonObject jsonExecution = new JsonObject();
 
-                jsonExecution.addProperty("start", commit.getStart());
-                jsonExecution.addProperty("finish", commit.getFinish());
+                jsonExecution.addProperty("start", s.getStart());
+                jsonExecution.addProperty("finish", s.getFinish());
+                jsonExecution.addProperty("tx-committed", s.getTxCommitted());
+                jsonExecution.addProperty("avg-latency", s.getAvgLatency());
 
                 jsonExecutions.add(jsonExecution);
             }

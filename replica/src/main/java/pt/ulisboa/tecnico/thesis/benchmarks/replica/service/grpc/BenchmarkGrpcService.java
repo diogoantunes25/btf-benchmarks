@@ -10,10 +10,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkMode;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.BenchmarkResults;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.local.BenchmarkService;
 
 import java.math.BigInteger;
@@ -165,26 +162,19 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             StreamObserver<BenchmarkServiceOuterClass.InformResponse> responseObserver
     ) {
 
-        List<Execution> info = benchmarkService.inform();
+        Summary info = benchmarkService.inform();
 
-        // TODO: Handle this
-        BenchmarkServiceOuterClass.InformResponse.Builder builder = BenchmarkServiceOuterClass.InformResponse
+        BenchmarkServiceOuterClass.InformResponse response = BenchmarkServiceOuterClass.InformResponse
                 .newBuilder()
-                .setReplica(this.replicaId);
-
-        for (Execution e: info) {
-            BenchmarkServiceOuterClass.InformResponse.TransactionCommit transcation =
-                        BenchmarkServiceOuterClass.InformResponse.TransactionCommit
-                                .newBuilder()
-                                .setStart(e.getStart())
-                                .setFinish(e.getFinish())
-                                .build();
-
-            builder.addCommits(transcation);
-        }
+                .setReplica(this.replicaId)
+                .setStart(info.getStart())
+                .setFinish(info.getFinish())
+                .setTxCommitted(info.getTxCommitted())
+                .setAvgLatency(info.getAvgLatency())
+                .build();
 
         System.out.println("I was asked to inform master of progress");
-        responseObserver.onNext(builder.build());
+        responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 

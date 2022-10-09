@@ -24,6 +24,7 @@ pt/ulisboa/tecnico/thesis/benchmarks/replica/service/grpc/BenchmarkGrpcService$1
 pt/ulisboa/tecnico/thesis/benchmarks/replica/TcpTransportOld.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/BenchmarkResults$LatencyMeasurement$Key.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/TcpTransportOld$Connection.class
+pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Summary.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/model/BenchmarkResults$LatencyMeasurement.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/BenchmarkReplica.class
 pt/ulisboa/tecnico/thesis/benchmarks/replica/Protocol.class

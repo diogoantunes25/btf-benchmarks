@@ -43,6 +43,7 @@ pt/ulisboa/tecnico/thesis/benchmarks/master/AwsDeployer.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/service/local/BenchmarkService.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/cli/cmd/PingCommand.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/cli/cmd/benchmark/StopCommand.class
+pt/ulisboa/tecnico/thesis/benchmarks/replica/model/Summary.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/service/local/BenchmarkService$InformationCollector.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/cli/cmd/ExitCommand.class
 pt/ulisboa/tecnico/thesis/benchmarks/master/repository/BenchmarkRepository.class

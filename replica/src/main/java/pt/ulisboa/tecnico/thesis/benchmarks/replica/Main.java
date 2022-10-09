@@ -35,6 +35,7 @@ public class Main {
         System.out.println("Building replica...");
         System.out.println("URI: " + config.getMasterUri());
         System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
+        System.out.println("Listening on " + BASE_PORT + config.getOffset() + " (standard) and " + BASE_CONTROL_PORT + " (control)");
 
         // Register with master
         ManagedChannel channel = ManagedChannelBuilder

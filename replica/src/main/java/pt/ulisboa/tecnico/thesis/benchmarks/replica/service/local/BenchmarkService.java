@@ -29,6 +29,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.LatencyReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.ThroughputReplica;
@@ -154,11 +155,11 @@ public class BenchmarkService {
         return benchmark;
     }
 
-    public List<Execution> inform() {
+    public Summary inform() {
         logger.info("------------------------------------------------------------------------");
         logger.info("Getting information.");
         logger.info("------------------------------------------------------------------------");
-        List<Execution> info = this.benchmarkReplica.getInfoAndReset();
+        Summary info = this.benchmarkReplica.getInfoAndReset();
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
 

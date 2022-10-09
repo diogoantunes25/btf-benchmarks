@@ -11106,28 +11106,24 @@ public final class BenchmarkServiceOuterClass {
     int getReplica();
 
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> 
-        getCommitsList();
+    long getStart();
+
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 finish = 3;</code>
      */
-    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index);
+    long getFinish();
+
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 txCommitted = 4;</code>
      */
-    int getCommitsCount();
+    long getTxCommitted();
+
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>float avgLatency = 5;</code>
      */
-    java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
-        getCommitsOrBuilderList();
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-     */
-    pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
-        int index);
+    float getAvgLatency();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse}
@@ -11143,7 +11139,10 @@ public final class BenchmarkServiceOuterClass {
     }
     private InformResponse() {
       replica_ = 0;
-      commits_ = java.util.Collections.emptyList();
+      start_ = 0L;
+      finish_ = 0L;
+      txCommitted_ = 0L;
+      avgLatency_ = 0F;
     }
 
     @java.lang.Override
@@ -11182,13 +11181,24 @@ public final class BenchmarkServiceOuterClass {
               replica_ = input.readUInt32();
               break;
             }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                commits_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit>();
-                mutable_bitField0_ |= 0x00000002;
-              }
-              commits_.add(
-                  input.readMessage(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.parser(), extensionRegistry));
+            case 16: {
+
+              start_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+
+              finish_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+
+              txCommitted_ = input.readUInt64();
+              break;
+            }
+            case 45: {
+
+              avgLatency_ = input.readFloat();
               break;
             }
           }
@@ -11199,9 +11209,6 @@ public final class BenchmarkServiceOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-          commits_ = java.util.Collections.unmodifiableList(commits_);
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -11218,523 +11225,6 @@ public final class BenchmarkServiceOuterClass {
               pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.Builder.class);
     }
 
-    public interface TransactionCommitOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>uint64 start = 1;</code>
-       */
-      long getStart();
-
-      /**
-       * <code>uint64 finish = 2;</code>
-       */
-      long getFinish();
-    }
-    /**
-     * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit}
-     */
-    public  static final class TransactionCommit extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
-        TransactionCommitOrBuilder {
-    private static final long serialVersionUID = 0L;
-      // Use TransactionCommit.newBuilder() to construct.
-      private TransactionCommit(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private TransactionCommit() {
-        start_ = 0L;
-        finish_ = 0L;
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return this.unknownFields;
-      }
-      private TransactionCommit(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownFieldProto3(
-                    input, unknownFields, extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-
-                start_ = input.readUInt64();
-                break;
-              }
-              case 16: {
-
-                finish_ = input.readUInt64();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder.class);
-      }
-
-      public static final int START_FIELD_NUMBER = 1;
-      private long start_;
-      /**
-       * <code>uint64 start = 1;</code>
-       */
-      public long getStart() {
-        return start_;
-      }
-
-      public static final int FINISH_FIELD_NUMBER = 2;
-      private long finish_;
-      /**
-       * <code>uint64 finish = 2;</code>
-       */
-      public long getFinish() {
-        return finish_;
-      }
-
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        if (start_ != 0L) {
-          output.writeUInt64(1, start_);
-        }
-        if (finish_ != 0L) {
-          output.writeUInt64(2, finish_);
-        }
-        unknownFields.writeTo(output);
-      }
-
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (start_ != 0L) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(1, start_);
-        }
-        if (finish_ != 0L) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(2, finish_);
-        }
-        size += unknownFields.getSerializedSize();
-        memoizedSize = size;
-        return size;
-      }
-
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit)) {
-          return super.equals(obj);
-        }
-        pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) obj;
-
-        boolean result = true;
-        result = result && (getStart()
-            == other.getStart());
-        result = result && (getFinish()
-            == other.getFinish());
-        result = result && unknownFields.equals(other.unknownFields);
-        return result;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptor().hashCode();
-        hash = (37 * hash) + START_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getStart());
-        hash = (37 * hash) + FINISH_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getFinish());
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          java.nio.ByteBuffer data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          java.nio.ByteBuffer data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder.class);
-        }
-
-        // Construct using pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-          }
-        }
-        public Builder clear() {
-          super.clear();
-          start_ = 0L;
-
-          finish_ = 0L;
-
-          return this;
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstanceForType() {
-          return pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance();
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit build() {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit buildPartial() {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit(this);
-          result.start_ = start_;
-          result.finish_ = finish_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder clone() {
-          return (Builder) super.clone();
-        }
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.setField(field, value);
-        }
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
-        }
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
-        }
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, java.lang.Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
-        }
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            java.lang.Object value) {
-          return (Builder) super.addRepeatedField(field, value);
-        }
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) {
-            return mergeFrom((pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit other) {
-          if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance()) return this;
-          if (other.getStart() != 0L) {
-            setStart(other.getStart());
-          }
-          if (other.getFinish() != 0L) {
-            setFinish(other.getFinish());
-          }
-          this.mergeUnknownFields(other.unknownFields);
-          onChanged();
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-
-        private long start_ ;
-        /**
-         * <code>uint64 start = 1;</code>
-         */
-        public long getStart() {
-          return start_;
-        }
-        /**
-         * <code>uint64 start = 1;</code>
-         */
-        public Builder setStart(long value) {
-          
-          start_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>uint64 start = 1;</code>
-         */
-        public Builder clearStart() {
-          
-          start_ = 0L;
-          onChanged();
-          return this;
-        }
-
-        private long finish_ ;
-        /**
-         * <code>uint64 finish = 2;</code>
-         */
-        public long getFinish() {
-          return finish_;
-        }
-        /**
-         * <code>uint64 finish = 2;</code>
-         */
-        public Builder setFinish(long value) {
-          
-          finish_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>uint64 finish = 2;</code>
-         */
-        public Builder clearFinish() {
-          
-          finish_ = 0L;
-          onChanged();
-          return this;
-        }
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.setUnknownFieldsProto3(unknownFields);
-        }
-
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return super.mergeUnknownFields(unknownFields);
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
-      }
-
-      // @@protoc_insertion_point(class_scope:pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit)
-      private static final pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit();
-      }
-
-      public static pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<TransactionCommit>
-          PARSER = new com.google.protobuf.AbstractParser<TransactionCommit>() {
-        public TransactionCommit parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new TransactionCommit(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<TransactionCommit> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<TransactionCommit> getParserForType() {
-        return PARSER;
-      }
-
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
-    }
-
-    private int bitField0_;
     public static final int REPLICA_FIELD_NUMBER = 1;
     private int replica_;
     /**
@@ -11744,39 +11234,40 @@ public final class BenchmarkServiceOuterClass {
       return replica_;
     }
 
-    public static final int COMMITS_FIELD_NUMBER = 2;
-    private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> commits_;
+    public static final int START_FIELD_NUMBER = 2;
+    private long start_;
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> getCommitsList() {
-      return commits_;
+    public long getStart() {
+      return start_;
     }
+
+    public static final int FINISH_FIELD_NUMBER = 3;
+    private long finish_;
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 finish = 3;</code>
      */
-    public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
-        getCommitsOrBuilderList() {
-      return commits_;
+    public long getFinish() {
+      return finish_;
     }
+
+    public static final int TXCOMMITTED_FIELD_NUMBER = 4;
+    private long txCommitted_;
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>uint64 txCommitted = 4;</code>
      */
-    public int getCommitsCount() {
-      return commits_.size();
+    public long getTxCommitted() {
+      return txCommitted_;
     }
+
+    public static final int AVGLATENCY_FIELD_NUMBER = 5;
+    private float avgLatency_;
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+     * <code>float avgLatency = 5;</code>
      */
-    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index) {
-      return commits_.get(index);
-    }
-    /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-     */
-    public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
-        int index) {
-      return commits_.get(index);
+    public float getAvgLatency() {
+      return avgLatency_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -11794,8 +11285,17 @@ public final class BenchmarkServiceOuterClass {
       if (replica_ != 0) {
         output.writeUInt32(1, replica_);
       }
-      for (int i = 0; i < commits_.size(); i++) {
-        output.writeMessage(2, commits_.get(i));
+      if (start_ != 0L) {
+        output.writeUInt64(2, start_);
+      }
+      if (finish_ != 0L) {
+        output.writeUInt64(3, finish_);
+      }
+      if (txCommitted_ != 0L) {
+        output.writeUInt64(4, txCommitted_);
+      }
+      if (avgLatency_ != 0F) {
+        output.writeFloat(5, avgLatency_);
       }
       unknownFields.writeTo(output);
     }
@@ -11809,9 +11309,21 @@ public final class BenchmarkServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, replica_);
       }
-      for (int i = 0; i < commits_.size(); i++) {
+      if (start_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, commits_.get(i));
+          .computeUInt64Size(2, start_);
+      }
+      if (finish_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(3, finish_);
+      }
+      if (txCommitted_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(4, txCommitted_);
+      }
+      if (avgLatency_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, avgLatency_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -11831,8 +11343,16 @@ public final class BenchmarkServiceOuterClass {
       boolean result = true;
       result = result && (getReplica()
           == other.getReplica());
-      result = result && getCommitsList()
-          .equals(other.getCommitsList());
+      result = result && (getStart()
+          == other.getStart());
+      result = result && (getFinish()
+          == other.getFinish());
+      result = result && (getTxCommitted()
+          == other.getTxCommitted());
+      result = result && (
+          java.lang.Float.floatToIntBits(getAvgLatency())
+          == java.lang.Float.floatToIntBits(
+              other.getAvgLatency()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -11846,10 +11366,18 @@ public final class BenchmarkServiceOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + REPLICA_FIELD_NUMBER;
       hash = (53 * hash) + getReplica();
-      if (getCommitsCount() > 0) {
-        hash = (37 * hash) + COMMITS_FIELD_NUMBER;
-        hash = (53 * hash) + getCommitsList().hashCode();
-      }
+      hash = (37 * hash) + START_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getStart());
+      hash = (37 * hash) + FINISH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getFinish());
+      hash = (37 * hash) + TXCOMMITTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTxCommitted());
+      hash = (37 * hash) + AVGLATENCY_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAvgLatency());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11975,19 +11503,20 @@ public final class BenchmarkServiceOuterClass {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getCommitsFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
         replica_ = 0;
 
-        if (commitsBuilder_ == null) {
-          commits_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-        } else {
-          commitsBuilder_.clear();
-        }
+        start_ = 0L;
+
+        finish_ = 0L;
+
+        txCommitted_ = 0L;
+
+        avgLatency_ = 0F;
+
         return this;
       }
 
@@ -12010,19 +11539,11 @@ public final class BenchmarkServiceOuterClass {
 
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse buildPartial() {
         pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.replica_ = replica_;
-        if (commitsBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            commits_ = java.util.Collections.unmodifiableList(commits_);
-            bitField0_ = (bitField0_ & ~0x00000002);
-          }
-          result.commits_ = commits_;
-        } else {
-          result.commits_ = commitsBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
+        result.start_ = start_;
+        result.finish_ = finish_;
+        result.txCommitted_ = txCommitted_;
+        result.avgLatency_ = avgLatency_;
         onBuilt();
         return result;
       }
@@ -12067,31 +11588,17 @@ public final class BenchmarkServiceOuterClass {
         if (other.getReplica() != 0) {
           setReplica(other.getReplica());
         }
-        if (commitsBuilder_ == null) {
-          if (!other.commits_.isEmpty()) {
-            if (commits_.isEmpty()) {
-              commits_ = other.commits_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-            } else {
-              ensureCommitsIsMutable();
-              commits_.addAll(other.commits_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.commits_.isEmpty()) {
-            if (commitsBuilder_.isEmpty()) {
-              commitsBuilder_.dispose();
-              commitsBuilder_ = null;
-              commits_ = other.commits_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-              commitsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getCommitsFieldBuilder() : null;
-            } else {
-              commitsBuilder_.addAllMessages(other.commits_);
-            }
-          }
+        if (other.getStart() != 0L) {
+          setStart(other.getStart());
+        }
+        if (other.getFinish() != 0L) {
+          setFinish(other.getFinish());
+        }
+        if (other.getTxCommitted() != 0L) {
+          setTxCommitted(other.getTxCommitted());
+        }
+        if (other.getAvgLatency() != 0F) {
+          setAvgLatency(other.getAvgLatency());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -12119,7 +11626,6 @@ public final class BenchmarkServiceOuterClass {
         }
         return this;
       }
-      private int bitField0_;
 
       private int replica_ ;
       /**
@@ -12147,244 +11653,108 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
 
-      private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> commits_ =
-        java.util.Collections.emptyList();
-      private void ensureCommitsIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          commits_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit>(commits_);
-          bitField0_ |= 0x00000002;
-         }
+      private long start_ ;
+      /**
+       * <code>uint64 start = 2;</code>
+       */
+      public long getStart() {
+        return start_;
+      }
+      /**
+       * <code>uint64 start = 2;</code>
+       */
+      public Builder setStart(long value) {
+        
+        start_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 start = 2;</code>
+       */
+      public Builder clearStart() {
+        
+        start_ = 0L;
+        onChanged();
+        return this;
       }
 
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> commitsBuilder_;
+      private long finish_ ;
+      /**
+       * <code>uint64 finish = 3;</code>
+       */
+      public long getFinish() {
+        return finish_;
+      }
+      /**
+       * <code>uint64 finish = 3;</code>
+       */
+      public Builder setFinish(long value) {
+        
+        finish_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 finish = 3;</code>
+       */
+      public Builder clearFinish() {
+        
+        finish_ = 0L;
+        onChanged();
+        return this;
+      }
 
+      private long txCommitted_ ;
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       * <code>uint64 txCommitted = 4;</code>
        */
-      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> getCommitsList() {
-        if (commitsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(commits_);
-        } else {
-          return commitsBuilder_.getMessageList();
-        }
+      public long getTxCommitted() {
+        return txCommitted_;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       * <code>uint64 txCommitted = 4;</code>
        */
-      public int getCommitsCount() {
-        if (commitsBuilder_ == null) {
-          return commits_.size();
-        } else {
-          return commitsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit getCommits(int index) {
-        if (commitsBuilder_ == null) {
-          return commits_.get(index);
-        } else {
-          return commitsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder setCommits(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
-        if (commitsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCommitsIsMutable();
-          commits_.set(index, value);
-          onChanged();
-        } else {
-          commitsBuilder_.setMessage(index, value);
-        }
+      public Builder setTxCommitted(long value) {
+        
+        txCommitted_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       * <code>uint64 txCommitted = 4;</code>
        */
-      public Builder setCommits(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
-        if (commitsBuilder_ == null) {
-          ensureCommitsIsMutable();
-          commits_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          commitsBuilder_.setMessage(index, builderForValue.build());
-        }
+      public Builder clearTxCommitted() {
+        
+        txCommitted_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private float avgLatency_ ;
+      /**
+       * <code>float avgLatency = 5;</code>
+       */
+      public float getAvgLatency() {
+        return avgLatency_;
+      }
+      /**
+       * <code>float avgLatency = 5;</code>
+       */
+      public Builder setAvgLatency(float value) {
+        
+        avgLatency_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
+       * <code>float avgLatency = 5;</code>
        */
-      public Builder addCommits(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
-        if (commitsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCommitsIsMutable();
-          commits_.add(value);
-          onChanged();
-        } else {
-          commitsBuilder_.addMessage(value);
-        }
+      public Builder clearAvgLatency() {
+        
+        avgLatency_ = 0F;
+        onChanged();
         return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder addCommits(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit value) {
-        if (commitsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCommitsIsMutable();
-          commits_.add(index, value);
-          onChanged();
-        } else {
-          commitsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder addCommits(
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
-        if (commitsBuilder_ == null) {
-          ensureCommitsIsMutable();
-          commits_.add(builderForValue.build());
-          onChanged();
-        } else {
-          commitsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder addCommits(
-          int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder builderForValue) {
-        if (commitsBuilder_ == null) {
-          ensureCommitsIsMutable();
-          commits_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          commitsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder addAllCommits(
-          java.lang.Iterable<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit> values) {
-        if (commitsBuilder_ == null) {
-          ensureCommitsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, commits_);
-          onChanged();
-        } else {
-          commitsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder clearCommits() {
-        if (commitsBuilder_ == null) {
-          commits_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-          onChanged();
-        } else {
-          commitsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public Builder removeCommits(int index) {
-        if (commitsBuilder_ == null) {
-          ensureCommitsIsMutable();
-          commits_.remove(index);
-          onChanged();
-        } else {
-          commitsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder getCommitsBuilder(
-          int index) {
-        return getCommitsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder getCommitsOrBuilder(
-          int index) {
-        if (commitsBuilder_ == null) {
-          return commits_.get(index);  } else {
-          return commitsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
-           getCommitsOrBuilderList() {
-        if (commitsBuilder_ != null) {
-          return commitsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(commits_);
-        }
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder addCommitsBuilder() {
-        return getCommitsFieldBuilder().addBuilder(
-            pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder addCommitsBuilder(
-          int index) {
-        return getCommitsFieldBuilder().addBuilder(
-            index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse.TransactionCommit commits = 2;</code>
-       */
-      public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder> 
-           getCommitsBuilderList() {
-        return getCommitsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder> 
-          getCommitsFieldBuilder() {
-        if (commitsBuilder_ == null) {
-          commitsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommit.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.InformResponse.TransactionCommitOrBuilder>(
-                  commits_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
-                  getParentForChildren(),
-                  isClean());
-          commits_ = null;
-        }
-        return commitsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -13359,11 +12729,6 @@ public final class BenchmarkServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -13427,39 +12792,37 @@ public final class BenchmarkServiceOuterClass {
       "t.ulisboa.tecnico.thesis.benchmarks.cont" +
       "ract.StopBenchmarkResponse.Execution\032*\n\t" +
       "Execution\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 \001(\004" +
-      "\"\017\n\rInformRequest\"\267\001\n\016InformResponse\022\017\n\007" +
-      "replica\030\001 \001(\r\022`\n\007commits\030\002 \003(\0132O.pt.ulis" +
-      "boa.tecnico.thesis.benchmarks.contract.I" +
-      "nformResponse.TransactionCommit\0322\n\021Trans" +
-      "actionCommit\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 " +
-      "\001(\004\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022\n" +
-      "\020ShutdownResponse2\376\007\n\020BenchmarkService\022\213" +
-      "\001\n\010topology\022>.pt.ulisboa.tecnico.thesis." +
-      "benchmarks.contract.TopologyRequest\032?.pt" +
-      ".ulisboa.tecnico.thesis.benchmarks.contr" +
-      "act.TopologyResponse\022\213\001\n\010protocol\022>.pt.u" +
-      "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.ProtocolRequest\032?.pt.ulisboa.tecnico.t" +
-      "hesis.benchmarks.contract.ProtocolRespon" +
-      "se\022\224\001\n\005start\022D.pt.ulisboa.tecnico.thesis" +
-      ".benchmarks.contract.StartBenchmarkReque" +
-      "st\032E.pt.ulisboa.tecnico.thesis.benchmark" +
-      "s.contract.StartBenchmarkResponse\022\221\001\n\004st" +
-      "op\022C.pt.ulisboa.tecnico.thesis.benchmark" +
-      "s.contract.StopBenchmarkRequest\032D.pt.uli" +
-      "sboa.tecnico.thesis.benchmarks.contract." +
-      "StopBenchmarkResponse\022\205\001\n\006inform\022<.pt.ul" +
-      "isboa.tecnico.thesis.benchmarks.contract" +
-      ".InformRequest\032=.pt.ulisboa.tecnico.thes" +
-      "is.benchmarks.contract.InformResponse\022\214\001" +
-      "\n\007execute\022?.pt.ulisboa.tecnico.thesis.be" +
-      "nchmarks.contract.BenchmarkRequest\032@.pt." +
+      "\"\017\n\rInformRequest\"i\n\016InformResponse\022\017\n\007r" +
+      "eplica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 " +
+      "\001(\004\022\023\n\013txCommitted\030\004 \001(\004\022\022\n\navgLatency\030\005" +
+      " \001(\002\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022" +
+      "\n\020ShutdownResponse2\376\007\n\020BenchmarkService\022" +
+      "\213\001\n\010topology\022>.pt.ulisboa.tecnico.thesis" +
+      ".benchmarks.contract.TopologyRequest\032?.p" +
+      "t.ulisboa.tecnico.thesis.benchmarks.cont" +
+      "ract.TopologyResponse\022\213\001\n\010protocol\022>.pt." +
       "ulisboa.tecnico.thesis.benchmarks.contra" +
-      "ct.BenchmarkResponse\022\213\001\n\010shutdown\022>.pt.u" +
+      "ct.ProtocolRequest\032?.pt.ulisboa.tecnico." +
+      "thesis.benchmarks.contract.ProtocolRespo" +
+      "nse\022\224\001\n\005start\022D.pt.ulisboa.tecnico.thesi" +
+      "s.benchmarks.contract.StartBenchmarkRequ" +
+      "est\032E.pt.ulisboa.tecnico.thesis.benchmar" +
+      "ks.contract.StartBenchmarkResponse\022\221\001\n\004s" +
+      "top\022C.pt.ulisboa.tecnico.thesis.benchmar" +
+      "ks.contract.StopBenchmarkRequest\032D.pt.ul" +
+      "isboa.tecnico.thesis.benchmarks.contract" +
+      ".StopBenchmarkResponse\022\205\001\n\006inform\022<.pt.u" +
       "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.ShutdownRequest\032?.pt.ulisboa.tecnico.t" +
-      "hesis.benchmarks.contract.ShutdownRespon" +
-      "seb\006proto3"
+      "t.InformRequest\032=.pt.ulisboa.tecnico.the" +
+      "sis.benchmarks.contract.InformResponse\022\214" +
+      "\001\n\007execute\022?.pt.ulisboa.tecnico.thesis.b" +
+      "enchmarks.contract.BenchmarkRequest\032@.pt" +
+      ".ulisboa.tecnico.thesis.benchmarks.contr" +
+      "act.BenchmarkResponse\022\213\001\n\010shutdown\022>.pt." +
+      "ulisboa.tecnico.thesis.benchmarks.contra" +
+      "ct.ShutdownRequest\032?.pt.ulisboa.tecnico." +
+      "thesis.benchmarks.contract.ShutdownRespo" +
+      "nseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -13574,13 +12937,7 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor,
-        new java.lang.String[] { "Replica", "Commits", });
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor =
-      internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor.getNestedTypes().get(0);
-    internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_TransactionCommit_descriptor,
-        new java.lang.String[] { "Start", "Finish", });
+        new java.lang.String[] { "Replica", "Start", "Finish", "TxCommitted", "AvgLatency", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_fieldAccessorTable = new

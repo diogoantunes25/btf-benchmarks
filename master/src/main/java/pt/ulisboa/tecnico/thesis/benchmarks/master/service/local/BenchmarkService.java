@@ -13,6 +13,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.JsonService;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -272,7 +273,7 @@ public class BenchmarkService {
         };
 
         this.informationCollector.stop();
-        Map<Integer,List<Commit>> history = this.informationCollector.getHistory();
+        Map<Integer,List<Summary>> history = this.informationCollector.getHistory();
         this.informationCollector = null;
         System.out.println("[stop benchmark] stopped information collector");
 
@@ -365,7 +366,7 @@ public class BenchmarkService {
         private final Logger logger = LoggerFactory.getLogger(InformationCollector.class);
         private final int WAIT_PERIOD = 5000; // Milliseconds
 
-        private final Map<Integer, List<Commit>> history = new HashMap<>();
+        private final Map<Integer, List<Summary>> history = new HashMap<>();
 
         private Thread thread = null;
 
@@ -387,7 +388,7 @@ public class BenchmarkService {
                 while (true) {
                     try {
                         Thread.sleep(WAIT_PERIOD);
-                        sendRetrieveRequests();
+                        getInfo();
                     } catch(InterruptedException e) {
                         return;
                     }
@@ -401,11 +402,11 @@ public class BenchmarkService {
             this.thread.interrupt();
         }
 
-        public Map<Integer, List<Commit>> getHistory() {
+        public Map<Integer, List<Summary>> getHistory() {
             return history;
         }
 
-        public void sendRetrieveRequests() {
+        public void getInfo() {
             // logger.info("Retrieving information from replicas");
 
             final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
@@ -453,9 +454,9 @@ public class BenchmarkService {
 
             // Add response info to history
             for (int i = 0; i < topology.getN(); i++) {
-                for(BenchmarkServiceOuterClass.InformResponse.TransactionCommit c: responses.get(i).getCommitsList()) {
-                    history.get(i).add(new Commit(c.getStart(), c.getFinish()));
-                }
+                BenchmarkServiceOuterClass.InformResponse response = responses.get(i);
+                Summary summary = new Summary(response.getStart(), response.getFinish(), response.getTxCommitted(), response.getAvgLatency());
+                history.get(i).add(summary);
             }
         }
     }

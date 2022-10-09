@@ -119,13 +119,10 @@ message StopBenchmarkResponse {
 message InformRequest {}
 message InformResponse {
     uint32 replica = 1;
-
-    message TransactionCommit {
-        uint64 start = 1;
-        uint64 finish = 2;
-    }
-
-    repeated TransactionCommit commits = 2;
+    uint64 start = 2;
+    uint64 finish = 3;
+    uint64 txCommitted = 4;
+    float avgLatency = 5;
 }
 
 message ShutdownRequest {
