@@ -123,7 +123,7 @@ public class BenchmarkService {
                 break;
             case THROUGHPUT:
             default: {
-                this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport, load);
+                this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport, load, batchSize);
                 System.out.println("Throughtput replica spawned");
             }
         }

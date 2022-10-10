@@ -80,6 +80,8 @@ public abstract class BenchmarkReplica {
         // TODO: (dsa) check with breda if this is good idea
         System.gc();
 
+        logger.info("Sending information - txCommited: {}, latency: {}", txCommitted, avgLatency);
+
         return new Summary(start, now, txCommitted, avgLatency);
     }
 
