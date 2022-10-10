@@ -34,8 +34,11 @@ public class ThroughputReplica extends BenchmarkReplica {
      * Maps pending payloads to their submit time.
      */
     private final Map<Entry, Long> pendingPayloads = new ConcurrentHashMap<>();
-    private final Queue<Long> proposeTimes = new PriorityBlockingQueue<>();
 
+    /**
+     * Max number of pending payloads (must exist otherwise heap capacity is reached).
+     */
+    private final int maxPendingPayload;
     private int load;
 
     private Thread loader;
@@ -43,6 +46,7 @@ public class ThroughputReplica extends BenchmarkReplica {
     public ThroughputReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport, int load) {
         super(protocol, encoder, transport);
         this.load = load;
+        this.maxPendingPayload = this.load * 60; // I only hold a minute worth of load
 
         // start listeners
         for (Connection connection: this.transport.getConnections()) {
@@ -113,14 +117,16 @@ public class ThroughputReplica extends BenchmarkReplica {
         synchronized (this) {
             for (byte[] entry: block.getEntries()) {
                 // Check if my payload was delivered
-                logger.info("New payload arrived");
+                // logger.info("New payload arrived");
                 Long submitTime = pendingPayloads.remove(new Entry(entry));
                 if (submitTime != null) {
 
                     logger.info("A payload of mine came back (latency = {})", timestamp - submitTime);
 
                     // Save measurement
-                    this.executions.add(new Execution(submitTime, timestamp));
+                    synchronized (this.executions) {
+                        this.executions.add(new Execution(submitTime, timestamp));
+                    }
                 } else {
                     // logger.info("Received foreign payload");
                 }
@@ -145,10 +151,11 @@ public class ThroughputReplica extends BenchmarkReplica {
                         long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
                         byte[] payload = getPayload();
+                        if (pendingPayloads.size() > maxPendingPayload) {
+                            logger.info("Too many pending payloads, dropping payload (current: {}, max: {})", pendingPayloads.size(), maxPendingPayload);
+                        }
                         handleStep(protocol.handleInput(payload));
                         pendingPayloads.put(new Entry(payload), submitTime);
-
-                        logger.info("Payload sent");
                     }
                 } catch(InterruptedException e) {
                     return;

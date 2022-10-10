@@ -87,7 +87,9 @@ public class LatencyReplica extends BenchmarkReplica {
                     catch (MissingFormatArgumentException e) {
                         e.printStackTrace();
                     }
-                    this.executions.add(new Execution( this.proposeTime, timestamp));
+                    synchronized (this.executions) {
+                        this.executions.add(new Execution( this.proposeTime, timestamp));
+                    }
                     this.handleStep(this.propose());
                 }
             }

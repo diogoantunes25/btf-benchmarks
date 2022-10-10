@@ -47,12 +47,11 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         // FIXME: Remove hard coded version (use parameters or something)
         //final String javaPath = "/bin/java";
         // final String javaPath = "/opt/java/openjdk/bin/java";
-        // final String javaPath = "/usr/bin/java";
+        final String javaPath = "/usr/bin/java";
 
-        // final String jarPath = "D:\\Code\\benchmarks\\replica\\target\\replica-1.0-SNAPSHOT.jar";
-        // final String jarPath = "/home/diogo/MEGA/2 | LEIC-A/Projeto BIG/Study material/code/alea-benchmarks/replica/target/replica-1.0-SNAPSHOT.jar";
-        final String jarPath = "/alea/replica.jar";
-        // final String jarPath = "/jars/replica-1.0-SNAPSHOT.jar";
+
+        final String jarPath = "./replica.jar";
+        // final String jarPath = "/alea/replica.jar";
 
         int offset = replicaProcesses.size();
 

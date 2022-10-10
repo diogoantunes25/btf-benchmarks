@@ -29,13 +29,16 @@ public class Main {
         // Parse args
         Config config = Config.fromArgs(args);
 
+        int mainPort = BASE_PORT + config.getOffset();
+        int controlPort = BASE_CONTROL_PORT + config.getOffset();
+
         System.out.println("OUTPUT FILE FOR REPLICA " + config.getReplicaId());
         System.err.println("LOG FILE FOR REPLICA " + config.getReplicaId());
 
         System.out.println("Building replica...");
         System.out.println("URI: " + config.getMasterUri());
         System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
-        System.out.println("Listening on " + BASE_PORT + config.getOffset() + " (standard) and " + BASE_CONTROL_PORT + " (control)");
+        System.out.println("Listening on " + mainPort + " (main) and " + controlPort + " (control)");
 
         // Register with master
         ManagedChannel channel = ManagedChannelBuilder

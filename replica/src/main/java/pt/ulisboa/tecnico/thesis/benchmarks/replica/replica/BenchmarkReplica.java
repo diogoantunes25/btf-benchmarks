@@ -58,7 +58,7 @@ public abstract class BenchmarkReplica {
         long start;
 
         List<Execution> previousExecutions;
-        synchronized (this) {
+        synchronized (this.executions) {
             start = this.lastReset;
             this.lastReset = now;
             previousExecutions = this.executions;
@@ -72,7 +72,13 @@ public abstract class BenchmarkReplica {
             totalLatency += e.getFinish() - e.getStart();
         }
 
-        float avgLatency = totalLatency/txCommitted;
+        float avgLatency = 0;
+        if (txCommitted > 0) {
+            avgLatency = totalLatency/txCommitted;
+        }
+
+        // TODO: (dsa) check with breda if this is good idea
+        System.gc();
 
         return new Summary(start, now, txCommitted, avgLatency);
     }
