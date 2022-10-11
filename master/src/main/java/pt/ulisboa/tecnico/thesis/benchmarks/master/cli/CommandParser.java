@@ -27,7 +27,7 @@ public class CommandParser {
             // parse spawn replica command
             case "replica": {
                 List<String> args = tokens.subList(1, tokens.size());
-                if (args.size() < 2) throw new InvalidCommandException(line);
+                if (args.size() < 1) throw new InvalidCommandException(line);
                 return new SpawnServerCommand(args.get(0));
             }
 

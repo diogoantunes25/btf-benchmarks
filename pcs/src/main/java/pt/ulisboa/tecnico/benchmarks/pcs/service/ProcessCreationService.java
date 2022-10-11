@@ -47,8 +47,7 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         // FIXME: Remove hard coded version (use parameters or something)
         final String javaPath = "/usr/bin/java";
 
-        final String jarPath = "./replica.jar";
-        // final String jarPath = "/alea/replica.jar";
+        final String jarPath = "/alea/replica.jar";
 
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
                 jarPath, String.valueOf(replicaId), masterUri.toString(), String.valueOf(pcsIP));

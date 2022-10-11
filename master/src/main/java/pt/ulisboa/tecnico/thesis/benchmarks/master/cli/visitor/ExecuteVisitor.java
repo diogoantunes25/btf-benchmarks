@@ -148,8 +148,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
         if (response == null || !response.getOk()) {
             System.out.println("Unable to spawn replica.");
-        }
-        else {
+        } else {
             System.out.println("New replica was requested");
         }
 
