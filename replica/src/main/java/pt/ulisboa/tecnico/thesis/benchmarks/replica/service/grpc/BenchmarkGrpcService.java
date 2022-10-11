@@ -24,13 +24,16 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
     private final Integer replicaId;
     private final BenchmarkService benchmarkService;
 
+    private final int port;
+
     // TODO deprecated
     // private final BenchmarkReplica benchmarkReplica;
 
 
-    public BenchmarkGrpcService(Integer replicaId) {
+    public BenchmarkGrpcService(Integer replicaId, int port) {
         this.replicaId = replicaId;
         this.benchmarkService = new BenchmarkService(replicaId);
+        this.port = port;
 
         // TODO deprecated
         //this.benchmarkReplica = new BenchmarkReplica(replicaId);
@@ -56,7 +59,6 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
         Dealer.generateVerifiers(n, new KeyShare[]{keyShare});
 
         boolean result = benchmarkService.setTopology(replicas, groupKey, keyShare, request.getF());
-        // TODO deprecated boolean result = benchmarkReplica.setTopology(replicas, groupKey, keyShare, request.getF());
 
         // send topology response
         BenchmarkServiceOuterClass.TopologyResponse response = BenchmarkServiceOuterClass.TopologyResponse

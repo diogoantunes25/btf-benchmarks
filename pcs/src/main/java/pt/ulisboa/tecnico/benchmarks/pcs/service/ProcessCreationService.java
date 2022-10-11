@@ -43,36 +43,25 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         responseObserver.onCompleted();
     }
 
-    private boolean _replica(String pcsIP, int replicaID) {
+    private boolean _replica(String pcsIP, int replicaId) {
         // FIXME: Remove hard coded version (use parameters or something)
-        //final String javaPath = "/bin/java";
-        // final String javaPath = "/opt/java/openjdk/bin/java";
         final String javaPath = "/usr/bin/java";
-
 
         final String jarPath = "./replica.jar";
         // final String jarPath = "/alea/replica.jar";
 
-        int offset = replicaProcesses.size();
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
+                jarPath, String.valueOf(replicaId), masterUri.toString(), String.valueOf(pcsIP));
 
-        ProcessBuilder processBuilder;
-        if (DEBUG_MODE) {
-            // These arguments are needed to be able to attach a remote debugger to the replica processes
-            String debugParamenter = String.format("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=%d", 1044 + replicaProcesses.size());
-            processBuilder = new ProcessBuilder("java", debugParamenter, "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), pcsIP);
-        }
-        else {
-            processBuilder = new ProcessBuilder("java", "-jar", jarPath, String.valueOf(replicaProcesses.size()), masterUri.toString(), String.valueOf(pcsIP), String.valueOf(offset));
-        }
-        File outputFile = new File("./logs/replica" + replicaID + ".output");
-        File logFile = new File("./logs/replica" + replicaID + ".log");
+        File outputFile = new File("./logs/replica" + replicaId + ".output");
+        File logFile = new File("./logs/replica" + replicaId + ".log");
         processBuilder.redirectOutput(Redirect.to(outputFile));
         processBuilder.redirectError(Redirect.to(logFile));
 
         try {
             Process process = processBuilder.start();
 
-            System.out.println("Replica " + replicaID + " was created.");
+            System.out.println("Replica " + replicaId + " was created.");
 
             replicaProcesses.add(process);
 

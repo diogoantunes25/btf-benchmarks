@@ -24,24 +24,24 @@ public class TcpTransport implements Transport<String> {
     private final List<Replica> replicas;
     private final Map<Integer, Connection> connections = new ConcurrentHashMap<>();
 
-    public TcpTransport(Replica me, List<Replica> replicas) {
-        this(me, replicas, 1);
+    public TcpTransport(Replica me, List<Replica> replicas, int port) {
+        this(me, replicas, 1, port);
     }
 
-    public TcpTransport(Replica me, List<Replica> replicas, Integer numChannels) {
+    public TcpTransport(Replica me, List<Replica> replicas, Integer numChannels, int port) {
         this.replicas = replicas;
         try {
-            init(me, numChannels);
+            init(me, numChannels, port);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             System.exit(1);
         }
     }
 
-    private void init(Replica me, Integer numChannels) throws IOException, InterruptedException {
-        logger.info("[{}] Running TCP server at port {}.", System.currentTimeMillis(), me.getPort());
+    private void init(Replica me, Integer numChannels, int port) throws IOException, InterruptedException {
+        logger.info("[{}] Running TCP server at port {}.", System.currentTimeMillis(), port);
         this.me = me;
-        ServerSocket serverSocket = new ServerSocket(me.getPort());
+        ServerSocket serverSocket = new ServerSocket(port);
 
         // active connection
         for (Replica replica: replicas) {

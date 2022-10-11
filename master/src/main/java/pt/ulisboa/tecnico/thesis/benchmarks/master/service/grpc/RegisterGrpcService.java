@@ -34,10 +34,11 @@ public class RegisterGrpcService extends RegisterServiceGrpc.RegisterServiceImpl
         // store replica in repository
         repository.addReplica(replica);
 
+        System.out.println("Replica " + replicaId +" added, replicas is now: " + repository.getAll());
 
         // send register response
         RegisterServiceOuterClass.RegisterResponse response = RegisterServiceOuterClass.RegisterResponse.newBuilder()
-                .setReplicaId(replicaId).build();
+                .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

@@ -83,11 +83,11 @@ public class BenchmarkService {
         // set network info
         NetworkInfo.ValidatorSet validators = new NetworkInfo.ValidatorSet(
                 replicas.stream().map(Replica::getId).collect(Collectors.toSet()), tolerance);
+
         this.networkInfo = new NetworkInfo(replicaId, validators, groupKey, keyShare);
 
         // init transport layer
         // FIXME 2 channels?
-        // this.transport = new TcpTransport(me, replicas, 2);
         this.transport = new TcpTransport(me, replicas, 2);
 
         logger.info("Connection status:");

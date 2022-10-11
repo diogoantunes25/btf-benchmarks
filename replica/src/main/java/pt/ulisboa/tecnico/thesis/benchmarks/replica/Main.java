@@ -29,16 +29,14 @@ public class Main {
         // Parse args
         Config config = Config.fromArgs(args);
 
-        int mainPort = BASE_PORT + config.getOffset();
-        int controlPort = BASE_CONTROL_PORT + config.getOffset();
+        int port = BASE_PORT + config.getReplicaId();
+        int controlPort = BASE_CONTROL_PORT + config.getReplicaId();
 
         System.out.println("OUTPUT FILE FOR REPLICA " + config.getReplicaId());
         System.err.println("LOG FILE FOR REPLICA " + config.getReplicaId());
 
         System.out.println("Building replica...");
-        System.out.println("URI: " + config.getMasterUri());
         System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
-        System.out.println("Listening on " + mainPort + " (main) and " + controlPort + " (control)");
 
         // Register with master
         ManagedChannel channel = ManagedChannelBuilder
@@ -48,14 +46,13 @@ public class Main {
         RegisterServiceGrpc.RegisterServiceBlockingStub stub = RegisterServiceGrpc.newBlockingStub(channel);
 
         RegisterServiceOuterClass.RegisterRequest request = RegisterServiceOuterClass.RegisterRequest.newBuilder()
-                //.setReplicaId(config.getReplicaId())
+                .setReplicaId(config.getReplicaId())
                 .setAddress(config.getPcsIP().getHostAddress())
-                .setPort(BASE_PORT + config.getOffset())
-                .setControlPort(BASE_CONTROL_PORT + config.getOffset())
+                .setPort(port)
+                .setControlPort(controlPort)
                 .build();
 
         RegisterServiceOuterClass.RegisterResponse response = stub.register(request);
-        int replicaId = response.getReplicaId();
 
         // shutdown register channel
         channel.shutdown();
@@ -70,10 +67,12 @@ public class Main {
 
         // Start server
         Server server = ServerBuilder
-                .forPort(BASE_CONTROL_PORT + config.getOffset())
-                .addService(new BenchmarkGrpcService(replicaId))
+                .forPort(controlPort)
+                .addService(new BenchmarkGrpcService(config.getReplicaId(), port))
                 .addService(ProtoReflectionService.newInstance())
                 .build();
+
+        server.getPort();
 
         try {
             server.start();

@@ -37,6 +37,11 @@ public final class RegisterServiceOuterClass {
      * <code>int32 controlPort = 3;</code>
      */
     int getControlPort();
+
+    /**
+     * <code>int32 replicaId = 4;</code>
+     */
+    int getReplicaId();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterRequest}
@@ -54,6 +59,7 @@ public final class RegisterServiceOuterClass {
       address_ = "";
       port_ = 0;
       controlPort_ = 0;
+      replicaId_ = 0;
     }
 
     @java.lang.Override
@@ -101,6 +107,11 @@ public final class RegisterServiceOuterClass {
             case 24: {
 
               controlPort_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              replicaId_ = input.readInt32();
               break;
             }
           }
@@ -179,6 +190,15 @@ public final class RegisterServiceOuterClass {
       return controlPort_;
     }
 
+    public static final int REPLICAID_FIELD_NUMBER = 4;
+    private int replicaId_;
+    /**
+     * <code>int32 replicaId = 4;</code>
+     */
+    public int getReplicaId() {
+      return replicaId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -200,6 +220,9 @@ public final class RegisterServiceOuterClass {
       if (controlPort_ != 0) {
         output.writeInt32(3, controlPort_);
       }
+      if (replicaId_ != 0) {
+        output.writeInt32(4, replicaId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -218,6 +241,10 @@ public final class RegisterServiceOuterClass {
       if (controlPort_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, controlPort_);
+      }
+      if (replicaId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, replicaId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -241,6 +268,8 @@ public final class RegisterServiceOuterClass {
           == other.getPort());
       result = result && (getControlPort()
           == other.getControlPort());
+      result = result && (getReplicaId()
+          == other.getReplicaId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -258,6 +287,8 @@ public final class RegisterServiceOuterClass {
       hash = (53 * hash) + getPort();
       hash = (37 * hash) + CONTROLPORT_FIELD_NUMBER;
       hash = (53 * hash) + getControlPort();
+      hash = (37 * hash) + REPLICAID_FIELD_NUMBER;
+      hash = (53 * hash) + getReplicaId();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -393,6 +424,8 @@ public final class RegisterServiceOuterClass {
 
         controlPort_ = 0;
 
+        replicaId_ = 0;
+
         return this;
       }
 
@@ -418,6 +451,7 @@ public final class RegisterServiceOuterClass {
         result.address_ = address_;
         result.port_ = port_;
         result.controlPort_ = controlPort_;
+        result.replicaId_ = replicaId_;
         onBuilt();
         return result;
       }
@@ -468,6 +502,9 @@ public final class RegisterServiceOuterClass {
         }
         if (other.getControlPort() != 0) {
           setControlPort(other.getControlPort());
+        }
+        if (other.getReplicaId() != 0) {
+          setReplicaId(other.getReplicaId());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -616,6 +653,32 @@ public final class RegisterServiceOuterClass {
         onChanged();
         return this;
       }
+
+      private int replicaId_ ;
+      /**
+       * <code>int32 replicaId = 4;</code>
+       */
+      public int getReplicaId() {
+        return replicaId_;
+      }
+      /**
+       * <code>int32 replicaId = 4;</code>
+       */
+      public Builder setReplicaId(int value) {
+        
+        replicaId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 replicaId = 4;</code>
+       */
+      public Builder clearReplicaId() {
+        
+        replicaId_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFieldsProto3(unknownFields);
@@ -668,11 +731,6 @@ public final class RegisterServiceOuterClass {
   public interface RegisterResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterResponse)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int32 replicaId = 1;</code>
-     */
-    int getReplicaId();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterResponse}
@@ -687,7 +745,6 @@ public final class RegisterServiceOuterClass {
       super(builder);
     }
     private RegisterResponse() {
-      replicaId_ = 0;
     }
 
     @java.lang.Override
@@ -703,7 +760,6 @@ public final class RegisterServiceOuterClass {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -719,11 +775,6 @@ public final class RegisterServiceOuterClass {
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
-              break;
-            }
-            case 8: {
-
-              replicaId_ = input.readInt32();
               break;
             }
           }
@@ -750,15 +801,6 @@ public final class RegisterServiceOuterClass {
               pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse.class, pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse.Builder.class);
     }
 
-    public static final int REPLICAID_FIELD_NUMBER = 1;
-    private int replicaId_;
-    /**
-     * <code>int32 replicaId = 1;</code>
-     */
-    public int getReplicaId() {
-      return replicaId_;
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -771,9 +813,6 @@ public final class RegisterServiceOuterClass {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (replicaId_ != 0) {
-        output.writeInt32(1, replicaId_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -782,10 +821,6 @@ public final class RegisterServiceOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (replicaId_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, replicaId_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -802,8 +837,6 @@ public final class RegisterServiceOuterClass {
       pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse other = (pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse) obj;
 
       boolean result = true;
-      result = result && (getReplicaId()
-          == other.getReplicaId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -815,8 +848,6 @@ public final class RegisterServiceOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + REPLICAID_FIELD_NUMBER;
-      hash = (53 * hash) + getReplicaId();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -946,8 +977,6 @@ public final class RegisterServiceOuterClass {
       }
       public Builder clear() {
         super.clear();
-        replicaId_ = 0;
-
         return this;
       }
 
@@ -970,7 +999,6 @@ public final class RegisterServiceOuterClass {
 
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse buildPartial() {
         pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse result = new pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse(this);
-        result.replicaId_ = replicaId_;
         onBuilt();
         return result;
       }
@@ -1012,9 +1040,6 @@ public final class RegisterServiceOuterClass {
 
       public Builder mergeFrom(pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse other) {
         if (other == pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceOuterClass.RegisterResponse.getDefaultInstance()) return this;
-        if (other.getReplicaId() != 0) {
-          setReplicaId(other.getReplicaId());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1039,32 +1064,6 @@ public final class RegisterServiceOuterClass {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private int replicaId_ ;
-      /**
-       * <code>int32 replicaId = 1;</code>
-       */
-      public int getReplicaId() {
-        return replicaId_;
-      }
-      /**
-       * <code>int32 replicaId = 1;</code>
-       */
-      public Builder setReplicaId(int value) {
-        
-        replicaId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 replicaId = 1;</code>
-       */
-      public Builder clearReplicaId() {
-        
-        replicaId_ = 0;
-        onChanged();
         return this;
       }
       public final Builder setUnknownFields(
@@ -1136,10 +1135,10 @@ public final class RegisterServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\025RegisterService.proto\022-pt.ulisboa.tecn" +
-      "ico.thesis.benchmarks.contract\"E\n\017Regist" +
+      "ico.thesis.benchmarks.contract\"X\n\017Regist" +
       "erRequest\022\017\n\007address\030\001 \001(\t\022\014\n\004port\030\002 \001(\005" +
-      "\022\023\n\013controlPort\030\003 \001(\005\"%\n\020RegisterRespons" +
-      "e\022\021\n\treplicaId\030\001 \001(\0052\237\001\n\017RegisterService" +
+      "\022\023\n\013controlPort\030\003 \001(\005\022\021\n\treplicaId\030\004 \001(\005" +
+      "\"\022\n\020RegisterResponse2\237\001\n\017RegisterService" +
       "\022\213\001\n\010register\022>.pt.ulisboa.tecnico.thesi" +
       "s.benchmarks.contract.RegisterRequest\032?." +
       "pt.ulisboa.tecnico.thesis.benchmarks.con" +
@@ -1162,13 +1161,13 @@ public final class RegisterServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_RegisterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_RegisterRequest_descriptor,
-        new java.lang.String[] { "Address", "Port", "ControlPort", });
+        new java.lang.String[] { "Address", "Port", "ControlPort", "ReplicaId", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_RegisterResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_RegisterResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_RegisterResponse_descriptor,
-        new java.lang.String[] { "ReplicaId", });
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

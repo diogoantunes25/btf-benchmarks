@@ -24,7 +24,6 @@ public class Main {
                 .addService(ProtoReflectionService.newInstance())
                 .build();
 
-        // System.out.println("PCS running on port " + config.getPort());
         System.out.println("PCS running on port " + DEFAULT_PCS_PORT);
 
         try {

@@ -70,7 +70,6 @@ public class ExecuteVisitor implements CommandVisitor {
 
     private final PcsRepository pcsRepository;
     private final ReplicaRepository replicaRepository;
-
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
 
@@ -134,11 +133,11 @@ public class ExecuteVisitor implements CommandVisitor {
                 .newBlockingStub(channel);
 
         ProcessCreationServiceOuterClass.CreateReplicaRequest request = ProcessCreationServiceOuterClass.CreateReplicaRequest.newBuilder()
-                .setReplicaId(cmd.getReplicaId())
+                .setReplicaId(replicaRepository.getAll().size())
                 .setIpPcs(pcs.getAddress())
                 .build();
 
-        System.out.println("The id of the replica is " + cmd.getReplicaId());
+        System.out.println("Master says: create replica " + replicaRepository.getAll().size());
 
         ProcessCreationServiceOuterClass.CreateReplicaResponse response = null;
         try {
@@ -151,9 +150,7 @@ public class ExecuteVisitor implements CommandVisitor {
             System.out.println("Unable to spawn replica.");
         }
         else {
-            System.out.println("New replica spawned");
-            this.replicaRepository.addReplica(new Replica(cmd.getReplicaId(), pcs.getAddress(),
-                    cmd.getReplicaId() + REPLICA_BASE_PORT, cmd.getReplicaId() + REPLICA_BASE_CONTROL_PORT));
+            System.out.println("New replica was requested");
         }
 
         // TODO: check this
