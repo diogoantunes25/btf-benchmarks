@@ -149,34 +149,43 @@ public class ThroughputReplica extends BenchmarkReplica {
     private class LoadGenerator implements Runnable {
 
         // Sleep time in milliseconds
-        private static final int SLEEP_TIME = 1000;
+        private static final int TICK_PERIOD = 10;
         private int load;
         private final Logger logger = LoggerFactory.getLogger(LoadGenerator.class);
 
         private int counter = 0;
 
+        private double pendingAcumulator = 0;
+
         public LoadGenerator(int load) {
             this.load = load;
         }
+
         public void run() {
+            int toSend;
             while (true) {
                 try {
-                    Thread.sleep(SLEEP_TIME);
-                    txSubmitted += load;
-                    if (pendingPayloads.size() + load < maxPendingPayload) {
-                        logger.info("Submitting payloads (current: {}, max: {}, totalTx: {}, totalDropped: {})",
-                                pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
-                        for (int i = 0; i < load; i++) {
-                            long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
+                    Thread.sleep(TICK_PERIOD);
+                    pendingAcumulator += load * (TICK_PERIOD * Math.pow(10,-3));
+                    if (pendingAcumulator >= 1) {
+                        toSend = (int) Math.floor(pendingAcumulator);
+                        pendingAcumulator -= toSend;
+                        txSubmitted += toSend;
+                        if (pendingPayloads.size() + toSend < maxPendingPayload) {
+                            logger.info("Submitting {} payloads (current: {}, max: {}, totalTx: {}, totalDropped: {})",
+                                    toSend, pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
+                            for (int i = 0; i < toSend; i++) {
+                                long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
-                            byte[] payload = getPayload();
-                            handleStep(protocol.handleInput(payload));
-                            pendingPayloads.put(new Entry(payload), submitTime);
+                                byte[] payload = getPayload();
+                                handleStep(protocol.handleInput(payload));
+                                pendingPayloads.put(new Entry(payload), submitTime);
+                            }
+                        } else {
+                            logger.info("Too many pending payloads, dropping payload (current: {}, max: {}, totalTx: {}, totalDropped: {})",
+                                    pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
+                            txDropped += toSend;
                         }
-                    } else {
-                        logger.info("Too many pending payloads, dropping payload (current: {}, max: {}, totalTx: {}, totalDropped: {})",
-                                pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
-                        txDropped += load;
                     }
                 } catch(InterruptedException e) {
                     return;
