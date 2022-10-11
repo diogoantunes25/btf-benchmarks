@@ -9144,25 +9144,35 @@ public final class BenchmarkServiceOuterClass {
     long getRecvMessages();
 
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>uint64 totalTx = 6;</code>
+     */
+    long getTotalTx();
+
+    /**
+     * <code>uint64 droppedTx = 7;</code>
+     */
+    long getDroppedTx();
+
+    /**
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> 
         getExecutionsList();
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution getExecutions(int index);
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     int getExecutionsCount();
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder> 
         getExecutionsOrBuilderList();
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder getExecutionsOrBuilder(
         int index);
@@ -9185,6 +9195,8 @@ public final class BenchmarkServiceOuterClass {
       finish_ = 0L;
       sentMessages_ = 0L;
       recvMessages_ = 0L;
+      totalTx_ = 0L;
+      droppedTx_ = 0L;
       executions_ = java.util.Collections.emptyList();
     }
 
@@ -9244,10 +9256,20 @@ public final class BenchmarkServiceOuterClass {
               recvMessages_ = input.readUInt64();
               break;
             }
-            case 58: {
-              if (!((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+            case 48: {
+
+              totalTx_ = input.readUInt64();
+              break;
+            }
+            case 56: {
+
+              droppedTx_ = input.readUInt64();
+              break;
+            }
+            case 66: {
+              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
                 executions_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution>();
-                mutable_bitField0_ |= 0x00000020;
+                mutable_bitField0_ |= 0x00000080;
               }
               executions_.add(
                   input.readMessage(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.parser(), extensionRegistry));
@@ -9261,7 +9283,7 @@ public final class BenchmarkServiceOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
           executions_ = java.util.Collections.unmodifiableList(executions_);
         }
         this.unknownFields = unknownFields.build();
@@ -9842,35 +9864,53 @@ public final class BenchmarkServiceOuterClass {
       return recvMessages_;
     }
 
-    public static final int EXECUTIONS_FIELD_NUMBER = 7;
+    public static final int TOTALTX_FIELD_NUMBER = 6;
+    private long totalTx_;
+    /**
+     * <code>uint64 totalTx = 6;</code>
+     */
+    public long getTotalTx() {
+      return totalTx_;
+    }
+
+    public static final int DROPPEDTX_FIELD_NUMBER = 7;
+    private long droppedTx_;
+    /**
+     * <code>uint64 droppedTx = 7;</code>
+     */
+    public long getDroppedTx() {
+      return droppedTx_;
+    }
+
+    public static final int EXECUTIONS_FIELD_NUMBER = 8;
     private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> executions_;
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> getExecutionsList() {
       return executions_;
     }
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder> 
         getExecutionsOrBuilderList() {
       return executions_;
     }
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     public int getExecutionsCount() {
       return executions_.size();
     }
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution getExecutions(int index) {
       return executions_.get(index);
     }
     /**
-     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+     * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
      */
     public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder getExecutionsOrBuilder(
         int index) {
@@ -9904,8 +9944,14 @@ public final class BenchmarkServiceOuterClass {
       if (recvMessages_ != 0L) {
         output.writeUInt64(5, recvMessages_);
       }
+      if (totalTx_ != 0L) {
+        output.writeUInt64(6, totalTx_);
+      }
+      if (droppedTx_ != 0L) {
+        output.writeUInt64(7, droppedTx_);
+      }
       for (int i = 0; i < executions_.size(); i++) {
-        output.writeMessage(7, executions_.get(i));
+        output.writeMessage(8, executions_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -9935,9 +9981,17 @@ public final class BenchmarkServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(5, recvMessages_);
       }
+      if (totalTx_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, totalTx_);
+      }
+      if (droppedTx_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, droppedTx_);
+      }
       for (int i = 0; i < executions_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, executions_.get(i));
+          .computeMessageSize(8, executions_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9965,6 +10019,10 @@ public final class BenchmarkServiceOuterClass {
           == other.getSentMessages());
       result = result && (getRecvMessages()
           == other.getRecvMessages());
+      result = result && (getTotalTx()
+          == other.getTotalTx());
+      result = result && (getDroppedTx()
+          == other.getDroppedTx());
       result = result && getExecutionsList()
           .equals(other.getExecutionsList());
       result = result && unknownFields.equals(other.unknownFields);
@@ -9992,6 +10050,12 @@ public final class BenchmarkServiceOuterClass {
       hash = (37 * hash) + RECVMESSAGES_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getRecvMessages());
+      hash = (37 * hash) + TOTALTX_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTotalTx());
+      hash = (37 * hash) + DROPPEDTX_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDroppedTx());
       if (getExecutionsCount() > 0) {
         hash = (37 * hash) + EXECUTIONS_FIELD_NUMBER;
         hash = (53 * hash) + getExecutionsList().hashCode();
@@ -10136,9 +10200,13 @@ public final class BenchmarkServiceOuterClass {
 
         recvMessages_ = 0L;
 
+        totalTx_ = 0L;
+
+        droppedTx_ = 0L;
+
         if (executionsBuilder_ == null) {
           executions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000080);
         } else {
           executionsBuilder_.clear();
         }
@@ -10171,10 +10239,12 @@ public final class BenchmarkServiceOuterClass {
         result.finish_ = finish_;
         result.sentMessages_ = sentMessages_;
         result.recvMessages_ = recvMessages_;
+        result.totalTx_ = totalTx_;
+        result.droppedTx_ = droppedTx_;
         if (executionsBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
             executions_ = java.util.Collections.unmodifiableList(executions_);
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000080);
           }
           result.executions_ = executions_;
         } else {
@@ -10237,11 +10307,17 @@ public final class BenchmarkServiceOuterClass {
         if (other.getRecvMessages() != 0L) {
           setRecvMessages(other.getRecvMessages());
         }
+        if (other.getTotalTx() != 0L) {
+          setTotalTx(other.getTotalTx());
+        }
+        if (other.getDroppedTx() != 0L) {
+          setDroppedTx(other.getDroppedTx());
+        }
         if (executionsBuilder_ == null) {
           if (!other.executions_.isEmpty()) {
             if (executions_.isEmpty()) {
               executions_ = other.executions_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000080);
             } else {
               ensureExecutionsIsMutable();
               executions_.addAll(other.executions_);
@@ -10254,7 +10330,7 @@ public final class BenchmarkServiceOuterClass {
               executionsBuilder_.dispose();
               executionsBuilder_ = null;
               executions_ = other.executions_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000080);
               executionsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getExecutionsFieldBuilder() : null;
@@ -10421,12 +10497,64 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
 
+      private long totalTx_ ;
+      /**
+       * <code>uint64 totalTx = 6;</code>
+       */
+      public long getTotalTx() {
+        return totalTx_;
+      }
+      /**
+       * <code>uint64 totalTx = 6;</code>
+       */
+      public Builder setTotalTx(long value) {
+        
+        totalTx_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 totalTx = 6;</code>
+       */
+      public Builder clearTotalTx() {
+        
+        totalTx_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long droppedTx_ ;
+      /**
+       * <code>uint64 droppedTx = 7;</code>
+       */
+      public long getDroppedTx() {
+        return droppedTx_;
+      }
+      /**
+       * <code>uint64 droppedTx = 7;</code>
+       */
+      public Builder setDroppedTx(long value) {
+        
+        droppedTx_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 droppedTx = 7;</code>
+       */
+      public Builder clearDroppedTx() {
+        
+        droppedTx_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> executions_ =
         java.util.Collections.emptyList();
       private void ensureExecutionsIsMutable() {
-        if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
           executions_ = new java.util.ArrayList<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution>(executions_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000080;
          }
       }
 
@@ -10434,7 +10562,7 @@ public final class BenchmarkServiceOuterClass {
           pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder> executionsBuilder_;
 
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> getExecutionsList() {
         if (executionsBuilder_ == null) {
@@ -10444,7 +10572,7 @@ public final class BenchmarkServiceOuterClass {
         }
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public int getExecutionsCount() {
         if (executionsBuilder_ == null) {
@@ -10454,7 +10582,7 @@ public final class BenchmarkServiceOuterClass {
         }
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution getExecutions(int index) {
         if (executionsBuilder_ == null) {
@@ -10464,7 +10592,7 @@ public final class BenchmarkServiceOuterClass {
         }
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder setExecutions(
           int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution value) {
@@ -10481,7 +10609,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder setExecutions(
           int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder builderForValue) {
@@ -10495,7 +10623,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder addExecutions(pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution value) {
         if (executionsBuilder_ == null) {
@@ -10511,7 +10639,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder addExecutions(
           int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution value) {
@@ -10528,7 +10656,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder addExecutions(
           pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder builderForValue) {
@@ -10542,7 +10670,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder addExecutions(
           int index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder builderForValue) {
@@ -10556,7 +10684,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder addAllExecutions(
           java.lang.Iterable<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution> values) {
@@ -10571,12 +10699,12 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder clearExecutions() {
         if (executionsBuilder_ == null) {
           executions_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000080);
           onChanged();
         } else {
           executionsBuilder_.clear();
@@ -10584,7 +10712,7 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public Builder removeExecutions(int index) {
         if (executionsBuilder_ == null) {
@@ -10597,14 +10725,14 @@ public final class BenchmarkServiceOuterClass {
         return this;
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder getExecutionsBuilder(
           int index) {
         return getExecutionsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder getExecutionsOrBuilder(
           int index) {
@@ -10614,7 +10742,7 @@ public final class BenchmarkServiceOuterClass {
         }
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public java.util.List<? extends pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder> 
            getExecutionsOrBuilderList() {
@@ -10625,14 +10753,14 @@ public final class BenchmarkServiceOuterClass {
         }
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder addExecutionsBuilder() {
         return getExecutionsFieldBuilder().addBuilder(
             pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.getDefaultInstance());
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder addExecutionsBuilder(
           int index) {
@@ -10640,7 +10768,7 @@ public final class BenchmarkServiceOuterClass {
             index, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.getDefaultInstance());
       }
       /**
-       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 7;</code>
+       * <code>repeated .pt.ulisboa.tecnico.thesis.benchmarks.contract.StopBenchmarkResponse.Execution executions = 8;</code>
        */
       public java.util.List<pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder> 
            getExecutionsBuilderList() {
@@ -10653,7 +10781,7 @@ public final class BenchmarkServiceOuterClass {
           executionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.Builder, pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass.StopBenchmarkResponse.ExecutionOrBuilder>(
                   executions_,
-                  ((bitField0_ & 0x00000020) == 0x00000020),
+                  ((bitField0_ & 0x00000080) == 0x00000080),
                   getParentForChildren(),
                   isClean());
           executions_ = null;
@@ -12785,44 +12913,45 @@ public final class BenchmarkServiceOuterClass {
       "p\030\001 \001(\004\022\r\n\005value\030\002 \001(\004\"4\n\025StartBenchmark" +
       "Request\022\r\n\005first\030\001 \001(\010\022\014\n\004load\030\002 \001(\005\"$\n\026" +
       "StartBenchmarkResponse\022\n\n\002ok\030\001 \001(\010\"\026\n\024St" +
-      "opBenchmarkRequest\"\203\002\n\025StopBenchmarkResp" +
+      "opBenchmarkRequest\"\247\002\n\025StopBenchmarkResp" +
       "onse\022\017\n\007replica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006" +
       "finish\030\003 \001(\004\022\024\n\014sentMessages\030\004 \001(\004\022\024\n\014re" +
-      "cvMessages\030\005 \001(\004\022b\n\nexecutions\030\007 \003(\0132N.p" +
-      "t.ulisboa.tecnico.thesis.benchmarks.cont" +
-      "ract.StopBenchmarkResponse.Execution\032*\n\t" +
-      "Execution\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 \001(\004" +
-      "\"\017\n\rInformRequest\"i\n\016InformResponse\022\017\n\007r" +
-      "eplica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 " +
-      "\001(\004\022\023\n\013txCommitted\030\004 \001(\004\022\022\n\navgLatency\030\005" +
-      " \001(\002\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022" +
-      "\n\020ShutdownResponse2\376\007\n\020BenchmarkService\022" +
-      "\213\001\n\010topology\022>.pt.ulisboa.tecnico.thesis" +
-      ".benchmarks.contract.TopologyRequest\032?.p" +
-      "t.ulisboa.tecnico.thesis.benchmarks.cont" +
-      "ract.TopologyResponse\022\213\001\n\010protocol\022>.pt." +
-      "ulisboa.tecnico.thesis.benchmarks.contra" +
-      "ct.ProtocolRequest\032?.pt.ulisboa.tecnico." +
-      "thesis.benchmarks.contract.ProtocolRespo" +
-      "nse\022\224\001\n\005start\022D.pt.ulisboa.tecnico.thesi" +
-      "s.benchmarks.contract.StartBenchmarkRequ" +
-      "est\032E.pt.ulisboa.tecnico.thesis.benchmar" +
-      "ks.contract.StartBenchmarkResponse\022\221\001\n\004s" +
-      "top\022C.pt.ulisboa.tecnico.thesis.benchmar" +
-      "ks.contract.StopBenchmarkRequest\032D.pt.ul" +
+      "cvMessages\030\005 \001(\004\022\017\n\007totalTx\030\006 \001(\004\022\021\n\tdro" +
+      "ppedTx\030\007 \001(\004\022b\n\nexecutions\030\010 \003(\0132N.pt.ul" +
       "isboa.tecnico.thesis.benchmarks.contract" +
-      ".StopBenchmarkResponse\022\205\001\n\006inform\022<.pt.u" +
-      "lisboa.tecnico.thesis.benchmarks.contrac" +
-      "t.InformRequest\032=.pt.ulisboa.tecnico.the" +
-      "sis.benchmarks.contract.InformResponse\022\214" +
-      "\001\n\007execute\022?.pt.ulisboa.tecnico.thesis.b" +
-      "enchmarks.contract.BenchmarkRequest\032@.pt" +
-      ".ulisboa.tecnico.thesis.benchmarks.contr" +
-      "act.BenchmarkResponse\022\213\001\n\010shutdown\022>.pt." +
-      "ulisboa.tecnico.thesis.benchmarks.contra" +
-      "ct.ShutdownRequest\032?.pt.ulisboa.tecnico." +
-      "thesis.benchmarks.contract.ShutdownRespo" +
-      "nseb\006proto3"
+      ".StopBenchmarkResponse.Execution\032*\n\tExec" +
+      "ution\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 \001(\004\"\017\n\r" +
+      "InformRequest\"i\n\016InformResponse\022\017\n\007repli" +
+      "ca\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022" +
+      "\023\n\013txCommitted\030\004 \001(\004\022\022\n\navgLatency\030\005 \001(\002" +
+      "\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022\n\020Sh" +
+      "utdownResponse2\376\007\n\020BenchmarkService\022\213\001\n\010" +
+      "topology\022>.pt.ulisboa.tecnico.thesis.ben" +
+      "chmarks.contract.TopologyRequest\032?.pt.ul" +
+      "isboa.tecnico.thesis.benchmarks.contract" +
+      ".TopologyResponse\022\213\001\n\010protocol\022>.pt.ulis" +
+      "boa.tecnico.thesis.benchmarks.contract.P" +
+      "rotocolRequest\032?.pt.ulisboa.tecnico.thes" +
+      "is.benchmarks.contract.ProtocolResponse\022" +
+      "\224\001\n\005start\022D.pt.ulisboa.tecnico.thesis.be" +
+      "nchmarks.contract.StartBenchmarkRequest\032" +
+      "E.pt.ulisboa.tecnico.thesis.benchmarks.c" +
+      "ontract.StartBenchmarkResponse\022\221\001\n\004stop\022" +
+      "C.pt.ulisboa.tecnico.thesis.benchmarks.c" +
+      "ontract.StopBenchmarkRequest\032D.pt.ulisbo" +
+      "a.tecnico.thesis.benchmarks.contract.Sto" +
+      "pBenchmarkResponse\022\205\001\n\006inform\022<.pt.ulisb" +
+      "oa.tecnico.thesis.benchmarks.contract.In" +
+      "formRequest\032=.pt.ulisboa.tecnico.thesis." +
+      "benchmarks.contract.InformResponse\022\214\001\n\007e" +
+      "xecute\022?.pt.ulisboa.tecnico.thesis.bench" +
+      "marks.contract.BenchmarkRequest\032@.pt.uli" +
+      "sboa.tecnico.thesis.benchmarks.contract." +
+      "BenchmarkResponse\022\213\001\n\010shutdown\022>.pt.ulis" +
+      "boa.tecnico.thesis.benchmarks.contract.S" +
+      "hutdownRequest\032?.pt.ulisboa.tecnico.thes" +
+      "is.benchmarks.contract.ShutdownResponseb" +
+      "\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12919,7 +13048,7 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor,
-        new java.lang.String[] { "Replica", "Start", "Finish", "SentMessages", "RecvMessages", "Executions", });
+        new java.lang.String[] { "Replica", "Start", "Finish", "SentMessages", "RecvMessages", "TotalTx", "DroppedTx", "Executions", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_descriptor =
       internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_descriptor.getNestedTypes().get(0);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_StopBenchmarkResponse_Execution_fieldAccessorTable = new

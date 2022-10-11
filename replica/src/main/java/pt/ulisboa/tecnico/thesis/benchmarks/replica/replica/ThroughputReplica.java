@@ -39,6 +39,10 @@ public class ThroughputReplica extends BenchmarkReplica {
      * Max number of pending payloads (must exist otherwise heap capacity is reached).
      */
     private final int maxPendingPayload;
+
+    private long txSubmitted = 0;
+
+    private long txDropped = 0;
     private int load;
 
     private Thread loader;
@@ -85,12 +89,14 @@ public class ThroughputReplica extends BenchmarkReplica {
         }
         logger.info("setListener finished");
 
-        return new Benchmark.Builder(startTime).
-                finishTime(finishTime).
-                executions(executions).
-                sentMessageCount(sentMessageCount.get()).
-                recvMessageCount(recvMessageCount.get()).
-                build();
+        return new Benchmark.Builder(startTime)
+                .finishTime(finishTime)
+                .executions(executions)
+                .sentMessageCount(sentMessageCount.get())
+                .recvMessageCount(recvMessageCount.get())
+                .txSubmitted(txSubmitted)
+                .txDropped(txDropped)
+                .build();
     }
 
     /**
@@ -121,12 +127,13 @@ public class ThroughputReplica extends BenchmarkReplica {
         synchronized (this) {
             for (byte[] entry: block.getEntries()) {
                 // Check if my payload was delivered
+
                 // logger.info("New payload arrived");
                 int sizeBefore = pendingPayloads.size();
                 Long submitTime = pendingPayloads.remove(new Entry(entry));
                 int sizeAfter = pendingPayloads.size();
                 if (submitTime != null) {
-                    // logger.info("Removed thing from pending payloads: size {} -> {} (latency : {})", sizeBefore, sizeAfter, timestamp - submitTime);
+                    logger.info("Commit (latency : {})", timestamp - submitTime);
 
                     // Save measurement
                     synchronized (this.executions) {
@@ -140,6 +147,9 @@ public class ThroughputReplica extends BenchmarkReplica {
     }
 
     private class LoadGenerator implements Runnable {
+
+        // Sleep time in milliseconds
+        private static final int SLEEP_TIME = 1000;
         private int load;
         private final Logger logger = LoggerFactory.getLogger(LoadGenerator.class);
 
@@ -151,19 +161,22 @@ public class ThroughputReplica extends BenchmarkReplica {
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(SLEEP_TIME);
+                    txSubmitted += load;
                     if (pendingPayloads.size() + load < maxPendingPayload) {
-                        logger.info("Submitting payloads (current: {}, max: {})", pendingPayloads.size(), maxPendingPayload);
+                        logger.info("Submitting payloads (current: {}, max: {}, totalTx: {}, totalDropped: {})",
+                                pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
                         for (int i = 0; i < load; i++) {
                             long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
                             byte[] payload = getPayload();
                             handleStep(protocol.handleInput(payload));
                             pendingPayloads.put(new Entry(payload), submitTime);
-                            // logger.info("Submitted payload (current: {}, max: {})", pendingPayloads.size(), maxPendingPayload);
                         }
                     } else {
-                        logger.info("Too many pending payloads, dropping payload (current: {}, max: {})", pendingPayloads.size(), maxPendingPayload);
+                        logger.info("Too many pending payloads, dropping payload (current: {}, max: {}, totalTx: {}, totalDropped: {})",
+                                pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
+                        txDropped += load;
                     }
                 } catch(InterruptedException e) {
                     return;

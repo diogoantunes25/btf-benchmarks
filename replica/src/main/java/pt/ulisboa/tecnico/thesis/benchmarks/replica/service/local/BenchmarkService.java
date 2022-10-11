@@ -51,9 +51,12 @@ public class BenchmarkService {
     private TcpTransport transport;
     private BenchmarkReplica benchmarkReplica; // replica.replica.BenchmarkReplica
 
-    public BenchmarkService(Integer replicaId) {
+    private int port;
+
+    public BenchmarkService(Integer replicaId, int port) {
         System.out.println("The replica id is " + replicaId);
         this.replicaId = replicaId;
+        this.port = port;
     }
 
     public boolean setTopology(List<Replica> replicas, GroupKey groupKey, KeyShare keyShare, int tolerance) {
@@ -88,7 +91,7 @@ public class BenchmarkService {
 
         // init transport layer
         // FIXME 2 channels?
-        this.transport = new TcpTransport(me, replicas, 2);
+        this.transport = new TcpTransport(me, replicas, 2, port);
 
         logger.info("Connection status:");
         for (Connection connection: this.transport.getConnections()) {

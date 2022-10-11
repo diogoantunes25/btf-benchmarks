@@ -32,7 +32,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
 
     public BenchmarkGrpcService(Integer replicaId, int port) {
         this.replicaId = replicaId;
-        this.benchmarkService = new BenchmarkService(replicaId);
+        this.benchmarkService = new BenchmarkService(replicaId, port);
         this.port = port;
 
         // TODO deprecated
@@ -152,6 +152,8 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
                                 .setFinish(e.getFinish())
                         .build()
                 ).collect(Collectors.toList()))
+                .setTotalTx(benchmark.getTxSubmitted())
+                .setDroppedTx(benchmark.getTxDropped())
                 .build();
 
         responseObserver.onNext(response);

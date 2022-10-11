@@ -302,7 +302,6 @@ public class BenchmarkService {
             System.out.println("Something went wrong!");
         }
 
-        // FIXME: add correct things to JSON service
 
         // parse replies
         List<BenchmarkResult> overview = responses.values().stream()
@@ -311,7 +310,9 @@ public class BenchmarkService {
                         r.getStart(),
                         r.getFinish(),
                         r.getSentMessages(),
-                        r.getRecvMessages()
+                        r.getRecvMessages(),
+                        r.getTotalTx(),
+                        r.getDroppedTx()
                 )).collect(Collectors.toList());
 
         // save results

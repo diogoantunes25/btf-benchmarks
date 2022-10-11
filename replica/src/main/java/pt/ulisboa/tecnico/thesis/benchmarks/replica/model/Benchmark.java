@@ -12,6 +12,9 @@ public class Benchmark {
     private List<Measurement> measurements;
     private List<Execution> executions;
 
+    private long txSubmitted;
+    private long txDropped;
+
     public static class Builder {
         private long startTime;
         private long finishTime = 0L;
@@ -20,8 +23,21 @@ public class Benchmark {
         private List<Measurement> measurements = new ArrayList<>();
         private List<Execution> executions = new ArrayList<>();
 
+        private long txSubmitted = 0;
+
+        private long txDropped = 0;
         public Builder(long startTime) {
             this.startTime = startTime;
+        }
+
+        public Builder txSubmitted(long txSubmitted) {
+            this.txSubmitted = txSubmitted;
+            return this;
+        }
+
+        public Builder txDropped(long txDropped) {
+            this.txDropped = txDropped;
+            return this;
         }
 
         public Builder finishTime(long finishTime) {
@@ -58,6 +74,8 @@ public class Benchmark {
             benchmark.recvMessageCount = this.recvMessageCount;
             benchmark.measurements = this.measurements;
             benchmark.executions = this.executions;
+            benchmark.txDropped = this.txDropped;
+            benchmark.txSubmitted = this.txSubmitted;
 
             return benchmark;
         }
@@ -65,11 +83,14 @@ public class Benchmark {
 
     private Benchmark() {}
 
-    public Benchmark(long start, List<Measurement> measurements, List<Execution> executions, long finish) {
+    public Benchmark(long start, List<Measurement> measurements, List<Execution> executions, long finish,
+                     long txSubmitted, long txDropped) {
         this.startTime = start;
         this.finishTime = finish;
         this.measurements = measurements;
         this.executions = executions;
+        this.txSubmitted = txSubmitted;
+        this.txDropped = txDropped;
     }
 
     public long getStartTime() {
@@ -95,4 +116,7 @@ public class Benchmark {
     public List<Execution> getExecutions() {
         return executions;
     }
+
+    public long getTxSubmitted() { return txSubmitted; }
+    public long getTxDropped() { return txDropped; }
 }

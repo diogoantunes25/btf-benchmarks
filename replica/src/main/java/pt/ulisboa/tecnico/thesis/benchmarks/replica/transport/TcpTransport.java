@@ -24,10 +24,6 @@ public class TcpTransport implements Transport<String> {
     private final List<Replica> replicas;
     private final Map<Integer, Connection> connections = new ConcurrentHashMap<>();
 
-    public TcpTransport(Replica me, List<Replica> replicas, int port) {
-        this(me, replicas, 1, port);
-    }
-
     public TcpTransport(Replica me, List<Replica> replicas, Integer numChannels, int port) {
         this.replicas = replicas;
         try {

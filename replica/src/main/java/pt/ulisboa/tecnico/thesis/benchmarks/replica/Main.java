@@ -72,8 +72,6 @@ public class Main {
                 .addService(ProtoReflectionService.newInstance())
                 .build();
 
-        server.getPort();
-
         try {
             server.start();
             System.out.println(String.format("Replica %d server started", config.getReplicaId()));

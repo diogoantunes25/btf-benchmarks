@@ -65,8 +65,10 @@ public class BenchmarkReplica {
     private final Condition benchmarkComplete = benchmarkLock.newCondition();
     private BenchmarkResults benchmarkResults;
 
-    public BenchmarkReplica(Integer replicaId) {
+    private int port;
+    public BenchmarkReplica(Integer replicaId, int port) {
         this.replicaId = replicaId;
+        this.port = port;
     }
 
     public boolean setTopology(List<Replica> replicas, GroupKey groupKey, KeyShare keyShare, int tolerance) {
@@ -88,7 +90,7 @@ public class BenchmarkReplica {
         this.networkInfo = new NetworkInfo(replicaId, validators, groupKey, keyShare);
 
         // init transport layer
-        this.transport = new TcpTransport(me, replicas, 2);
+        this.transport = new TcpTransport(me, replicas, 2, port);
 
         return true;
     }

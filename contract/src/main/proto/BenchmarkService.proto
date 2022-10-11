@@ -108,12 +108,15 @@ message StopBenchmarkResponse {
     uint64 finish = 3;
     uint64 sentMessages = 4;
     uint64 recvMessages = 5;
+    uint64 totalTx = 6;
+    uint64 droppedTx = 7;
 
     message Execution {
         uint64 start = 1;
         uint64 finish = 2;
     }
-    repeated Execution executions = 7;
+
+    repeated Execution executions = 8;
 }
 
 message InformRequest {}

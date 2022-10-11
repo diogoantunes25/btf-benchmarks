@@ -33,6 +33,8 @@ public class JsonService {
             jsonResult.addProperty("finish", result.getFinishTime());
             jsonResult.addProperty("sent-messages", result.getSentMessageCount());
             jsonResult.addProperty("recv-messages", result.getRecvMessageCount());
+            jsonResult.addProperty("total-tx", result.getTotalTx());
+            jsonResult.addProperty("dropped-tx", result.getDroppedTx());
 
             JsonArray jsonExecutions = new JsonArray();
             for (Summary s: history.get(result.getReplicaId())) {
@@ -45,6 +47,7 @@ public class JsonService {
 
                 jsonExecutions.add(jsonExecution);
             }
+
             jsonResult.add("executions", jsonExecutions);
 
             jsonResults.add(jsonResult);

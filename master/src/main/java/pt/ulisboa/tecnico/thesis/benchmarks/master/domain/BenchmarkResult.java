@@ -9,6 +9,8 @@ public class BenchmarkResult {
     private Long finishTime;
     private Long sentMessageCount;
     private Long recvMessageCount;
+    private Long totalTx;
+    private Long droppedTx;
 
     public BenchmarkResult() {
     }
@@ -18,13 +20,17 @@ public class BenchmarkResult {
             Long startTime,
             Long finishTime,
             Long sentMessageCount,
-            Long recvMessageCount
+            Long recvMessageCount,
+            Long totalTx,
+            Long droppedTx
     ) {
         this.replicaId = replicaId;
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.sentMessageCount = sentMessageCount;
         this.recvMessageCount = recvMessageCount;
+        this.totalTx = totalTx;
+        this.droppedTx = droppedTx;
     }
 
     public Integer getReplicaId() {
@@ -45,5 +51,13 @@ public class BenchmarkResult {
 
     public Long getRecvMessageCount() {
         return recvMessageCount;
+    }
+
+    public Long getTotalTx() {
+        return totalTx;
+    }
+
+    public long getDroppedTx() {
+        return droppedTx;
     }
 }
