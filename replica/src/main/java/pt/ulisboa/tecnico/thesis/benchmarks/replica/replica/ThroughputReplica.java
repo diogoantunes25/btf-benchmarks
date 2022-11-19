@@ -1,5 +1,10 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.replica;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.management.ManagementFactory;
+import com.sun.management.OperatingSystemMXBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.tecnico.ulisboa.hbbft.MessageEncoder;
@@ -14,47 +19,46 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Measurement;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
-// FIXME: Remove this
-import pt.tecnico.ulisboa.hbbft.abc.alea.benchmark.ExecutionLog;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class ThroughputReplica extends BenchmarkReplica {
+
+    // FIXME: Get interface on a per machine basis
+    private static final String INTERFACE = "br0";
 
     private final Logger logger = LoggerFactory.getLogger(ThroughputReplica.class);
 
     private long startTime;
 
-    /**
-     * Maps pending payloads to their submit time.
-     */
-    private final Map<Entry, Long> pendingPayloads = new ConcurrentHashMap<>();
-
-    /**
-     * Max number of pending payloads (must exist otherwise heap capacity is reached).
-     */
-    private final int maxPendingPayload;
 
     private long txSubmitted = 0;
 
     private long txDropped = 0;
+
+    private AtomicLong txPending;
+
+    private long maxPending;
+
     private int load;
+
+    private Thread systemMonitor;
 
     private Thread loader;
 
     public ThroughputReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport, int load, int batchSize) {
         super(protocol, encoder, transport);
         this.load = load;
+        this.txPending = new AtomicLong();
 
-        // Use both load and batch size to define max pending payload because:
-        //    - if I only have load , if batch size is larger, I can't build a batch
-        //    - if I only have batch, if load is larger it might limit throuhput
-        this.maxPendingPayload = (load > batchSize ? load : batchSize) * 5;
+        this.maxPending = (load > batchSize ? load : batchSize) * 60;
 
         // start listeners
         for (Connection connection: this.transport.getConnections()) {
@@ -75,6 +79,10 @@ public class ThroughputReplica extends BenchmarkReplica {
         this.loader = (new Thread(new LoadGenerator(this.load)));
         this.loader.start();
         logger.info("Load generator started");
+
+        this.systemMonitor = (new Thread(new SystemMonitor(INTERFACE)));
+        this.systemMonitor.start();
+        logger.info("System Monitor started");
     }
 
     public Benchmark stop() {
@@ -82,6 +90,9 @@ public class ThroughputReplica extends BenchmarkReplica {
 
         this.loader.interrupt();
         logger.info("Load generator interrupted");
+
+        this.systemMonitor.interrupt();
+        logger.info("System monitor interrupted");
 
         // stop listeners
         for (Connection connection: this.transport.getConnections()) {
@@ -100,7 +111,8 @@ public class ThroughputReplica extends BenchmarkReplica {
     }
 
     /**
-     * Generates random payload, specific to current replica
+     * Generates random payload, specific to current replica.
+     * Payload content includes submit timestamp and replica id.
      * @return New payload
      */
     private byte[] getPayload() {
@@ -110,12 +122,28 @@ public class ThroughputReplica extends BenchmarkReplica {
 
         payload[0] = (byte) this.transport.getMyId();
 
-        if (this.pendingPayloads.get(payload) != null) {
-            logger.info("The payload was already pending, computing new one.");
-            payload = getPayload();
+        long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
+        // logger.info("The submit time is {}", submitTime);
+        byte[] submitTimeBytes = longToBytes(submitTime);
+
+        for (int i = 0; i < submitTimeBytes.length; i++) {
+            payload[i+1] = submitTimeBytes[i];
         }
 
         return payload;
+    }
+
+    public static byte[] longToBytes(long x) {
+    ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+    buffer.putLong(x);
+    return buffer.array();
+}
+
+    public static long bytesToLong(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.put(bytes);
+        buffer.flip();//need flip
+        return buffer.getLong();
     }
 
 
@@ -126,22 +154,67 @@ public class ThroughputReplica extends BenchmarkReplica {
 
         synchronized (this) {
             for (byte[] entry: block.getEntries()) {
-                // Check if my payload was delivered
 
-                // logger.info("New payload arrived");
-                int sizeBefore = pendingPayloads.size();
-                Long submitTime = pendingPayloads.remove(new Entry(entry));
-                int sizeAfter = pendingPayloads.size();
-                if (submitTime != null) {
-                    logger.info("Commit (latency : {})", timestamp - submitTime);
+                int replicaId = entry[0];
+                if (replicaId == this.transport.getMyId()) {
+                    long submitTime = bytesToLong(Arrays.copyOfRange(entry, 1, 1 + Long.BYTES));
+
+                    long pending = txPending.decrementAndGet();
+                    logger.info("Commit (latency : {}, pending: {})", timestamp - submitTime, pending);
 
                     // Save measurement
                     synchronized (this.executions) {
                         this.executions.add(new Execution(submitTime, timestamp));
                     }
-                } else {
-                    // logger.info("Received foreign payload");
                 }
+            }
+        }
+    }
+
+    private class SystemMonitor implements Runnable {
+        private final Logger logger = LoggerFactory.getLogger(SystemMonitor.class);
+        private static final int WAIT_PERIOD = 1000;
+        private String inter;
+
+        private OperatingSystemMXBean bean;
+        public SystemMonitor(String inter) {
+            this.inter = inter;
+            this.bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory
+                    .getOperatingSystemMXBean();
+        }
+
+        public void run() {
+            double load, in, out;
+            String line;
+            try {
+                ProcessBuilder pb = new ProcessBuilder("ifstat", "-n", "-i", this.inter);
+                Process p = pb.start();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                // Ignore first two lines of output
+                reader.readLine();
+                reader.readLine();
+                while (true) {
+                    // Measure CPU load
+                    logger.info("Checking CPU load");
+                    load = bean.getSystemLoadAverage();
+                    cpuLoadMeasurements.add(load);
+
+                    // Measure bandwidth
+                    logger.info("Checking bandwidth");
+                    line = reader.readLine();
+                    String[] things = line.strip().split(" ");
+                    in = Double.parseDouble(things[0]);
+                    out = Double.parseDouble(things[things.length-1]);
+                    receivedBandwidthMeasurements.add(in);
+                    sentBandwidthMeasurements.add(out);
+
+                    Thread.sleep(WAIT_PERIOD);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -162,28 +235,27 @@ public class ThroughputReplica extends BenchmarkReplica {
         }
 
         public void run() {
-            int toSend;
             while (true) {
                 try {
-                    Thread.sleep(TICK_PERIOD);
+                    Thread.sleep(TICK_PERIOD); // FIXME: subtract time already spent
                     pendingAcumulator += load * (TICK_PERIOD * Math.pow(10,-3));
                     if (pendingAcumulator >= 1) {
-                        toSend = (int) Math.floor(pendingAcumulator);
+                        int toSend = (int) Math.floor(pendingAcumulator);
                         pendingAcumulator -= toSend;
                         txSubmitted += toSend;
-                        if (pendingPayloads.size() + toSend < maxPendingPayload) {
-                            logger.info("Submitting {} payloads (current: {}, max: {}, totalTx: {}, totalDropped: {})",
-                                    toSend, pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
-                            for (int i = 0; i < toSend; i++) {
-                                long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
-                                byte[] payload = getPayload();
-                                handleStep(protocol.handleInput(payload));
-                                pendingPayloads.put(new Entry(payload), submitTime);
-                            }
+                        long pending = txPending.addAndGet(toSend);
+
+                        if (pending <= maxPending) {
+                            (new Thread(() -> {
+                                logger.info("Submitting {} payloads (pending: {}, max: {})", toSend, txPending.get(), maxPending);
+                                for (int i = 0; i < toSend; i++) {
+                                    byte[] payload = getPayload();
+                                    handleStep(protocol.handleInput(payload));
+                                }
+                            })).run();
                         } else {
-                            logger.info("Too many pending payloads, dropping payload (current: {}, max: {}, totalTx: {}, totalDropped: {})",
-                                    pendingPayloads.size(), maxPendingPayload, txSubmitted, txDropped);
+                            txPending.addAndGet(-toSend);
                             txDropped += toSend;
                         }
                     }

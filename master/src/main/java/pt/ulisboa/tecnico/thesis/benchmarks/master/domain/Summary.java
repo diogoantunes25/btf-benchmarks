@@ -25,11 +25,20 @@ public class Summary {
 	 * */
 	private final float avgLatency;
 
-    public Summary(Long start, Long finish, Long txCommitted, float avgLatency) {
+	private final double cpuLoad;
+
+	private final double inBandwidth;
+	private final double outBandwidth;
+
+	public Summary(Long start, Long finish, Long txCommitted, float avgLatency, double cpuLoad, double inBandwidth,
+				   	double outBandwidth) {
         this.start = start;
         this.finish = finish;
 		this.txCommitted = txCommitted;
 		this.avgLatency = avgLatency;
+		this.cpuLoad = cpuLoad;
+		this.inBandwidth = inBandwidth;
+		this.outBandwidth = outBandwidth;
     }
 
     public Long getStart() {
@@ -47,4 +56,8 @@ public class Summary {
 	public long getTxCommitted() {
 		return txCommitted;
 	}
+
+	public double getCpuLoad() { return cpuLoad; }
+	public double getInBandwidth() { return inBandwidth; }
+	public double getOutBandwidth() { return outBandwidth; }
 }

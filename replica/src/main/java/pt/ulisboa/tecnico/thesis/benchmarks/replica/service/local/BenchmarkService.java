@@ -36,9 +36,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.ThroughputReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BenchmarkService {
@@ -50,6 +48,7 @@ public class BenchmarkService {
     private NetworkInfo networkInfo;
     private TcpTransport transport;
     private BenchmarkReplica benchmarkReplica; // replica.replica.BenchmarkReplica
+
 
     private int port;
 
@@ -91,6 +90,7 @@ public class BenchmarkService {
 
         // init transport layer
         // FIXME 2 channels?
+        logger.info("Creating transport, port is {}", port);
         this.transport = new TcpTransport(me, replicas, 2, port);
 
         logger.info("Connection status:");

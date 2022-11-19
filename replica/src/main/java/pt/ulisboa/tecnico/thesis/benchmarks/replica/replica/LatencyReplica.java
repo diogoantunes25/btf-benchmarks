@@ -47,9 +47,12 @@ public class LatencyReplica extends BenchmarkReplica {
         this.startTime = ZonedDateTime.now().toInstant().toEpochMilli();
         logger.info("Starting");
 
-        Step<Block> step = this.propose();
-        logger.info("Handling following steps");
-        this.handleStep(step);
+        // FIXME: (dsa) remove condition (it's for testing purposes only - to have only one request sent)
+        if (first) {
+            Step<Block> step = this.propose();
+            logger.info("Handling following steps");
+            this.handleStep(step);
+        }
     }
 
 
@@ -90,7 +93,8 @@ public class LatencyReplica extends BenchmarkReplica {
                     synchronized (this.executions) {
                         this.executions.add(new Execution( this.proposeTime, timestamp));
                     }
-                    this.handleStep(this.propose());
+                    // FIXME: (dsa) Uncomment line bellow (it's to have only one request sent)
+                    // this.handleStep(this.propose());
                 }
             }
         }

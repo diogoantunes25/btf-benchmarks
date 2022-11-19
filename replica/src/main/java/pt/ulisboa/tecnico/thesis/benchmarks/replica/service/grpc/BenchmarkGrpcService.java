@@ -175,6 +175,9 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
                 .setFinish(info.getFinish())
                 .setTxCommitted(info.getTxCommitted())
                 .setAvgLatency(info.getAvgLatency())
+                .setCPULoad(info.getCPULoad())
+                .setInBandwidth(info.getInBandwidth())
+                .setOutBandwidth(info.getOutBandwidth())
                 .build();
 
         System.out.println("I was asked to inform master of progress");

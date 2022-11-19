@@ -26,6 +26,7 @@ public class Benchmark {
         private long txSubmitted = 0;
 
         private long txDropped = 0;
+
         public Builder(long startTime) {
             this.startTime = startTime;
         }

@@ -44,6 +44,9 @@ public class JsonService {
                 jsonExecution.addProperty("finish", s.getFinish());
                 jsonExecution.addProperty("tx-committed", s.getTxCommitted());
                 jsonExecution.addProperty("avg-latency", s.getAvgLatency());
+                jsonExecution.addProperty("cpu-load", s.getCpuLoad());
+                jsonExecution.addProperty("in-bandwidth", s.getInBandwidth());
+                jsonExecution.addProperty("out-bandwidth", s.getOutBandwidth());
 
                 jsonExecutions.add(jsonExecution);
             }

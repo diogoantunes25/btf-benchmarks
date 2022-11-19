@@ -456,7 +456,8 @@ public class BenchmarkService {
             // Add response info to history
             for (int i = 0; i < topology.getN(); i++) {
                 BenchmarkServiceOuterClass.InformResponse response = responses.get(i);
-                Summary summary = new Summary(response.getStart(), response.getFinish(), response.getTxCommitted(), response.getAvgLatency());
+                Summary summary = new Summary(response.getStart(), response.getFinish(), response.getTxCommitted(),
+                    response.getAvgLatency(), response.getCPULoad(), response.getInBandwidth(), response.getOutBandwidth());
                 history.get(i).add(summary);
             }
         }

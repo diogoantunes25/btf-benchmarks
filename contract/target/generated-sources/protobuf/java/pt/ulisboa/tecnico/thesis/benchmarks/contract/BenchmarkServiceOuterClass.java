@@ -11252,6 +11252,21 @@ public final class BenchmarkServiceOuterClass {
      * <code>float avgLatency = 5;</code>
      */
     float getAvgLatency();
+
+    /**
+     * <code>double CPULoad = 6;</code>
+     */
+    double getCPULoad();
+
+    /**
+     * <code>double inBandwidth = 7;</code>
+     */
+    double getInBandwidth();
+
+    /**
+     * <code>double outBandwidth = 8;</code>
+     */
+    double getOutBandwidth();
   }
   /**
    * Protobuf type {@code pt.ulisboa.tecnico.thesis.benchmarks.contract.InformResponse}
@@ -11271,6 +11286,9 @@ public final class BenchmarkServiceOuterClass {
       finish_ = 0L;
       txCommitted_ = 0L;
       avgLatency_ = 0F;
+      cPULoad_ = 0D;
+      inBandwidth_ = 0D;
+      outBandwidth_ = 0D;
     }
 
     @java.lang.Override
@@ -11327,6 +11345,21 @@ public final class BenchmarkServiceOuterClass {
             case 45: {
 
               avgLatency_ = input.readFloat();
+              break;
+            }
+            case 49: {
+
+              cPULoad_ = input.readDouble();
+              break;
+            }
+            case 57: {
+
+              inBandwidth_ = input.readDouble();
+              break;
+            }
+            case 65: {
+
+              outBandwidth_ = input.readDouble();
               break;
             }
           }
@@ -11398,6 +11431,33 @@ public final class BenchmarkServiceOuterClass {
       return avgLatency_;
     }
 
+    public static final int CPULOAD_FIELD_NUMBER = 6;
+    private double cPULoad_;
+    /**
+     * <code>double CPULoad = 6;</code>
+     */
+    public double getCPULoad() {
+      return cPULoad_;
+    }
+
+    public static final int INBANDWIDTH_FIELD_NUMBER = 7;
+    private double inBandwidth_;
+    /**
+     * <code>double inBandwidth = 7;</code>
+     */
+    public double getInBandwidth() {
+      return inBandwidth_;
+    }
+
+    public static final int OUTBANDWIDTH_FIELD_NUMBER = 8;
+    private double outBandwidth_;
+    /**
+     * <code>double outBandwidth = 8;</code>
+     */
+    public double getOutBandwidth() {
+      return outBandwidth_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -11424,6 +11484,15 @@ public final class BenchmarkServiceOuterClass {
       }
       if (avgLatency_ != 0F) {
         output.writeFloat(5, avgLatency_);
+      }
+      if (cPULoad_ != 0D) {
+        output.writeDouble(6, cPULoad_);
+      }
+      if (inBandwidth_ != 0D) {
+        output.writeDouble(7, inBandwidth_);
+      }
+      if (outBandwidth_ != 0D) {
+        output.writeDouble(8, outBandwidth_);
       }
       unknownFields.writeTo(output);
     }
@@ -11453,6 +11522,18 @@ public final class BenchmarkServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(5, avgLatency_);
       }
+      if (cPULoad_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(6, cPULoad_);
+      }
+      if (inBandwidth_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(7, inBandwidth_);
+      }
+      if (outBandwidth_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(8, outBandwidth_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11481,6 +11562,18 @@ public final class BenchmarkServiceOuterClass {
           java.lang.Float.floatToIntBits(getAvgLatency())
           == java.lang.Float.floatToIntBits(
               other.getAvgLatency()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getCPULoad())
+          == java.lang.Double.doubleToLongBits(
+              other.getCPULoad()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getInBandwidth())
+          == java.lang.Double.doubleToLongBits(
+              other.getInBandwidth()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getOutBandwidth())
+          == java.lang.Double.doubleToLongBits(
+              other.getOutBandwidth()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -11506,6 +11599,15 @@ public final class BenchmarkServiceOuterClass {
       hash = (37 * hash) + AVGLATENCY_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getAvgLatency());
+      hash = (37 * hash) + CPULOAD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getCPULoad()));
+      hash = (37 * hash) + INBANDWIDTH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getInBandwidth()));
+      hash = (37 * hash) + OUTBANDWIDTH_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getOutBandwidth()));
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -11645,6 +11747,12 @@ public final class BenchmarkServiceOuterClass {
 
         avgLatency_ = 0F;
 
+        cPULoad_ = 0D;
+
+        inBandwidth_ = 0D;
+
+        outBandwidth_ = 0D;
+
         return this;
       }
 
@@ -11672,6 +11780,9 @@ public final class BenchmarkServiceOuterClass {
         result.finish_ = finish_;
         result.txCommitted_ = txCommitted_;
         result.avgLatency_ = avgLatency_;
+        result.cPULoad_ = cPULoad_;
+        result.inBandwidth_ = inBandwidth_;
+        result.outBandwidth_ = outBandwidth_;
         onBuilt();
         return result;
       }
@@ -11727,6 +11838,15 @@ public final class BenchmarkServiceOuterClass {
         }
         if (other.getAvgLatency() != 0F) {
           setAvgLatency(other.getAvgLatency());
+        }
+        if (other.getCPULoad() != 0D) {
+          setCPULoad(other.getCPULoad());
+        }
+        if (other.getInBandwidth() != 0D) {
+          setInBandwidth(other.getInBandwidth());
+        }
+        if (other.getOutBandwidth() != 0D) {
+          setOutBandwidth(other.getOutBandwidth());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -11881,6 +12001,84 @@ public final class BenchmarkServiceOuterClass {
       public Builder clearAvgLatency() {
         
         avgLatency_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private double cPULoad_ ;
+      /**
+       * <code>double CPULoad = 6;</code>
+       */
+      public double getCPULoad() {
+        return cPULoad_;
+      }
+      /**
+       * <code>double CPULoad = 6;</code>
+       */
+      public Builder setCPULoad(double value) {
+        
+        cPULoad_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double CPULoad = 6;</code>
+       */
+      public Builder clearCPULoad() {
+        
+        cPULoad_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double inBandwidth_ ;
+      /**
+       * <code>double inBandwidth = 7;</code>
+       */
+      public double getInBandwidth() {
+        return inBandwidth_;
+      }
+      /**
+       * <code>double inBandwidth = 7;</code>
+       */
+      public Builder setInBandwidth(double value) {
+        
+        inBandwidth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double inBandwidth = 7;</code>
+       */
+      public Builder clearInBandwidth() {
+        
+        inBandwidth_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double outBandwidth_ ;
+      /**
+       * <code>double outBandwidth = 8;</code>
+       */
+      public double getOutBandwidth() {
+        return outBandwidth_;
+      }
+      /**
+       * <code>double outBandwidth = 8;</code>
+       */
+      public Builder setOutBandwidth(double value) {
+        
+        outBandwidth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double outBandwidth = 8;</code>
+       */
+      public Builder clearOutBandwidth() {
+        
+        outBandwidth_ = 0D;
         onChanged();
         return this;
       }
@@ -12921,37 +13119,38 @@ public final class BenchmarkServiceOuterClass {
       "isboa.tecnico.thesis.benchmarks.contract" +
       ".StopBenchmarkResponse.Execution\032*\n\tExec" +
       "ution\022\r\n\005start\030\001 \001(\004\022\016\n\006finish\030\002 \001(\004\"\017\n\r" +
-      "InformRequest\"i\n\016InformResponse\022\017\n\007repli" +
-      "ca\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004\022" +
-      "\023\n\013txCommitted\030\004 \001(\004\022\022\n\navgLatency\030\005 \001(\002" +
-      "\" \n\017ShutdownRequest\022\r\n\005timer\030\001 \001(\005\"\022\n\020Sh" +
-      "utdownResponse2\376\007\n\020BenchmarkService\022\213\001\n\010" +
-      "topology\022>.pt.ulisboa.tecnico.thesis.ben" +
-      "chmarks.contract.TopologyRequest\032?.pt.ul" +
-      "isboa.tecnico.thesis.benchmarks.contract" +
-      ".TopologyResponse\022\213\001\n\010protocol\022>.pt.ulis" +
-      "boa.tecnico.thesis.benchmarks.contract.P" +
-      "rotocolRequest\032?.pt.ulisboa.tecnico.thes" +
-      "is.benchmarks.contract.ProtocolResponse\022" +
-      "\224\001\n\005start\022D.pt.ulisboa.tecnico.thesis.be" +
-      "nchmarks.contract.StartBenchmarkRequest\032" +
-      "E.pt.ulisboa.tecnico.thesis.benchmarks.c" +
-      "ontract.StartBenchmarkResponse\022\221\001\n\004stop\022" +
-      "C.pt.ulisboa.tecnico.thesis.benchmarks.c" +
-      "ontract.StopBenchmarkRequest\032D.pt.ulisbo" +
-      "a.tecnico.thesis.benchmarks.contract.Sto" +
-      "pBenchmarkResponse\022\205\001\n\006inform\022<.pt.ulisb" +
-      "oa.tecnico.thesis.benchmarks.contract.In" +
-      "formRequest\032=.pt.ulisboa.tecnico.thesis." +
-      "benchmarks.contract.InformResponse\022\214\001\n\007e" +
-      "xecute\022?.pt.ulisboa.tecnico.thesis.bench" +
-      "marks.contract.BenchmarkRequest\032@.pt.uli" +
-      "sboa.tecnico.thesis.benchmarks.contract." +
-      "BenchmarkResponse\022\213\001\n\010shutdown\022>.pt.ulis" +
+      "InformRequest\"\245\001\n\016InformResponse\022\017\n\007repl" +
+      "ica\030\001 \001(\r\022\r\n\005start\030\002 \001(\004\022\016\n\006finish\030\003 \001(\004" +
+      "\022\023\n\013txCommitted\030\004 \001(\004\022\022\n\navgLatency\030\005 \001(" +
+      "\002\022\017\n\007CPULoad\030\006 \001(\001\022\023\n\013inBandwidth\030\007 \001(\001\022" +
+      "\024\n\014outBandwidth\030\010 \001(\001\" \n\017ShutdownRequest" +
+      "\022\r\n\005timer\030\001 \001(\005\"\022\n\020ShutdownResponse2\376\007\n\020" +
+      "BenchmarkService\022\213\001\n\010topology\022>.pt.ulisb" +
+      "oa.tecnico.thesis.benchmarks.contract.To" +
+      "pologyRequest\032?.pt.ulisboa.tecnico.thesi" +
+      "s.benchmarks.contract.TopologyResponse\022\213" +
+      "\001\n\010protocol\022>.pt.ulisboa.tecnico.thesis." +
+      "benchmarks.contract.ProtocolRequest\032?.pt" +
+      ".ulisboa.tecnico.thesis.benchmarks.contr" +
+      "act.ProtocolResponse\022\224\001\n\005start\022D.pt.ulis" +
       "boa.tecnico.thesis.benchmarks.contract.S" +
-      "hutdownRequest\032?.pt.ulisboa.tecnico.thes" +
-      "is.benchmarks.contract.ShutdownResponseb" +
-      "\006proto3"
+      "tartBenchmarkRequest\032E.pt.ulisboa.tecnic" +
+      "o.thesis.benchmarks.contract.StartBenchm" +
+      "arkResponse\022\221\001\n\004stop\022C.pt.ulisboa.tecnic" +
+      "o.thesis.benchmarks.contract.StopBenchma" +
+      "rkRequest\032D.pt.ulisboa.tecnico.thesis.be" +
+      "nchmarks.contract.StopBenchmarkResponse\022" +
+      "\205\001\n\006inform\022<.pt.ulisboa.tecnico.thesis.b" +
+      "enchmarks.contract.InformRequest\032=.pt.ul" +
+      "isboa.tecnico.thesis.benchmarks.contract" +
+      ".InformResponse\022\214\001\n\007execute\022?.pt.ulisboa" +
+      ".tecnico.thesis.benchmarks.contract.Benc" +
+      "hmarkRequest\032@.pt.ulisboa.tecnico.thesis" +
+      ".benchmarks.contract.BenchmarkResponse\022\213" +
+      "\001\n\010shutdown\022>.pt.ulisboa.tecnico.thesis." +
+      "benchmarks.contract.ShutdownRequest\032?.pt" +
+      ".ulisboa.tecnico.thesis.benchmarks.contr" +
+      "act.ShutdownResponseb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -13066,7 +13265,7 @@ public final class BenchmarkServiceOuterClass {
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_InformResponse_descriptor,
-        new java.lang.String[] { "Replica", "Start", "Finish", "TxCommitted", "AvgLatency", });
+        new java.lang.String[] { "Replica", "Start", "Finish", "TxCommitted", "AvgLatency", "CPULoad", "InBandwidth", "OutBandwidth", });
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_pt_ulisboa_tecnico_thesis_benchmarks_contract_ShutdownRequest_fieldAccessorTable = new

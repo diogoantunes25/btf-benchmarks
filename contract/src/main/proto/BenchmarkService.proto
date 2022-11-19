@@ -126,6 +126,9 @@ message InformResponse {
     uint64 finish = 3;
     uint64 txCommitted = 4;
     float avgLatency = 5;
+    double CPULoad = 6;
+    double inBandwidth = 7;
+    double outBandwidth = 8;
 }
 
 message ShutdownRequest {
