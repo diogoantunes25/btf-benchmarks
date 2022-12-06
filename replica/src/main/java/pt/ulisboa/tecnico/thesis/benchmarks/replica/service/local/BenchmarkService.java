@@ -19,6 +19,7 @@ import pt.tecnico.ulisboa.hbbft.example.election.CommitteeElectionMessageEncoder
 import pt.tecnico.ulisboa.hbbft.example.subset.dumbo.DumboSubsetMessageEncoder;
 import pt.tecnico.ulisboa.hbbft.example.subset.hbbft.HoneyBadgerSubsetMessageEncoder;
 import pt.tecnico.ulisboa.hbbft.subset.SubsetFactory;
+import pt.tecnico.ulisboa.hbbft.subset.dumbo.Dumbo2SubsetFactory;
 import pt.tecnico.ulisboa.hbbft.subset.dumbo.DumboSubsetFactory;
 import pt.tecnico.ulisboa.hbbft.subset.hbbft.HoneyBadgerSubsetFactory;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.GroupKey;
@@ -159,12 +160,12 @@ public class BenchmarkService {
     }
 
     public Summary inform() {
-        logger.info("------------------------------------------------------------------------");
-        logger.info("Getting information.");
-        logger.info("------------------------------------------------------------------------");
+//        logger.info("------------------------------------------------------------------------");
+//        logger.info("Getting information.");
+//        logger.info("------------------------------------------------------------------------");
         Summary info = this.benchmarkReplica.getInfoAndReset();
-        logger.info("Success.");
-        logger.info("------------------------------------------------------------------------\n");
+//        logger.info("Success.");
+//        logger.info("------------------------------------------------------------------------\n");
 
         return info;
     }
@@ -245,12 +246,17 @@ public class BenchmarkService {
                     ); break;
 
                 case DUMBO:
-                default:
                     acsFactory = new DumboSubsetFactory(
                             replicaId,
                             networkInfo,
                             new BrachaBroadcastFactory(replicaId, networkInfo),
                             new MoustefaouiBinaryAgreementFactory(replicaId, networkInfo)
+                    ); break;
+                case DUMBO_2:
+                default:
+                    acsFactory = new Dumbo2SubsetFactory(
+                            replicaId,
+                            networkInfo
                     ); break;
             }
 

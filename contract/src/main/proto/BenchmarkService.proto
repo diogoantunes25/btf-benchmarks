@@ -10,6 +10,7 @@ message TopologyRequest {
     int32 n = 1;
     int32 f = 2;
     repeated Replica replicas = 3;
+
     message GroupKey {
         int32 k = 1;
         int32 l = 2;

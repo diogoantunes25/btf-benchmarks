@@ -76,7 +76,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
         switch (request.getProtocol()) {
             case HONEY_BADGER: protocol = Protocol.HONEY_BADGER; break;
             case DUMBO: protocol = Protocol.DUMBO; break;
-            case DUMBO_2: protocol = Protocol.DUMBO; break;
+            case DUMBO_2: protocol = Protocol.DUMBO_2; break;
             case ALEA_BFT: protocol = Protocol.ALEA_BFT; break;
             default: {
                 protocol = Protocol.HONEY_BADGER;

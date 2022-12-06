@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 
 public class ThroughputReplica extends BenchmarkReplica {
 
+    private static final long MEGABYTE = 1024L * 1024L;
+
     // FIXME: Get interface on a per machine basis
     private static final String INTERFACE = "br0";
 
@@ -160,7 +162,7 @@ public class ThroughputReplica extends BenchmarkReplica {
                     long submitTime = bytesToLong(Arrays.copyOfRange(entry, 1, 1 + Long.BYTES));
 
                     long pending = txPending.decrementAndGet();
-                    logger.info("Commit (latency : {}, pending: {})", timestamp - submitTime, pending);
+                    // logger.info("Commit (latency : {}, pending: {})", timestamp - submitTime, pending);
 
                     // Save measurement
                     synchronized (this.executions) {
@@ -196,18 +198,31 @@ public class ThroughputReplica extends BenchmarkReplica {
                 reader.readLine();
                 while (true) {
                     // Measure CPU load
-                    logger.info("Checking CPU load");
+                    // logger.info("Checking CPU load");
                     load = bean.getSystemLoadAverage();
                     cpuLoadMeasurements.add(load);
 
                     // Measure bandwidth
-                    logger.info("Checking bandwidth");
+                    // logger.info("Checking bandwidth");
                     line = reader.readLine();
                     String[] things = line.strip().split(" ");
-                    in = Double.parseDouble(things[0]);
-                    out = Double.parseDouble(things[things.length-1]);
+                    try {
+                        in = Double.parseDouble(things[0]);
+                    } catch (NumberFormatException e) {
+                        in = 0;
+                    }
+                    try {
+                        out = Double.parseDouble(things[things.length-1]);
+                    } catch (NumberFormatException e) {
+                        out = 0;
+                    }
+
                     receivedBandwidthMeasurements.add(in);
                     sentBandwidthMeasurements.add(out);
+
+                    // Measure memory usage
+                    long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                    // logger.info("Total memory: {} MB", memory / MEGABYTE);
 
                     Thread.sleep(WAIT_PERIOD);
                 }
@@ -248,7 +263,7 @@ public class ThroughputReplica extends BenchmarkReplica {
 
                         if (pending <= maxPending) {
                             (new Thread(() -> {
-                                logger.info("Submitting {} payloads (pending: {}, max: {})", toSend, txPending.get(), maxPending);
+                                // logger.info("Submitting {} payloads (pending: {}, max: {})", toSend, txPending.get(), maxPending);
                                 for (int i = 0; i < toSend; i++) {
                                     byte[] payload = getPayload();
                                     handleStep(protocol.handleInput(payload));
