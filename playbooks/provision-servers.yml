@@ -1,0 +1,33 @@
+- hosts: replicas
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+
+    - name: Create remote server configuration folder
+      file: 
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ default_install_dir }}/{{inventory_hostname}}"      
+
+    - name: Upload containers to remote nodes
+      copy:
+        src: "../containers/{{ alea_container_name }}.tar"
+        dest: "{{ default_install_dir }}/"
+
+    # - name: Deploy cluster configuration
+    #   template:
+    #     src: templates/server.conf.tmpl
+    #     dest: "{{ default_install_dir }}/{{ protocol }}/{{inventory_hostname}}/server{{ topology['servers'][inventory_hostname].id }}.conf"
+    #     mode: "u=r,g=r,o=r"
+
+    # - name: Deploy server run script
+    #   template:
+    #     src: templates/runServer.sh.tmpl
+    #     dest: "{{ default_install_dir }}/{{ protocol }}/{{inventory_hostname}}/runServer{{ topology['servers'][inventory_hostname].id }}.sh"
+    #     mode: "u=rx,g=rx,o=rx"

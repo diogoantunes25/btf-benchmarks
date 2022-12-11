@@ -1,15 +1,15 @@
 FROM maven:3.8.6-amazoncorretto-11 as builder
-RUN yum update && yum install -y git 
+RUN yum update -y && yum install -y git 
 # setup the repository read-only ssh key
 RUN mkdir -p /root/.ssh/ 
 # create a read only deployment key and add it to github 
-COPY id_deploy* /root/.ssh/
-RUN mv /root/.ssh/id_deploy /root/.ssh/id_rsa; \
+COPY id_rsa_alea* /root/.ssh/
+RUN mv /root/.ssh/id_rsa_alea /root/.ssh/id_rsa; \
     chmod -R 600 /root/.ssh/ ; \
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 WORKDIR /code
-RUN git clone git@github.com:danielporto/alea-protocols.git .
+RUN git clone git@github.com:diogoantunes25/alea-protocols.git .
 RUN mvn -Dmaven.repo.local=/alea/.m2 clean install
 
 WORKDIR /alea

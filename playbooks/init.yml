@@ -1,0 +1,63 @@
+- hosts: all
+  become: no
+  any_errors_fatal: true
+  gather_facts: yes # required for detecting os
+  vars_files:
+      - vars.yml
+
+  tasks:
+    - name: Create environment folder
+      file: 
+        path: "{{ item }}"
+        state: directory
+        mode: "g+rw"
+      with_items:
+        - "{{ default_install_dir }}"
+
+
+    # ensure the tasks in this file is done only once.
+    # - name: "Define that the init tasks was done."
+    #   set_fact:
+    #     exp_initialized: True
+    #   when: exp_initialized is not defined
+
+    # - name: Generate node ssh key
+    #   delegate_to: 127.0.0.1
+    #   run_once: yes
+    #   community.crypto.openssh_keypair:
+    #     path: "./{{key_name}}"
+
+    # - name: Copy ssh keys to the cluster nodes
+    #   copy:
+    #     src: "{{item}}"
+    #     dest: "{{ default_install_dir }}/"
+    #     mode: '0600'
+    #   with_items:
+    #     - "{{key_name}}"
+    #     - "{{key_name}}.pub"
+
+    # - name: Set authorized key took from file
+    #   authorized_key:
+    #     user: "{{ default_user }}"
+    #     state: present
+    #     key: "{{ lookup('file', '{{key_name}}.pub') }}"
+
+    # - name: Create SSH config file
+    #   ansible.builtin.template:
+    #     src: templates/spark/cluster_ssh_config.j2
+    #     dest: "{{default_home_dir}}/.ssh/cluster_ssh_config"
+
+    # - name: Include extra ssh hosts in the default config
+    #   ansible.builtin.lineinfile:
+    #     path: "{{ default_home_dir }}/.ssh/config"      
+    #     line: "Include {{default_home_dir}}/.ssh/cluster_ssh_config"
+    #     create: yes
+
+    # - name: Touch the same file, but add/remove some permissions
+    #   ansible.builtin.file:
+    #     path: "{{item}}"
+    #     state: touch
+    #     mode: '0600'        
+    #   with_items:
+    #     - "{{default_home_dir}}/.ssh/cluster_ssh_config"
+    #     - "{{default_home_dir}}/.ssh/config"
