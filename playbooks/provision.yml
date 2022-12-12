@@ -1,4 +1,4 @@
-- hosts: replicas
+- hosts: replicas,managers
   become: no
   any_errors_fatal: true
   gather_facts: no 
@@ -7,7 +7,7 @@
 
   tasks:
 
-    - name: Create remote server configuration folder
+    - name: Create remote configuration folder
       file: 
         path: "{{ item }}"
         state: directory
@@ -17,8 +17,36 @@
 
     - name: Upload containers to remote nodes
       copy:
-        src: "../containers/{{ alea_container_name }}.tar"
+        src: "../containers/{{ alea_image_name }}.tar"
         dest: "{{ default_install_dir }}/"
+
+    - name: Load containers into local registry
+      shell: | 
+        docker load < {{ alea_image_name }}.tar
+      args:
+        chdir: "{{default_install_dir}}"
+
+    - name: Ensure python dependencies are installed
+      become: yes
+      ansible.builtin.pip:
+        name:
+          - docker
+        # state: absent
+
+    - name: Inspect if images are installed
+      docker_image_info:
+        name:
+          - "{{alea_image_name}}"
+      register: result
+
+    # - name: print images
+    #   debug: 
+    #     msg:  "{{ result }}"
+
+    - name: Make sure that image "{{alea_image_name}}" exist locally
+      assert:
+        that:
+          - result.images | length == 1
 
     # - name: Deploy cluster configuration
     #   template:

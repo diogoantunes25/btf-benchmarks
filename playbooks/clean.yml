@@ -1,0 +1,15 @@
+- hosts: replicas,managers
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+
+    - name: Remove remote server configuration folder
+      file: 
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ default_install_dir }}"

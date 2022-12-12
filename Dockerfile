@@ -30,5 +30,6 @@ RUN chmod +x /alea/run.sh
 RUN mkdir /alea/results
 RUN mkdir /alea/logs
 
+WORKDIR /alea
 ENTRYPOINT [ "/alea/run.sh" ]
 

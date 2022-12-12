@@ -1,0 +1,29 @@
+- hosts: managers
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+    - name: initialize manager node
+      shell: | 
+        docker run --rm --network host -it {{alea_image_name}}:latest m &> startup.log
+      args:
+        chdir: "{{default_install_dir}}/{{inventory_hostname}}"
+      
+
+
+# - hosts: replicas
+#   become: no
+#   any_errors_fatal: true
+#   gather_facts: no 
+#   vars_files:
+#       - vars.yml
+
+#   tasks:
+#     - name: initialize replicas
+#       shell: | 
+#         docker run --rm --network host -it "{{alea_image_name}}" "http://{{groups[managers][0]}}:15000"
+#       args:
+#         chdir: "{{default_install_dir}}/{{inventory_hostname}}"

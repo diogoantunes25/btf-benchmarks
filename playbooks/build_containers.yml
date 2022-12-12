@@ -12,11 +12,12 @@
       run_once: yes
       shell: | 
         cd ..
-        docker build . -t "{{alea_container_name}}" --no-cache
+        docker build . -t "{{alea_image_name}}" 
+        #docker build . -t "{{alea_image_name}}" --no-cache
 
     - name: Export Alea containers
       delegate_to: localhost
       run_once: yes
       shell: | 
         cd ..
-        docker save "{{alea_container_name}}" -o "containers/{{alea_container_name}}.tar"
+        docker save "{{alea_image_name}}" -o "containers/{{alea_image_name}}.tar"
