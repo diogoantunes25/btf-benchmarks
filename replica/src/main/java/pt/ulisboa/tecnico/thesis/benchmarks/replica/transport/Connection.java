@@ -115,7 +115,7 @@ public class Connection {
                        }
 
                    } catch (InterruptedException e) {
-                       e.printStackTrace();
+                       // e.printStackTrace();
                        Thread.currentThread().interrupt();
                        break;
                    }

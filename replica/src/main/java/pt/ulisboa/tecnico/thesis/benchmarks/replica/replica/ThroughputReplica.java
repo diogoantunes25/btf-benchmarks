@@ -90,6 +90,8 @@ public class ThroughputReplica extends BenchmarkReplica {
     public Benchmark stop() {
         final long finishTime = ZonedDateTime.now().toInstant().toEpochMilli();
 
+        this.protocol.stop();
+
         this.loader.interrupt();
         logger.info("Load generator interrupted");
 
@@ -227,7 +229,6 @@ public class ThroughputReplica extends BenchmarkReplica {
                     Thread.sleep(WAIT_PERIOD);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

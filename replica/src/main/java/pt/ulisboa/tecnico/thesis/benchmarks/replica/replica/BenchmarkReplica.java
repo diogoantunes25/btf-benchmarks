@@ -87,10 +87,12 @@ public abstract class BenchmarkReplica {
             totalLatency += e.getFinish() - e.getStart();
         }
 
+
         float avgLatency = 0;
         if (txCommitted > 0) {
             avgLatency = totalLatency/txCommitted;
         }
+
 
         OptionalDouble avgCPULoadOptional = previousCPULoads.stream().mapToDouble(a -> a).average();
         double avgCPULoad = avgCPULoadOptional.isEmpty() ? -1 : avgCPULoadOptional.getAsDouble();
@@ -103,6 +105,8 @@ public abstract class BenchmarkReplica {
 
         // TODO: (dsa) check with breda if this is good idea
         System.gc();
+
+        logger.info("committed: {}, latency: {}", txCommitted, avgLatency);
 
         return new Summary(start, now, txCommitted, avgLatency, avgCPULoad, avgInBandwidth, avgOutBandwidth);
     }

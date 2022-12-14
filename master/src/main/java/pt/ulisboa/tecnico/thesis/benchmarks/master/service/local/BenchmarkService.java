@@ -365,13 +365,9 @@ public class BenchmarkService {
     private class InformationCollector {
 
         private final Logger logger = LoggerFactory.getLogger(InformationCollector.class);
-        private final int WAIT_PERIOD = 5000; // Milliseconds
-
+        private final int WAIT_PERIOD = 10000; // Milliseconds
         private final Map<Integer, List<Summary>> history = new HashMap<>();
-
         private Thread thread = null;
-
-
         public InformationCollector() {
             topology.getN();
             for (int i = 0; i < topology.getN(); i++) {
