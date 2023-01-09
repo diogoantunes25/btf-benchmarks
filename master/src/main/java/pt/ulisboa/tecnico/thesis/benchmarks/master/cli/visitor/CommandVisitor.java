@@ -8,6 +8,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.util.NopCommand;
 public interface CommandVisitor {
     boolean visit(SpawnPcsCommand cmd);
     boolean visit(SpawnServerCommand cmd);
+    boolean visit(RegisterClientCommand cmd);
 
     boolean visit(ExitCommand cmd);
     boolean visit(ListCommand cmd);

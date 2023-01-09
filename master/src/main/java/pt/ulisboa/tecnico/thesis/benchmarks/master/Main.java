@@ -7,9 +7,11 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.CommandParser;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.Command;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor.CommandVisitor;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor.ExecuteVisitor;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Client;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Pcs;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.exception.InvalidCommandException;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.PcsRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.local.BenchmarkService;
@@ -40,6 +42,7 @@ public class Main {
         PcsRepository pcsRepository = new PcsRepository();
         ReplicaRepository replicaRepository = new ReplicaRepository();
         BenchmarkRepository benchmarkRepository = new BenchmarkRepository();
+        ClientRepository clientRepository = new ClientRepository();
 
         // init services
         BenchmarkService benchmarkService = new BenchmarkService(replicaRepository, benchmarkRepository);
@@ -75,7 +78,7 @@ public class Main {
             server.start();
 
             try (Scanner scanner = new Scanner(System.in)) {
-                CommandVisitor visitor = new ExecuteVisitor(config, pcsRepository, replicaRepository, benchmarkService);
+                CommandVisitor visitor = new ExecuteVisitor(config, pcsRepository, replicaRepository, clientRepository, benchmarkService);
                 while (true) {
                     System.out.print("$ ");
                     String line = scanner.nextLine();

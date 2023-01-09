@@ -26,27 +26,16 @@ import pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.ProcessCreationServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.Config;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.CommandParser;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.AwsCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.AwsTerminateCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.Command;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ExitCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ListCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.PingCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.RunBenchmarkCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.RunScriptCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SetProtocolCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SetTopologyCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.ShutdownCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SleepCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SpawnPcsCommand;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.SpawnServerCommand;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.benchmark.StartCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.benchmark.StopCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.cmd.util.NopCommand;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Benchmark;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Client;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Pcs;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.exception.InvalidCommandException;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.PcsRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.AwsService;
@@ -64,12 +53,16 @@ import software.amazon.awssdk.services.ec2.model.Vpc;
 
 public class ExecuteVisitor implements CommandVisitor {
 
+    private final static int CLIENT_CONTROL_PORT = 20000; // port client uses to talk to the master
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final Config config;
 
     private final PcsRepository pcsRepository;
     private final ReplicaRepository replicaRepository;
+    private final ClientRepository clientRepository;
+
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
 
@@ -81,12 +74,14 @@ public class ExecuteVisitor implements CommandVisitor {
             Config config,
             PcsRepository pcsRepository,
             ReplicaRepository replicaRepository,
+            ClientRepository clientRepository,
             BenchmarkService benchmarkService
     ) {
         this.config = config;
 
         this.pcsRepository = pcsRepository;
         this.replicaRepository = replicaRepository;
+        this.clientRepository = clientRepository;
 
         this.benchmarkService = benchmarkService;
         this.awsService = new AwsService(
@@ -111,7 +106,7 @@ public class ExecuteVisitor implements CommandVisitor {
             nodeAddress = InetAddress.getByName(cmd.getNode());
         }
         catch (UnknownHostException e) {
-            System.out.println("PCS Spawning failed. Unknwon host.");
+            System.out.println("PCS Spawning failed. Unknown host.");
         }
 
         Pcs pcs = new Pcs(cmd.getId(), nodeAddress.getHostAddress(), PCS_DEFAULT_PORT);
@@ -159,6 +154,24 @@ public class ExecuteVisitor implements CommandVisitor {
     }
 
     @Override
+    public boolean visit(RegisterClientCommand cmd) {
+        InetAddress nodeAddress = null;
+
+        try {
+            nodeAddress = InetAddress.getByName(cmd.getNode());
+        }
+        catch (UnknownHostException e) {
+            System.out.println("Client registering failed. Unknown host.");
+        }
+
+        Client client = new Client(Integer.toString(clientRepository.size()), nodeAddress.getHostAddress(), CLIENT_CONTROL_PORT);
+        System.out.println("Client IP: " + client.getAddress() + ", port: " + client.getPort());
+        this.clientRepository.add(client);
+
+        return true;
+    }
+
+    @Override
     public boolean visit(ExitCommand cmd) {
         System.exit(0);
         return true;
@@ -174,6 +187,11 @@ public class ExecuteVisitor implements CommandVisitor {
         System.out.println("Replicas:");
         for (Replica replica: replicaRepository.getAll()) {
             System.out.println(replica);
+        }
+
+        System.out.println("Clients:");
+        for (Client client: clientRepository.getAll()) {
+            System.out.println(client);
         }
 
         return true;

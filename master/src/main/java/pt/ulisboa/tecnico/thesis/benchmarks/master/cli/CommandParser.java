@@ -31,6 +31,14 @@ public class CommandParser {
                 return new SpawnServerCommand(args.get(0));
             }
 
+            // parse register client command
+            case "client": {
+                List<String> args = tokens.subList(1, tokens.size());
+                if (args.size() < 1) throw new InvalidCommandException(line);
+                final String node = args.get(0);
+                return new RegisterClientCommand(node);
+            }
+
             // parse exit command
             case "exit": {
                 return new ExitCommand();
