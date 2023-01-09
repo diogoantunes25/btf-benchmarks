@@ -8,6 +8,7 @@ import io.grpc.ServerBuilder;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc.BenchmarkGrpcService;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc.TransactionGrpcService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,6 @@ public class Main {
     private static final int BASE_CONTROL_PORT = 10000;
 
     public static void main(String[] args) throws UnknownHostException {
-        // System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
 
         // Parse args
         Config config = Config.fromArgs(args);
@@ -70,11 +70,12 @@ public class Main {
                 .forPort(controlPort)
                 .addService(new BenchmarkGrpcService(config.getReplicaId(), port))
                 .addService(ProtoReflectionService.newInstance())
+                .addService(new TransactionGrpcService())
                 .build();
 
         try {
             server.start();
-            System.out.println(String.format("Replica %d server started", config.getReplicaId()));
+            System.out.println(String.format("Replica %d server started at %d (control port), %d (port)", config.getReplicaId(), controlPort, port));
             server.awaitTermination();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

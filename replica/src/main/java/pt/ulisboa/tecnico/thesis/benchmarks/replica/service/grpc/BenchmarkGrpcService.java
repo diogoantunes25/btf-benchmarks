@@ -23,20 +23,12 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
 
     private final Integer replicaId;
     private final BenchmarkService benchmarkService;
-
     private final int port;
-
-    // TODO deprecated
-    // private final BenchmarkReplica benchmarkReplica;
-
 
     public BenchmarkGrpcService(Integer replicaId, int port) {
         this.replicaId = replicaId;
         this.benchmarkService = new BenchmarkService(replicaId, port);
         this.port = port;
-
-        // TODO deprecated
-        //this.benchmarkReplica = new BenchmarkReplica(replicaId);
     }
 
     @Override

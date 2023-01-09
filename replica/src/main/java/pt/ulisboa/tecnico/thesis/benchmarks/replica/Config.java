@@ -20,7 +20,7 @@ public class Config {
      */
     public static Config fromArgs(String[] args) throws UnknownHostException {
         if (args.length < 1) {
-            System.out.println("Use: java MainTcp <replicaId> [masterUri]");
+            System.out.println("Use: java -jar replica.jar <replicaId> [masterUri]");
             System.exit(-1);
         }
 

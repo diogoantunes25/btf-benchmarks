@@ -1,0 +1,14 @@
+syntax = "proto3";
+package pt.ulisboa.tecnico.thesis.benchmarks.contract;
+
+message SubmitRequest {
+  bytes payload = 1;
+}
+
+message SubmitResponse {
+  bool ok = 1;
+}
+
+service TransactionService {
+  rpc submit(SubmitRequest) returns (SubmitResponse);
+}

@@ -6,14 +6,10 @@ import io.grpc.ManagedChannelBuilder;
 public class Client {
     private final String name;
     private final String address;
-    private final Integer port;
 
-    private ManagedChannel channel;
-
-    public Client(String name, String address, Integer port) {
+    public Client(String name, String address) {
         this.name = name;
         this.address = address;
-        this.port = port;
     }
 
     public String getName() {
@@ -24,22 +20,12 @@ public class Client {
         return address;
     }
 
-    public Integer getPort() {
-        return port;
-    }
-
-    public ManagedChannel getChannel() {
-        if (channel == null)
-            channel = ManagedChannelBuilder.forAddress(address, port).usePlaintext().build();
-        return channel;
-    }
 
     @Override
     public String toString() {
         return "Client{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", port=" + port +
                 '}';
     }
 

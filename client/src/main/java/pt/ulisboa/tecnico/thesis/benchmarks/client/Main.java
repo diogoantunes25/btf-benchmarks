@@ -10,8 +10,8 @@ public class Main {
         Client client = new Client(1000);
 
         Map<Integer, String> replicas = new HashMap<>();
-        replicas.put(0, "127.0.0.1");
-        replicas.put(1, "127.0.0.2");
+        replicas.put(0, "192.168.56.56");
+        replicas.put(1, "192.168.56.57");
 
         client.setReplicas(replicas);
         try {

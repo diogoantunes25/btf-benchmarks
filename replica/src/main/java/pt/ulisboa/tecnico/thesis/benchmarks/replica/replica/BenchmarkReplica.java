@@ -103,7 +103,6 @@ public abstract class BenchmarkReplica {
         OptionalDouble avgOutBandwidthOptional = previousOutBandwidth.stream().mapToDouble(a -> a).average();
         double avgOutBandwidth = avgOutBandwidthOptional.isEmpty() ? -1 : avgOutBandwidthOptional.getAsDouble();
 
-        // TODO: (dsa) check with breda if this is good idea
         System.gc();
 
         logger.info("committed: {}, latency: {}", txCommitted, avgLatency);

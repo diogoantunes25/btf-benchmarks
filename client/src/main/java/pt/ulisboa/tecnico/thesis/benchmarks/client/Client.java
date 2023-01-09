@@ -1,11 +1,19 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.client;
 
 import com.google.common.util.concurrent.RateLimiter;
+import com.google.protobuf.ByteString;
+import io.grpc.Grpc;
+import io.grpc.InsecureChannelCredentials;
+import io.grpc.ManagedChannel;
+import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ulisboa.tecnico.thesis.benchmarks.client.exceptions.ReplicasUnknownException;
+import pt.ulisboa.tecnico.thesis.benchmarks.contract.TransactionServiceGrpc;
+import pt.ulisboa.tecnico.thesis.benchmarks.contract.TransactionServiceOuterClass;
 
+import java.nio.ByteBuffer;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -14,6 +22,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Client {
+    private static final int BASE_CONTROL_PORT = 10000;
+    private static final int PAYLOAD_SIZE = 250;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private int cooldown;
     // replica ip -> replica IP
@@ -134,18 +145,37 @@ public class Client {
         }
     }
 
+    public static byte[] longToBytes(long x) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.putLong(x);
+        return buffer.array();
+    }
+
+    public static long bytesToLong(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.put(bytes);
+        buffer.flip();//need flip
+        return buffer.getLong();
+    }
+
     private class Loader extends Thread {
         private int id;
         private String ip;
         private int load;
-
         private AtomicBoolean done;
+        private TransactionServiceGrpc.TransactionServiceStub stub;
 
         public Loader(int id, String ip, int load) {
             this.id = id;
             this.ip = ip;
             this.load = load;
             this.done = new AtomicBoolean(false);
+            this.stub = TransactionServiceGrpc.newStub(
+                Grpc.newChannelBuilder(
+                    ip + ":" + Integer.toString(BASE_CONTROL_PORT + id), InsecureChannelCredentials.create()
+                ).build()
+            );
+            logger.info("start to load {}:{}", ip, BASE_CONTROL_PORT+id);
         }
 
         public void run() {
@@ -162,9 +192,53 @@ public class Client {
         }
 
         public void sendTx() {
+
+            TransactionServiceOuterClass.SubmitRequest request = TransactionServiceOuterClass.SubmitRequest.newBuilder()
+                                                                    .setPayload(ByteString.copyFrom(generateTx()))
+                                                                    .build();
+
             logger.info("submitting to {}", ip);
-            handleSubmission(Math.abs((new Random()).nextInt()));
+            stub.submit(request,
+                        new StreamObserver<TransactionServiceOuterClass.SubmitResponse>() {
+                @Override
+                public void onNext(TransactionServiceOuterClass.SubmitResponse submitResponse) {
+                    logger.info("new submission");
+                    // TODO
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    logger.info("error");
+                    throwable.printStackTrace();
+                }
+
+                @Override
+                public void onCompleted() {
+                    logger.info("stream closed");
+                    // TODO
+                }
+            });
         }
+
+        /**
+         *  Produces transaction (that includes submission timestamp)
+         */
+        public byte[] generateTx() {
+
+            byte[] payload = new byte[PAYLOAD_SIZE];
+
+            (new Random()).nextBytes(payload);
+
+            long submitTime = ZonedDateTime.now().toInstant().toEpochMilli();
+            // logger.info("The submit time is {}", submitTime);
+            byte[] submitTimeBytes = longToBytes(submitTime);
+            for (int i = 0; i < submitTimeBytes.length; i++) {
+                payload[i] = submitTimeBytes[i];
+            }
+
+            return payload;
+        }
+
 
         /**
          * Registers the submission of a transaction
@@ -221,7 +295,9 @@ public class Client {
             for (int id: past.keySet()) {
                 OnGoingExecution ex = past.get(id);
                 logger.info("{} has {} new txs, latency is {}", id, ex.getTxs(), ex.getLatency());
+                // TODO: Save stats
             }
+
         }
 
 
@@ -245,7 +321,11 @@ public class Client {
 
         public long getStart() { return start; }
         public long getTxs() { return txs.get(); }
-        public double getLatency() { return totalLatency.get()/txs.get(); }
+        public double getLatency() {
+            long t = txs.get();
+            if (t == 0) return 0;
+            return totalLatency.get()/t;
+        }
     }
 
 }

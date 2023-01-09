@@ -2,6 +2,7 @@ pt/ulisboa/tecnico/thesis/benchmarks/client/Client$Stat.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/exceptions/ReplicasUnknownException.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/Client$OnGoingExecution.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/Client.class
+pt/ulisboa/tecnico/thesis/benchmarks/client/Client$Loader$1.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/Client$InformationCollector.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/Main.class
 pt/ulisboa/tecnico/thesis/benchmarks/client/Client$Loader.class
