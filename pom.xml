@@ -14,6 +14,7 @@
         <module>contract</module>
         <module>master</module>
         <module>pcs</module>
+        <module>client</module>
     </modules>
 
     <properties>
