@@ -45,7 +45,7 @@ public class Main {
         ClientRepository clientRepository = new ClientRepository();
 
         // init services
-        BenchmarkService benchmarkService = new BenchmarkService(replicaRepository, benchmarkRepository);
+        BenchmarkService benchmarkService = new BenchmarkService(replicaRepository, benchmarkRepository, clientRepository);
 
         // for all pcs whose status is unknown pings. If ping goes well
         // set status as ONLINE, otherwise set as offline

@@ -24,7 +24,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Client {
     private static final int BASE_CONTROL_PORT = 10000;
     private static final int PAYLOAD_SIZE = 250;
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private int cooldown;
     // replica ip -> replica IP

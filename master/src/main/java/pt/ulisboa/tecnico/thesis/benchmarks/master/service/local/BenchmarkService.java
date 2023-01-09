@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Benchmark;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.BenchmarkResult;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Commit;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Replica;
+import pt.ulisboa.tecnico.thesis.benchmarks.contract.LoadServiceGrpc;
+import pt.ulisboa.tecnico.thesis.benchmarks.contract.LoadServiceOuterClass;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.JsonService;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
@@ -26,6 +26,7 @@ public class BenchmarkService {
 
     private final ReplicaRepository replicaRepository;
     private final BenchmarkRepository benchmarkRepository;
+    private final ClientRepository clientRepository;
 
     private Benchmark.Topology topology;
     private Benchmark.Protocol protocol;
@@ -33,9 +34,10 @@ public class BenchmarkService {
     // Thread that periodically retrieves information from replicas
     private InformationCollector informationCollector = null;
 
-    public BenchmarkService(ReplicaRepository replicaRepository, BenchmarkRepository benchmarkRepository) {
+    public BenchmarkService(ReplicaRepository replicaRepository, BenchmarkRepository benchmarkRepository, ClientRepository clientRepository) {
         this.replicaRepository = replicaRepository;
         this.benchmarkRepository = benchmarkRepository;
+        this.clientRepository = clientRepository;
     }
 
     public void setTopology(Benchmark.Topology topology) {
@@ -168,7 +170,6 @@ public class BenchmarkService {
         List<Replica> replicas = this.topology.getReplicas();
         Collections.shuffle(replicas);
 
-
         BenchmarkServiceOuterClass.ProtocolRequest request = BenchmarkServiceOuterClass.ProtocolRequest.newBuilder()
                 .setProtocol(grpcProtocol)
                 .setBatchSize(protocol.getBatchSize())
@@ -196,8 +197,9 @@ public class BenchmarkService {
 
     public void startBenchmark() {
         // init response listener
-        final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
-        StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver = new StreamObserver<>() {
+        final CountDownLatch replicaResponseLatch = new CountDownLatch(topology.getN());
+        final CountDownLatch clientResponseLatch = new CountDownLatch(clientRepository.size());
+        StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> replicaResponseObserver = new StreamObserver<>() {
             @Override
             public void onNext(BenchmarkServiceOuterClass.StartBenchmarkResponse response) {
                 System.out.println(response.getOk());
@@ -207,12 +209,30 @@ public class BenchmarkService {
             public void onError(Throwable throwable) {
                 System.out.println("start benchmark failed");
                 throwable.printStackTrace();
-                responseLatch.countDown();
+                replicaResponseLatch.countDown();
             }
 
             @Override
             public void onCompleted() {
-                responseLatch.countDown();
+                replicaResponseLatch.countDown();
+            }
+        };
+        StreamObserver<LoadServiceOuterClass.StartResponse> clientResponseObserver = new StreamObserver<LoadServiceOuterClass.StartResponse>() {
+            @Override
+            public void onNext(LoadServiceOuterClass.StartResponse response) {
+                System.out.println("ok");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.out.println("start benchmark failed");
+                throwable.printStackTrace();
+                clientResponseLatch.countDown();
+            }
+
+            @Override
+            public void onCompleted() {
+                clientResponseLatch.countDown();
             }
         };
 
@@ -221,23 +241,49 @@ public class BenchmarkService {
         // setup request
         BenchmarkServiceOuterClass.StartBenchmarkRequest.Builder requestBuilder = BenchmarkServiceOuterClass.StartBenchmarkRequest.newBuilder();
 
-        // send request
+        // send request to replicas
         System.out.println("[start benchmark] Sending request");
         boolean first = true;
         for (Replica replica: topology.getReplicas()) {
             BenchmarkServiceOuterClass.StartBenchmarkRequest request = requestBuilder.setFirst(first).build();
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
-            stub.start(request, responseObserver);
+            stub.start(request, replicaResponseObserver);
 
             first = false;
         }
 
-
-        // wait for responses
+        // wait for replica responses
         try {
-            System.out.println("[start benchmark] Waiting for responses");
-            responseLatch.await();
+            System.out.println("[start benchmark] Waiting for replica responses");
+            replicaResponseLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // send request to clients
+        for (Client client: clientRepository.getAll()) {
+            LoadServiceOuterClass.StartRequest request = LoadServiceOuterClass.StartRequest.newBuilder()
+                    .addAllReplicas(
+                            replicaRepository.getAll().stream()
+                                    .map(replica -> LoadServiceOuterClass.StartRequest.Replica.newBuilder()
+                                                        .setId(replica.getReplicaId())
+                                                        .setIp(replica.getAddress())
+                                                        .build())
+                                    .collect(Collectors.toList())
+                    )
+                    .setLoad(protocol.getLoad())
+                    .build();
+
+            ManagedChannel channel = client.getChannel();
+            LoadServiceGrpc.LoadServiceStub stub = LoadServiceGrpc.newStub(channel);
+            stub.start(request, clientResponseObserver);
+        }
+
+        // wait for client responses
+        try {
+            System.out.println("[start benchmark] Waiting for client responses");
+            replicaResponseLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -250,9 +296,10 @@ public class BenchmarkService {
 
     public void stopBenchmark() {
         // init response listener
-        final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
+        final CountDownLatch replicaResponseLatch = new CountDownLatch(topology.getN());
+        final CountDownLatch clientResponseLatch = new CountDownLatch(clientRepository.size());
         final Map<Integer, BenchmarkServiceOuterClass.StopBenchmarkResponse> responses = new ConcurrentHashMap<>();
-        StreamObserver<BenchmarkServiceOuterClass.StopBenchmarkResponse> responseObserver = new StreamObserver<>() {
+        StreamObserver<BenchmarkServiceOuterClass.StopBenchmarkResponse> replicaResponseObserver = new StreamObserver<>() {
             @Override
             public void onNext(BenchmarkServiceOuterClass.StopBenchmarkResponse response) {
                 responses.put(response.getReplica(), response);
@@ -263,14 +310,34 @@ public class BenchmarkService {
             public void onError(Throwable throwable) {
                 System.out.println("stop benchmark failed");
                 throwable.printStackTrace();
-                responseLatch.countDown();
+                replicaResponseLatch.countDown();
             }
 
             @Override
             public void onCompleted() {
-                responseLatch.countDown();
+                replicaResponseLatch.countDown();
             }
         };
+
+        StreamObserver<LoadServiceOuterClass.StopResponse> clientResponseObserver = new StreamObserver<>() {
+            @Override
+            public void onNext(LoadServiceOuterClass.StopResponse response) {
+                System.out.println("ok");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.out.println("stop benchmark failed");
+                throwable.printStackTrace();
+                clientResponseLatch.countDown();
+            }
+
+            @Override
+            public void onCompleted() {
+                clientResponseLatch.countDown();
+            }
+        };
+
 
         this.informationCollector.stop();
         Map<Integer,List<Summary>> history = this.informationCollector.getHistory();
@@ -279,8 +346,24 @@ public class BenchmarkService {
 
         System.out.println("[stop benchmark] Setting up request");
 
+        // setup client request
+        LoadServiceOuterClass.StopRequest clientRequest = LoadServiceOuterClass.StopRequest.newBuilder().build();
+        for (Client client: clientRepository.getAll()) {
+            ManagedChannel channel = client.getChannel();
+            LoadServiceGrpc.LoadServiceStub stub = LoadServiceGrpc.newStub(channel);
+            stub.stop(clientRequest, clientResponseObserver);
+        }
+
+        // wait for replies
+        try {
+            System.out.println("Running benchmarks...");
+            clientResponseLatch.await(60*5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("Something went wrong!");
+        }
+
         // setup request
-        BenchmarkServiceOuterClass.StopBenchmarkRequest request = BenchmarkServiceOuterClass.StopBenchmarkRequest
+        BenchmarkServiceOuterClass.StopBenchmarkRequest replicaRequest = BenchmarkServiceOuterClass.StopBenchmarkRequest
                 .getDefaultInstance();
 
         System.out.println("[stop benchmark] Sending request");
@@ -289,7 +372,7 @@ public class BenchmarkService {
         for (Replica replica: topology.getReplicas()) {
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
-            stub.stop(request, responseObserver);
+            stub.stop(replicaRequest, replicaResponseObserver);
         }
 
         System.out.println("[stop benchmark] Waiting for replies");
@@ -297,11 +380,10 @@ public class BenchmarkService {
         // wait for replies
         try {
             System.out.println("Running benchmarks...");
-            responseLatch.await(60*5, TimeUnit.SECONDS);
+            replicaResponseLatch.await(60*5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.out.println("Something went wrong!");
         }
-
 
         // parse replies
         List<BenchmarkResult> overview = responses.values().stream()

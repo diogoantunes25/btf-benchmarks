@@ -164,7 +164,7 @@ public class ExecuteVisitor implements CommandVisitor {
             System.out.println("Client registering failed. Unknown host.");
         }
 
-        Client client = new Client(Integer.toString(clientRepository.size()), nodeAddress.getHostAddress());
+        Client client = new Client(Integer.toString(clientRepository.size()), nodeAddress.getHostAddress(), CLIENT_CONTROL_PORT);
         System.out.println("Client IP: " + client.getAddress());
         this.clientRepository.add(client);
 
