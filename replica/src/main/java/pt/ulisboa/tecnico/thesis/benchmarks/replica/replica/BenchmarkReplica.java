@@ -16,6 +16,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.Reporter;
 
 import java.math.BigInteger;
 import java.time.ZonedDateTime;
@@ -45,6 +46,7 @@ public abstract class BenchmarkReplica {
     protected List<Double> sentBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
     protected List<Double> receivedBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
     protected List<Double> cpuLoadMeasurements = Collections.synchronizedList(new ArrayList<>());
+    private static final int REPORT_WAIT_TIME = 1000;
 
     public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
         this.protocol = protocol;

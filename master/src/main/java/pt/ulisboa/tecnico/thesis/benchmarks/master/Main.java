@@ -10,10 +10,8 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.cli.visitor.ExecuteVisitor;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Client;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.Pcs;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.exception.InvalidCommandException;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.PcsRepository;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.*;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.service.grpc.InformationCollectorGrpcService;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.local.BenchmarkService;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.grpc.RegisterGrpcService;
 
@@ -24,6 +22,11 @@ import java.util.stream.Collectors;
 public class Main {
 
     private static final int DEFAULT_MASTER_PORT = 15000;
+
+    /**
+     * Default files to which updates are written
+     */
+    private static final String DEFAULT_FILE = "general_updates";
     
     /**
      * @param args Resources server and master address (both optional). By default
@@ -43,6 +46,7 @@ public class Main {
         ReplicaRepository replicaRepository = new ReplicaRepository();
         BenchmarkRepository benchmarkRepository = new BenchmarkRepository();
         ClientRepository clientRepository = new ClientRepository();
+        UpdateRepository updateRepository = new UpdateRepository(DEFAULT_FILE);
 
         // init services
         BenchmarkService benchmarkService = new BenchmarkService(replicaRepository, benchmarkRepository, clientRepository);
@@ -68,8 +72,8 @@ public class Main {
                 .forPort(DEFAULT_MASTER_PORT)
                 .addService(new RegisterGrpcService(replicaRepository))
                 .addService(ProtoReflectionService.newInstance())
+                .addService(new InformationCollectorGrpcService(updateRepository))
                 .build();
-
 
         // Command loop ----------------------------------------------
         // -----------------------------------------------------------
@@ -78,7 +82,7 @@ public class Main {
             server.start();
 
             try (Scanner scanner = new Scanner(System.in)) {
-                CommandVisitor visitor = new ExecuteVisitor(config, pcsRepository, replicaRepository, clientRepository, benchmarkService);
+                CommandVisitor visitor = new ExecuteVisitor(config, pcsRepository, replicaRepository, clientRepository, benchmarkService, updateRepository);
                 while (true) {
                     System.out.print("$ ");
                     String line = scanner.nextLine();

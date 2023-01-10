@@ -13,7 +13,9 @@ import java.util.Map;
 public class Main {
     private static final int CLIENT_PORT = 20000;
     public static void main(String args[]) {
-        Client client = new Client(1000);
+
+        Config config = Config.fromArgs(args);
+        Client client = new Client(1000, config.getMasterIP());
 
         // Start server
         Server server = ServerBuilder

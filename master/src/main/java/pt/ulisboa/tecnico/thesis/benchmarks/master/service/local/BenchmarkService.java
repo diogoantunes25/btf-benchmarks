@@ -2,8 +2,6 @@ package pt.ulisboa.tecnico.thesis.benchmarks.master.service.local;
 
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.LoadServiceGrpc;
@@ -12,10 +10,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.domain.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.BenchmarkRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
-import pt.ulisboa.tecnico.thesis.benchmarks.master.service.JsonService;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 
-import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -31,8 +26,6 @@ public class BenchmarkService {
     private Benchmark.Topology topology;
     private Benchmark.Protocol protocol;
 
-    // Thread that periodically retrieves information from replicas
-    private InformationCollector informationCollector = null;
 
     public BenchmarkService(ReplicaRepository replicaRepository, BenchmarkRepository benchmarkRepository, ClientRepository clientRepository) {
         this.replicaRepository = replicaRepository;
@@ -61,7 +54,7 @@ public class BenchmarkService {
             }
         };
 
-        for (Replica replica: topology.getReplicas()) {
+        for (Replica replica : topology.getReplicas()) {
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
 
@@ -179,7 +172,7 @@ public class BenchmarkService {
                 .addAllFaulty(replicas.stream().limit(topology.getF()).map(Replica::getReplicaId).collect(Collectors.toList()))
                 .buildPartial();
 
-        for (Replica replica: this.topology.getReplicas()) {
+        for (Replica replica : this.topology.getReplicas()) {
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.protocol(request, responseObserver);
@@ -244,7 +237,7 @@ public class BenchmarkService {
         // send request to replicas
         System.out.println("[start benchmark] Sending request");
         boolean first = true;
-        for (Replica replica: topology.getReplicas()) {
+        for (Replica replica : topology.getReplicas()) {
             BenchmarkServiceOuterClass.StartBenchmarkRequest request = requestBuilder.setFirst(first).build();
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
@@ -262,14 +255,14 @@ public class BenchmarkService {
         }
 
         // send request to clients
-        for (Client client: clientRepository.getAll()) {
+        for (Client client : clientRepository.getAll()) {
             LoadServiceOuterClass.StartRequest request = LoadServiceOuterClass.StartRequest.newBuilder()
                     .addAllReplicas(
                             replicaRepository.getAll().stream()
                                     .map(replica -> LoadServiceOuterClass.StartRequest.Replica.newBuilder()
-                                                        .setId(replica.getReplicaId())
-                                                        .setIp(replica.getAddress())
-                                                        .build())
+                                            .setId(replica.getReplicaId())
+                                            .setIp(replica.getAddress())
+                                            .build())
                                     .collect(Collectors.toList())
                     )
                     .setLoad(protocol.getLoad())
@@ -287,11 +280,6 @@ public class BenchmarkService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        this.informationCollector = new InformationCollector();
-        this.informationCollector.start();
-        System.out.println("[start benchmark] started information collector");
-
     }
 
     public void stopBenchmark() {
@@ -339,16 +327,11 @@ public class BenchmarkService {
         };
 
 
-        this.informationCollector.stop();
-        Map<Integer,List<Summary>> history = this.informationCollector.getHistory();
-        this.informationCollector = null;
-        System.out.println("[stop benchmark] stopped information collector");
-
         System.out.println("[stop benchmark] Setting up request");
 
         // setup client request
         LoadServiceOuterClass.StopRequest clientRequest = LoadServiceOuterClass.StopRequest.newBuilder().build();
-        for (Client client: clientRepository.getAll()) {
+        for (Client client : clientRepository.getAll()) {
             ManagedChannel channel = client.getChannel();
             LoadServiceGrpc.LoadServiceStub stub = LoadServiceGrpc.newStub(channel);
             stub.stop(clientRequest, clientResponseObserver);
@@ -357,7 +340,7 @@ public class BenchmarkService {
         // wait for replies
         try {
             System.out.println("Running benchmarks...");
-            clientResponseLatch.await(60*5, TimeUnit.SECONDS);
+            clientResponseLatch.await(60 * 5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.out.println("Something went wrong!");
         }
@@ -369,7 +352,7 @@ public class BenchmarkService {
         System.out.println("[stop benchmark] Sending request");
 
         // send request
-        for (Replica replica: topology.getReplicas()) {
+        for (Replica replica : topology.getReplicas()) {
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.stop(replicaRequest, replicaResponseObserver);
@@ -380,25 +363,26 @@ public class BenchmarkService {
         // wait for replies
         try {
             System.out.println("Running benchmarks...");
-            replicaResponseLatch.await(60*5, TimeUnit.SECONDS);
+            replicaResponseLatch.await(60 * 5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.out.println("Something went wrong!");
         }
 
-        // parse replies
-        List<BenchmarkResult> overview = responses.values().stream()
-                .map(r -> new BenchmarkResult(
-                        r.getReplica(),
-                        r.getStart(),
-                        r.getFinish(),
-                        r.getSentMessages(),
-                        r.getRecvMessages(),
-                        r.getTotalTx(),
-                        r.getDroppedTx()
-                )).collect(Collectors.toList());
+//        // parse replies
+//        List<BenchmarkResult> overview = responses.values().stream()
+//                .map(r -> new BenchmarkResult(
+//                        r.getReplica(),
+//                        r.getStart(),
+//                        r.getFinish(),
+//                        r.getSentMessages(),
+//                        r.getRecvMessages(),
+//                        r.getTotalTx(),
+//                        r.getDroppedTx()
+//                )).collect(Collectors.toList());
 
+        // TODO: redo (maybe CSV only)
         // save results
-        JsonService.write(overview, history, topology.getN(), protocol.getName(), protocol.getBatchSize(), protocol.getFaultMode(), protocol.getLoad());
+        // JsonService.write(overview, new HashMap<>(), topology.getN(), protocol.getName(), protocol.getBatchSize(), protocol.getFaultMode(), protocol.getLoad());
     }
 
     public void shutdown(int timer) {
@@ -427,7 +411,7 @@ public class BenchmarkService {
         BenchmarkServiceOuterClass.ShutdownRequest request = BenchmarkServiceOuterClass.ShutdownRequest
                 .newBuilder().setTimer(timer).build();
 
-        for (Replica replica: replicas) {
+        for (Replica replica : replicas) {
             ManagedChannel channel = replica.getChannel();
             BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
             stub.shutdown(request, responseObserver);
@@ -441,103 +425,5 @@ public class BenchmarkService {
         }
 
         // TODO: Probably need to shutdown PCS also
-    }
-
-    // Thread that periodically requests information from replicas
-    private class InformationCollector {
-
-        private final Logger logger = LoggerFactory.getLogger(InformationCollector.class);
-        private final int WAIT_PERIOD = 10000; // Milliseconds
-        private final Map<Integer, List<Summary>> history = new HashMap<>();
-        private Thread thread = null;
-        public InformationCollector() {
-            topology.getN();
-            for (int i = 0; i < topology.getN(); i++) {
-                history.put(i, new ArrayList<>());
-            }
-        }
-
-        public void start() {
-
-            if (this.thread != null) {
-                return;
-            }
-
-            this.thread = new Thread(() -> {
-                while (true) {
-                    try {
-                        Thread.sleep(WAIT_PERIOD);
-                        getInfo();
-                    } catch(InterruptedException e) {
-                        return;
-                    }
-                }
-            });
-
-            this.thread.start();
-        }
-
-        public void stop() {
-            this.thread.interrupt();
-        }
-
-        public Map<Integer, List<Summary>> getHistory() {
-            return history;
-        }
-
-        public void getInfo() {
-            // logger.info("Retrieving information from replicas");
-
-            final CountDownLatch responseLatch = new CountDownLatch(topology.getN());
-            final Map<Integer, BenchmarkServiceOuterClass.InformResponse> responses = new ConcurrentHashMap<>();
-
-            StreamObserver<BenchmarkServiceOuterClass.InformResponse> responseObserver = new StreamObserver<>() {
-                @Override
-                public void onNext(BenchmarkServiceOuterClass.InformResponse response) {
-                    responses.put(response.getReplica(), response);
-                    // logger.info("New information arrived from {} ({} commits)", response.getReplica(), response.getCommitsCount());
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    System.out.println("start benchmark failed");
-                    throwable.printStackTrace();
-                    responseLatch.countDown();
-                }
-
-                @Override
-                public void onCompleted() {
-                    responseLatch.countDown();
-                }
-            };
-
-            BenchmarkServiceOuterClass.InformRequest.Builder requestBuilder = BenchmarkServiceOuterClass.InformRequest.newBuilder();
-
-            // logger.info("Sending retrieval requests");
-
-            for(Replica replica: topology.getReplicas()) {
-                ManagedChannel channel = replica.getChannel();
-                BenchmarkServiceGrpc.BenchmarkServiceStub stub = BenchmarkServiceGrpc.newStub(channel);
-                stub.inform(requestBuilder.build(), responseObserver);
-            }
-
-
-            try {
-                // logger.info("Waiting for responses");
-                responseLatch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            // logger.info("All responses collected");
-
-            // Add response info to history
-            for (int i = 0; i < topology.getN(); i++) {
-                BenchmarkServiceOuterClass.InformResponse response = responses.get(i);
-                Summary summary = new Summary(response.getStart(), response.getFinish(), response.getTxCommitted(),
-                    response.getAvgLatency(), response.getCPULoad(), response.getInBandwidth(), response.getOutBandwidth());
-                history.get(i).add(summary);
-            }
-        }
     }
 }

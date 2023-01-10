@@ -20,18 +20,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 public class Client {
     private static final int BASE_CONTROL_PORT = 10000;
     private static final int PAYLOAD_SIZE = 250;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private int cooldown;
-    // replica ip -> replica IP
     private Map<Integer, String> replicas = null;
-    private InformationCollector informationCollector;
     private Map<Integer,Loader> loaders;
     private Set<Stat> stats;
     private Map<Integer,Lock> locks;
+    private String masterIP;
 
     private static final int collectionDuration = 1000;
     /**
@@ -43,12 +43,13 @@ public class Client {
      *
      * @param cooldown - time between stop is called and measurements are stopped (in milliseconds)
      */
-    public Client(int cooldown) {
+    public Client(int cooldown, String masterIP) {
         this.cooldown = cooldown;
         stats = new HashSet<>();
         loaders = new HashMap<>();
         onGoing = new HashMap<>();
         locks = new HashMap<>();
+        this.masterIP = masterIP;
     }
 
     /**
@@ -57,6 +58,10 @@ public class Client {
      */
     public void setReplicas(Map<Integer, String> replicas) {
         this.replicas = replicas;
+    }
+
+    public String getMasterIP() {
+        return this.masterIP;
     }
 
     /**
@@ -69,9 +74,6 @@ public class Client {
         if (replicas == null) {
             throw new ReplicasUnknownException();
         }
-
-        informationCollector = new InformationCollector(collectionDuration);
-        informationCollector.start();
 
         for (int id: replicas.keySet()) {
             loaders.put(id, new Loader(id, replicas.get(id), load));
@@ -89,7 +91,6 @@ public class Client {
         }
 
         for (int id: loaders.keySet())  loaders.get(id).halt();
-        informationCollector.halt();
     }
 
     /**
@@ -251,55 +252,25 @@ public class Client {
 
     }
 
-    private class InformationCollector extends Thread {
-        private int periodDuration;
-        private AtomicBoolean done;
+    public List<Execution> getStats() {
+        logger.info("collecting info");
+        Map<Integer, OnGoingExecution> past;
 
-        /**
-         * @param periodDuration time between collection (in milliseconds)
-         */
-        public InformationCollector(int periodDuration) {
-            this.periodDuration = periodDuration;
-            this.done = new AtomicBoolean(false);
-        }
+        for (int id: locks.keySet()) locks.get(id).lock();
 
-        public void run() {
-            while (!done.get()) {
-                try {
-                    Thread.sleep(periodDuration);
-                } catch (InterruptedException e) {
-                    logger.info("collector stopped");
-                    return;
-                }
-                collect();
-            }
-        }
+        past = onGoing;
+        onGoing = new HashMap<>();
+        for (int id: locks.keySet()) onGoing.put(id, new OnGoingExecution());
 
-        public void halt() {
-            done.set(true);
-        }
+        for (int id: locks.keySet()) locks.get(id).unlock();
+        long end = ZonedDateTime.now().toInstant().toEpochMilli();
 
-        public void collect() {
-            logger.info("collecting info");
-            Map<Integer, OnGoingExecution> past;
-
-            for (int id: locks.keySet()) locks.get(id).lock();
-
-            past = onGoing;
-            onGoing = new HashMap<>();
-            for (int id: locks.keySet()) onGoing.put(id, new OnGoingExecution());
-
-            for (int id: locks.keySet()) locks.get(id).unlock();
-
-            for (int id: past.keySet()) {
-                OnGoingExecution ex = past.get(id);
-                logger.info("{} has {} new txs, latency is {}", id, ex.getTxs(), ex.getLatency());
-                // TODO: Save stats
-            }
-
-        }
-
-
+        return past.keySet().stream()
+                .map(id -> {
+                    OnGoingExecution ex = past.get(id);
+                    return Execution.build(id, ex.getStart(), end, ex.getTxs(), ex.getLatency());
+                })
+                .collect(Collectors.toList());
     }
 
     private class OnGoingExecution {

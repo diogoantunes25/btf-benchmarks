@@ -6,14 +6,12 @@ import pt.tecnico.ulisboa.hbbft.utils.threshsig.GroupKey;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.KeyShare;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkMode;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkReplica;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.local.BenchmarkService;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -24,11 +22,14 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
     private final Integer replicaId;
     private final BenchmarkService benchmarkService;
     private final int port;
+    private final Reporter reporter;
+    private final int REPORT_WAIT_TIME = 1000;
 
-    public BenchmarkGrpcService(Integer replicaId, int port) {
+    public BenchmarkGrpcService(Integer replicaId, int port, URI masterURI) {
         this.replicaId = replicaId;
         this.benchmarkService = new BenchmarkService(replicaId, port);
         this.port = port;
+        this.reporter = new Reporter(masterURI.getHost(), replicaId);
     }
 
     @Override
@@ -36,7 +37,6 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.TopologyRequest request,
             StreamObserver<BenchmarkServiceOuterClass.TopologyResponse> responseObserver
     ) {
-        
 
         List<Replica> replicas = request.getReplicasList().stream().map(Replica::new).collect(Collectors.toList());
 
@@ -113,6 +113,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.StartBenchmarkRequest request,
             StreamObserver<BenchmarkServiceOuterClass.StartBenchmarkResponse> responseObserver
     ) {
+        reporter.start(REPORT_WAIT_TIME);
         boolean result = benchmarkService.start(request.getFirst());
 
         BenchmarkServiceOuterClass.StartBenchmarkResponse response = BenchmarkServiceOuterClass.StartBenchmarkResponse
@@ -130,6 +131,7 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             StreamObserver<BenchmarkServiceOuterClass.StopBenchmarkResponse> responseObserver
     ) {
         Benchmark benchmark = benchmarkService.stop();
+        reporter.stop();
 
         BenchmarkServiceOuterClass.StopBenchmarkResponse response = BenchmarkServiceOuterClass.StopBenchmarkResponse
                 .newBuilder()
@@ -148,31 +150,6 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
                 .setDroppedTx(benchmark.getTxDropped())
                 .build();
 
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
-    }
-
-    @Override
-    public void inform(
-            BenchmarkServiceOuterClass.InformRequest request,
-            StreamObserver<BenchmarkServiceOuterClass.InformResponse> responseObserver
-    ) {
-
-        Summary info = benchmarkService.inform();
-
-        BenchmarkServiceOuterClass.InformResponse response = BenchmarkServiceOuterClass.InformResponse
-                .newBuilder()
-                .setReplica(this.replicaId)
-                .setStart(info.getStart())
-                .setFinish(info.getFinish())
-                .setTxCommitted(info.getTxCommitted())
-                .setAvgLatency(info.getAvgLatency())
-                .setCPULoad(info.getCPULoad())
-                .setInBandwidth(info.getInBandwidth())
-                .setOutBandwidth(info.getOutBandwidth())
-                .build();
-
-        System.out.println("I was asked to inform master of progress");
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

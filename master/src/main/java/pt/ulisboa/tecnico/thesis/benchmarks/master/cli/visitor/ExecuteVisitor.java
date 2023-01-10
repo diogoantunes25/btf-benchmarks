@@ -38,6 +38,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.master.exception.InvalidCommandExcep
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ClientRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.PcsRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.ReplicaRepository;
+import pt.ulisboa.tecnico.thesis.benchmarks.master.repository.UpdateRepository;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.AwsService;
 import pt.ulisboa.tecnico.thesis.benchmarks.master.service.local.BenchmarkService;
 import software.amazon.awssdk.regions.Region;
@@ -56,12 +57,12 @@ public class ExecuteVisitor implements CommandVisitor {
     private final static int CLIENT_CONTROL_PORT = 20000; // port client uses to talk to the master
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private final Config config;
-
+    private BenchmarkConfig currentConfig;
     private final PcsRepository pcsRepository;
     private final ReplicaRepository replicaRepository;
     private final ClientRepository clientRepository;
+    private final UpdateRepository updateRepository;
 
     private final BenchmarkService benchmarkService;
     private final AwsService awsService;
@@ -75,19 +76,22 @@ public class ExecuteVisitor implements CommandVisitor {
             PcsRepository pcsRepository,
             ReplicaRepository replicaRepository,
             ClientRepository clientRepository,
-            BenchmarkService benchmarkService
+            BenchmarkService benchmarkService,
+            UpdateRepository updateRepository
     ) {
         this.config = config;
 
         this.pcsRepository = pcsRepository;
         this.replicaRepository = replicaRepository;
         this.clientRepository = clientRepository;
+        this.updateRepository = updateRepository;
 
         this.benchmarkService = benchmarkService;
         this.awsService = new AwsService(
                 "AKIASLIZXB7USNISCZFC",
                 "H+JhJmilE1BzeUI8JDNrEM2jpiHUXA7Dr9IwgxEc"
         );
+        this.currentConfig = new BenchmarkConfig();
     }
 
     @Override
@@ -221,6 +225,8 @@ public class ExecuteVisitor implements CommandVisitor {
         Benchmark.Topology topology = new Benchmark.Topology(replicas, groupKey, Arrays.asList(keyShares), f);
         benchmarkService.setTopology(topology);
 
+        currentConfig.n = replicas.size();
+
         return true;
     }
 
@@ -231,18 +237,29 @@ public class ExecuteVisitor implements CommandVisitor {
                 cmd.getProtocol(), cmd.getBatchSize(), cmd.getBenchmarkMode(), cmd.getFaultMode(), cmd.getLoad());
         benchmarkService.setProtocol(protocol);
 
+        currentConfig.batch = cmd.getBatchSize();
+        currentConfig.protocol = cmd.getProtocol();
+        currentConfig.load = cmd.getLoad();
+        currentConfig.fault = cmd.getFaultMode();
+        currentConfig.mode = cmd.getBenchmarkMode();
+        currentConfig.set = true;
+
         return true;
     }
 
     @Override
     public boolean visit(StartCommand cmd) {
+        if (!currentConfig.set) return false;
         benchmarkService.startBenchmark();
+        updateRepository.set(String.format("%s-%d-%d-%d-%s-%s",
+                currentConfig.protocol, currentConfig.n, currentConfig.batch, currentConfig.load, currentConfig.fault, currentConfig.mode));
         return true;
     }
 
     @Override
     public boolean visit(StopCommand cmd) {
         benchmarkService.stopBenchmark();
+        updateRepository.unset();
         return true;
     }
 
@@ -405,5 +422,21 @@ public class ExecuteVisitor implements CommandVisitor {
         }
 
         return true;
+    }
+
+    /**
+     * Benchmark configuration
+     */
+    private class BenchmarkConfig {
+        public int load;
+        public int n;
+        public int batch;
+        public String fault;
+        public String protocol;
+        public String mode;
+        public boolean set = false;
+
+        public BenchmarkConfig() {
+        }
     }
 }

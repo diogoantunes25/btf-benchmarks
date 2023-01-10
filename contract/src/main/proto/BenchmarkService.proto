@@ -120,17 +120,6 @@ message StopBenchmarkResponse {
     repeated Execution executions = 8;
 }
 
-message InformRequest {}
-message InformResponse {
-    uint32 replica = 1;
-    uint64 start = 2;
-    uint64 finish = 3;
-    uint64 txCommitted = 4;
-    float avgLatency = 5;
-    double CPULoad = 6;
-    double inBandwidth = 7;
-    double outBandwidth = 8;
-}
 
 message ShutdownRequest {
     int32 timer = 1;
@@ -146,7 +135,6 @@ service BenchmarkService {
     // benchmark control
     rpc start(StartBenchmarkRequest) returns (StartBenchmarkResponse);
     rpc stop(StopBenchmarkRequest) returns (StopBenchmarkResponse);
-    rpc inform(InformRequest) returns (InformResponse);
 
     // others... TODO delete?
     rpc execute(BenchmarkRequest) returns (BenchmarkResponse);

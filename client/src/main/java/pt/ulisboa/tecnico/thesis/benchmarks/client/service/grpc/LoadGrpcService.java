@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.thesis.benchmarks.client.Client;
+import pt.ulisboa.tecnico.thesis.benchmarks.client.Reporter;
 import pt.ulisboa.tecnico.thesis.benchmarks.client.exceptions.ReplicasUnknownException;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.LoadServiceGrpc;
@@ -16,11 +17,14 @@ import java.util.stream.Collectors;
 
 public class LoadGrpcService extends LoadServiceGrpc.LoadServiceImplBase {
 
+    private final int REPORT_WAIT_TIME = 1000;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private Client client;
+    private Reporter reporter;
 
     public LoadGrpcService(Client client) {
         this.client = client;
+        this.reporter = new Reporter(client);
     }
 
     @Override
@@ -40,6 +44,8 @@ public class LoadGrpcService extends LoadServiceGrpc.LoadServiceImplBase {
 
         responseObserver.onNext(LoadServiceOuterClass.StartResponse.newBuilder().build());
         responseObserver.onCompleted();
+
+        reporter.start(REPORT_WAIT_TIME);
     }
 
     public void stop(LoadServiceOuterClass.StopRequest request, StreamObserver<LoadServiceOuterClass.StopResponse> responseObserver) {
@@ -47,5 +53,6 @@ public class LoadGrpcService extends LoadServiceGrpc.LoadServiceImplBase {
         client.stop();
         responseObserver.onNext(LoadServiceOuterClass.StopResponse.newBuilder().build());
         responseObserver.onCompleted();
+        reporter.stop();
     }
 }

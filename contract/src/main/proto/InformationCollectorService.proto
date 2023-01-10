@@ -1,0 +1,34 @@
+syntax = "proto3";
+package pt.ulisboa.tecnico.thesis.benchmarks.contract;
+
+message SystemInfo {
+  double cpu = 1;
+  double bandwidthIn = 2;
+  double bandwidthOut = 3;
+  double freeMemory = 4;
+  double totalMemory = 5;
+}
+
+message ReplicaRequest {
+  SystemInfo systemInfo = 1;
+  uint32 replicaId = 2;
+  uint64 time = 3;
+}
+
+message ReplicaResponse {}
+
+message ClientRequest {
+  SystemInfo systemInfo = 1;
+  uint64 txs = 2;
+  double latency = 3;
+  uint64 start = 4;
+  uint64 end = 5;
+  uint32 replicaId = 6;
+}
+
+message ClientResponse {}
+
+service InformationCollectorService {
+  rpc replicaUpdate(ReplicaRequest) returns (ReplicaResponse);
+  rpc clientUpdate(ClientRequest) returns (ClientResponse);
+}

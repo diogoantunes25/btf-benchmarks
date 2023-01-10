@@ -43,6 +43,7 @@ public class Main {
                 .forAddress(config.getMasterUri().getHost(), config.getMasterUri().getPort())
                 .usePlaintext()
                 .build();
+
         RegisterServiceGrpc.RegisterServiceBlockingStub stub = RegisterServiceGrpc.newBlockingStub(channel);
 
         RegisterServiceOuterClass.RegisterRequest request = RegisterServiceOuterClass.RegisterRequest.newBuilder()
@@ -68,7 +69,7 @@ public class Main {
         // Start server
         Server server = ServerBuilder
                 .forPort(controlPort)
-                .addService(new BenchmarkGrpcService(config.getReplicaId(), port))
+                .addService(new BenchmarkGrpcService(config.getReplicaId(), port, config.getMasterUri()))
                 .addService(ProtoReflectionService.newInstance())
                 .addService(new TransactionGrpcService())
                 .build();
