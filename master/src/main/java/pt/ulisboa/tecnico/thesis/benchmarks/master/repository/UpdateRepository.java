@@ -45,7 +45,7 @@ public class UpdateRepository {
     public void addClientUpdate(int replicaId, long txs, double latency, long start, long end, double cpu,
                                 double bandwidthIn, double bandwidthOut, double freeMemory, double totalMemory) {
         try {
-            writer.write(String.format("c,%d,%d,%f,%d,%d,%f,%f,%f,%f,%f", replicaId, txs, latency, start, end,
+            writer.write(String.format("c,%d,%d,%f,%d,%d,%f,%f,%f,%f,%f\n", replicaId, txs, latency, start, end,
                     cpu, bandwidthIn, bandwidthOut, freeMemory, totalMemory));
         } catch (IOException e) {
             e.printStackTrace();

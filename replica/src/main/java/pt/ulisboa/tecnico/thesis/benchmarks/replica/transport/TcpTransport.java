@@ -49,8 +49,6 @@ public class TcpTransport implements Transport<String> {
             }
         }
 
-        // Thread.sleep(1000); // Wait for ports to setup
-
         // passive connection
         CountDownLatch connectedLatch = new CountDownLatch((int) connections.values().stream()
                 .filter(connection -> !connection.shouldConnect()).count());

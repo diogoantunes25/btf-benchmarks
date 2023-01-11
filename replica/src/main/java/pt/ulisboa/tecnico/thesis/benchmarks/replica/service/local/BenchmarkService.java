@@ -27,13 +27,9 @@ import pt.tecnico.ulisboa.hbbft.utils.threshsig.KeyShare;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkMode;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Confirmation;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.LatencyReplica;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.ThroughputReplica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
 
@@ -76,7 +72,7 @@ public class BenchmarkService {
             for (Replica participant: replicas) {
                 System.out.println("  -> " + participant.getId());
             }
-            return false;   // failure
+            return false;
         }
 
         // close all connections
@@ -120,23 +116,11 @@ public class BenchmarkService {
         MessageEncoder<String> encoder = this.getEncoder(protocol);
         IAtomicBroadcast instance = this.getInstance(protocol, batchSize, mode, fault, faulty);
 
-        switch (mode) {
-            case LATENCY:
-                this.benchmarkReplica = new LatencyReplica(instance, encoder, transport);
-                System.out.println("Latency replica spawned");
-                break;
-            case THROUGHPUT:
-            default: {
-                this.benchmarkReplica = new ThroughputReplica(instance, encoder, transport, load, batchSize);
-                System.out.println("Throughtput replica spawned");
-            }
-        }
-
+        this.benchmarkReplica = new BenchmarkReplica(instance, encoder, transport, load, batchSize);
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
         return true;    // success
     }
-
 
     public boolean start(boolean first) {
         logger.info("------------------------------------------------------------------------");
@@ -148,28 +132,23 @@ public class BenchmarkService {
         return true;
     }
 
-    public Benchmark stop() {
+    public void stop() {
         logger.info("------------------------------------------------------------------------");
         logger.info("Stopping benchmark.");
         logger.info("------------------------------------------------------------------------");
-        Benchmark benchmark = this.benchmarkReplica.stop();
+        this.benchmarkReplica.stop();
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
-
-        return benchmark;
     }
 
-    public Summary inform() {
-//        logger.info("------------------------------------------------------------------------");
-//        logger.info("Getting information.");
-//        logger.info("------------------------------------------------------------------------");
-        Summary info = this.benchmarkReplica.getInfoAndReset();
-//        logger.info("Success.");
-//        logger.info("------------------------------------------------------------------------\n");
-
-        return info;
+    /**
+     *
+     * @param payload Payload to input to protocol
+     * @param confirmation Callback when state machine confirms submission
+     */
+    public void submit(byte[] payload, Confirmation confirmation) {
+        this.benchmarkReplica.submit(payload, confirmation);
     }
-
 
     private MessageEncoder<String> getEncoder(Protocol protocol) {
         // our protocol

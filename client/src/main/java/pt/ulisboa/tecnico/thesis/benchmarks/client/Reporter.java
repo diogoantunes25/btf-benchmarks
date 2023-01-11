@@ -75,7 +75,6 @@ public class Reporter {
                     ).build();
             stub.clientUpdate(request);
         }
-        logger.info("sent reports to master");
     }
 
     public void stop() {

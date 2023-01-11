@@ -127,6 +127,14 @@ message ShutdownRequest {
 
 message ShutdownResponse {}
 
+message SubmitRequest {
+    bytes payload = 1;
+}
+
+message SubmitResponse {
+    bool ok = 1;
+}
+
 service BenchmarkService {
     // benchmark config
     rpc topology(TopologyRequest) returns (TopologyResponse);
@@ -135,6 +143,9 @@ service BenchmarkService {
     // benchmark control
     rpc start(StartBenchmarkRequest) returns (StartBenchmarkResponse);
     rpc stop(StopBenchmarkRequest) returns (StopBenchmarkResponse);
+
+    // transaction submission
+    rpc submit(SubmitRequest) returns (SubmitResponse);
 
     // others... TODO delete?
     rpc execute(BenchmarkRequest) returns (BenchmarkResponse);

@@ -128,11 +128,7 @@ public class Connection {
 
     private void connect() {
         try {
-            // int localPort = cid * 100 + 10 * me.getId() + other.getId() + 18000;
-            // logger.info("[{}] Opening socket to {}:{}, from port {}", System.currentTimeMillis(), other.getAddress(), other.getPort(), localPort);
-            //this.socket = new Socket(other.getAddress(), other.getPort(), null, localPort);
             this.socket = new Socket(other.getAddress(), other.getPort());
-            // logger.info("[{} The socket port at host is {}]", System.currentTimeMillis(), this.socket.getLocalPort());
             this.socketOutStream = new DataOutputStream(socket.getOutputStream());
             this.socketInStream = new DataInputStream(socket.getInputStream());
             this.socketOutStream.writeInt(me.getId());

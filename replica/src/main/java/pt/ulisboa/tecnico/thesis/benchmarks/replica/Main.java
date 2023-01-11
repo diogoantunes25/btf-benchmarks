@@ -8,12 +8,8 @@ import io.grpc.ServerBuilder;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.*;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc.BenchmarkGrpcService;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc.TransactionGrpcService;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
@@ -71,7 +67,6 @@ public class Main {
                 .forPort(controlPort)
                 .addService(new BenchmarkGrpcService(config.getReplicaId(), port, config.getMasterUri()))
                 .addService(ProtoReflectionService.newInstance())
-                .addService(new TransactionGrpcService())
                 .build();
 
         try {

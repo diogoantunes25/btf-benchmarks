@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.thesis.benchmarks.replica.service.grpc;
 
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.Dealer;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.GroupKey;
 import pt.tecnico.ulisboa.hbbft.utils.threshsig.KeyShare;
@@ -13,12 +15,13 @@ import pt.ulisboa.tecnico.thesis.benchmarks.replica.service.local.BenchmarkServi
 import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceImplBase {
-
+    private final Logger logger = LoggerFactory.getLogger(BenchmarkGrpcService.class);
     private final Integer replicaId;
     private final BenchmarkService benchmarkService;
     private final int port;
@@ -130,25 +133,11 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
             BenchmarkServiceOuterClass.StopBenchmarkRequest request,
             StreamObserver<BenchmarkServiceOuterClass.StopBenchmarkResponse> responseObserver
     ) {
-        Benchmark benchmark = benchmarkService.stop();
+        benchmarkService.stop();
         reporter.stop();
 
         BenchmarkServiceOuterClass.StopBenchmarkResponse response = BenchmarkServiceOuterClass.StopBenchmarkResponse
-                .newBuilder()
-                .setReplica(replicaId)
-                .setStart(benchmark.getStartTime())
-                .setFinish(benchmark.getFinishTime())
-                .setSentMessages(benchmark.getSentMessageCount())
-                .setRecvMessages(benchmark.getRecvMessageCount())
-                .addAllExecutions(benchmark.getExecutions().stream().map(
-                        e -> BenchmarkServiceOuterClass.StopBenchmarkResponse.Execution.newBuilder()
-                                .setStart(e.getStart())
-                                .setFinish(e.getFinish())
-                        .build()
-                ).collect(Collectors.toList()))
-                .setTotalTx(benchmark.getTxSubmitted())
-                .setDroppedTx(benchmark.getTxDropped())
-                .build();
+                .newBuilder().build();
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
@@ -171,5 +160,15 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
         // schedule shutdown
         Executors.newSingleThreadScheduledExecutor()
                 .schedule(() -> System.exit(0), shutdownTimer, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public void submit(BenchmarkServiceOuterClass.SubmitRequest request, StreamObserver<BenchmarkServiceOuterClass.SubmitResponse> responseObserver) {
+        this.benchmarkService.submit(request.getPayload().toByteArray(), (ok) -> {
+            BenchmarkServiceOuterClass.SubmitResponse response = BenchmarkServiceOuterClass.SubmitResponse.newBuilder()
+                    .setOk(ok).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        });
     }
 }

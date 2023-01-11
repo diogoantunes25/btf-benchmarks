@@ -12,113 +12,55 @@ import pt.tecnico.ulisboa.hbbft.abc.IAtomicBroadcast;
 import pt.tecnico.ulisboa.hbbft.abc.alea.Alea;
 import pt.tecnico.ulisboa.hbbft.binaryagreement.BinaryAgreementMessage;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Execution;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Summary;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Confirmation;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.TcpTransport;
-import pt.ulisboa.tecnico.thesis.benchmarks.replica.Reporter;
 
-import java.math.BigInteger;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.OptionalDouble;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class BenchmarkReplica {
+public class BenchmarkReplica {
 
-    protected final Logger logger = LoggerFactory.getLogger(BenchmarkReplica.class);
+    private final Logger logger = LoggerFactory.getLogger(BenchmarkReplica.class);
+    private IAtomicBroadcast protocol;
+    private MessageEncoder<String> encoder;
+    private TcpTransport transport;
+    private final long maxPending;
+    private Map<Transaction, Confirmation> pending;
 
-    protected IAtomicBroadcast protocol;
-    protected MessageEncoder<String> encoder;
-    protected TcpTransport transport;
-
-    protected final AtomicLong sentMessageCount = new AtomicLong();
-    protected final AtomicLong recvMessageCount = new AtomicLong();
-
-    // Last time information was saved to master
-    private long lastReset = 0;
-    protected List<Execution> executions = Collections.synchronizedList(new ArrayList<>());
-
-    protected final List<Long> encodingTimes = Collections.synchronizedList(new ArrayList<>());
-    protected final List<Long> decodingTimes = Collections.synchronizedList(new ArrayList<>());
-    protected List<Double> sentBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
-    protected List<Double> receivedBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
-    protected List<Double> cpuLoadMeasurements = Collections.synchronizedList(new ArrayList<>());
-    private static final int REPORT_WAIT_TIME = 1000;
-
-    public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport) {
+    public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport,
+                            int load, int batchSize) {
         this.protocol = protocol;
         this.encoder = encoder;
         this.transport = transport;
+        this.pending = new HashMap<>();
+
+        // start listeners
+        for (Connection connection: this.transport.getConnections()) {
+            connection.setListener(this);
+        }
+
+        this.maxPending = (load > batchSize ? load : batchSize) * 60;
     }
 
-    public abstract void start(boolean first);
+    public void start(boolean first) {
+        this.protocol.reset();
+    }
 
-    public abstract Benchmark stop();
+    public void stop() {
+        this.protocol.stop();
 
-    public Summary getInfoAndReset() {
-        long now = ZonedDateTime.now().toInstant().toEpochMilli();
-        long start;
-
-        List<Execution> previousExecutions;
-        List<Double> previousCPULoads;
-        List<Double> previousInBandwidth;
-        List<Double> previousOutBandwidth;
-
-        synchronized (this.executions) {
-            start = this.lastReset;
-            this.lastReset = now;
-
-            previousExecutions = this.executions;
-            previousCPULoads = this.cpuLoadMeasurements;
-            previousInBandwidth = this.receivedBandwidthMeasurements;
-            previousOutBandwidth = this.sentBandwidthMeasurements;
-
-            this.executions = Collections.synchronizedList(new ArrayList<>());
-            this.cpuLoadMeasurements = Collections.synchronizedList(new ArrayList<>());
-            this.receivedBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
-            this.sentBandwidthMeasurements = Collections.synchronizedList(new ArrayList<>());
+        // stop listeners
+        for (Connection connection: this.transport.getConnections()) {
+            connection.setListener(null);
         }
-
-        // Compute summary
-        long txCommitted = previousExecutions.size();
-        float totalLatency = 0;
-        for (Execution e: previousExecutions) {
-            totalLatency += e.getFinish() - e.getStart();
-        }
-
-
-        float avgLatency = 0;
-        if (txCommitted > 0) {
-            avgLatency = totalLatency/txCommitted;
-        }
-
-
-        OptionalDouble avgCPULoadOptional = previousCPULoads.stream().mapToDouble(a -> a).average();
-        double avgCPULoad = avgCPULoadOptional.isEmpty() ? -1 : avgCPULoadOptional.getAsDouble();
-
-        OptionalDouble avgInBandwidthOptional = previousInBandwidth.stream().mapToDouble(a -> a).average();
-        double avgInBandwidth = avgInBandwidthOptional.isEmpty() ? -1 : avgInBandwidthOptional.getAsDouble();
-
-        OptionalDouble avgOutBandwidthOptional = previousOutBandwidth.stream().mapToDouble(a -> a).average();
-        double avgOutBandwidth = avgOutBandwidthOptional.isEmpty() ? -1 : avgOutBandwidthOptional.getAsDouble();
-
-        System.gc();
-
-        logger.info("committed: {}, latency: {}", txCommitted, avgLatency);
-
-        return new Summary(start, now, txCommitted, avgLatency, avgCPULoad, avgInBandwidth, avgOutBandwidth);
     }
 
     synchronized public void handleMessage(String data) {
-        this.recvMessageCount.incrementAndGet();
-
-        final long start = ZonedDateTime.now().toInstant().toEpochMilli();
         ProtocolMessage message = this.encoder.decode(data);
-        final long end = ZonedDateTime.now().toInstant().toEpochMilli();
-        this.decodingTimes.add(end - start);
 
         if (message != null) {
             Step<Block> step = this.protocol.handleMessage(message);
@@ -126,17 +68,15 @@ public abstract class BenchmarkReplica {
         }
     }
 
+    /**
+     * Takes protocol step and outputs what there's to output (the protocol will resume when replies arrive)
+     * @param step
+     */
     public void handleStep(Step<Block> step) {
-        // logger.info("handleStep called");
-        // send messages generated during protocol execution
         for (TargetedMessage message: step.getMessages()) {
-            final long start = ZonedDateTime.now().toInstant().toEpochMilli();
             String encoded = this.encoder.encode(message.getContent());
-            final long end = ZonedDateTime.now().toInstant().toEpochMilli();
-            // this.encodingTimes.add(end - start);
 
             final int cid = (protocol instanceof Alea && message.getContent() instanceof BinaryAgreementMessage) ? 1 : 0;
-            this.sentMessageCount.addAndGet(message.getTargets().size());
             for (Integer target: message.getTargets()) {
                 this.transport.sendToReplica(target, cid, encoded);
             }
@@ -148,5 +88,64 @@ public abstract class BenchmarkReplica {
         }
     }
 
-    public abstract void deliver(Block block);
+    public void deliver(Block block) {
+        for (byte[] entry: block.getEntries()) {
+            Transaction t = new Transaction(entry);
+            if (pending.containsKey(t)) {
+                pending.remove(t).confirm(true);
+            }
+        }
+    }
+
+    public void submit(byte[] payload, Confirmation confirmation) {
+        if (pending.size() > maxPending) {
+            confirmation.confirm(false);
+        }
+
+        pending.put(new Transaction(payload), confirmation);
+        handleStep(this.protocol.handleInput(payload));
+    }
+
+    /**
+     * Wrapper on byte[]. byte[] can't be used in hashmap because hashmap first uses the hash and then equal to compare
+     * arrays (which means that arrays will only match if they are the same object).
+     */
+    class Transaction {
+        private byte[] contents;
+
+        public Transaction(byte[] contents) {
+            this.contents = contents;
+        }
+
+        public byte[] content() {
+            return contents;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+
+            if (obj instanceof Transaction) {
+                Transaction t = (Transaction) obj;
+                byte[] otherContents = t.content();
+                if (this.contents.length != otherContents.length) { return false; }
+
+                for (int i = 0; i < this.contents.length; i++) {
+                    if (otherContents[i] != contents[i]) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        public int hashCode() {
+            return Arrays.hashCode(contents);
+        }
+
+        public String toString() {
+            return contents.toString();
+        }
+    }
 }

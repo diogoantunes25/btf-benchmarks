@@ -70,8 +70,6 @@ public class Reporter {
                         .build();
 
         stub.replicaUpdate(request);
-
-        logger.info("sent report to master");
     }
 
     public void stop() {
