@@ -2,10 +2,7 @@ contract/target
 master/target
 pcs/target
 replica/target
-id_deploy
-id_deploy.pub
-id_alea
-id_alea.pub
+id_*
 
 scripts/.idea
 .project
