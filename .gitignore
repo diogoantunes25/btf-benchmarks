@@ -4,6 +4,8 @@ pcs/target
 replica/target
 id_deploy
 id_deploy.pub
+id_alea
+id_alea.pub
 
 scripts/.idea
 .project
