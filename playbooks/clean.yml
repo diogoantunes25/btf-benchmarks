@@ -27,8 +27,19 @@
         path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results/*"
         dest: "{{ home_dir }}/benchmarks/results_{{ exp_number }}.tgz"
 
-    - name: save zip locally
+    - name: zip logs
+      archive:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/*"
+        dest: "{{ home_dir }}/benchmarks/logs_{{ exp_number }}.tgz"
+
+    - name: save results locally
       fetch:
         src: "{{ home_dir }}/benchmarks/results_{{ exp_number }}.tgz"
+        flat: true
+        dest: "../experiments/"
+
+    - name: save logs locally
+      fetch:
+        src: "{{ home_dir }}/benchmarks/logs_{{ exp_number }}.tgz"
         flat: true
         dest: "../experiments/"

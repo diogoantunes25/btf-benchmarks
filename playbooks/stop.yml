@@ -8,3 +8,9 @@
       - name: kill containers
         shell: | 
           (docker kill "{{ inventory_hostname }}") || true
+
+      - name: save logs
+        shell: |
+          run_number=$(ls "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs" | wc -l)
+          mkdir "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs/run$run_number"
+          mv "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log" "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs/run${run_number}/{{ inventory_hostname }}.log"

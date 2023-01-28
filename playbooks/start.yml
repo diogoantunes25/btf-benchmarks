@@ -25,8 +25,9 @@
   tasks:
     - name: initialize replicas
       shell: | 
-        docker run --rm --name "{{ inventory_hostname }}" -d -p 8500:8500 -p 9000-9010:9000-9010 -p 10000-10010:10000-10010 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}" replica
-        docker ps
+        container_id=$(docker run --rm --name "{{ inventory_hostname }}" -d -p 8500:8500 -p 9000-9010:9000-9010 -p 10000-10010:10000-10010 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}" replica)
+        log_file=$(docker inspect --format={% raw %}'{{.LogPath}}'{% endraw %} $container_id)
+        ln $log_file "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log"
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
@@ -43,8 +44,9 @@
   tasks:
     - name: initialize clients
       shell: | 
-        docker run --rm --name "{{ inventory_hostname }}" -d -p 20000-20010:20000-20010 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}" client
-        docker ps
+        container_id=$(docker run --rm --name "{{ inventory_hostname }}" -d -p 20000-20010:20000-20010 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}" client)
+        log_file=$(docker inspect --format={% raw %}'{{.LogPath}}'{% endraw %} $container_id)
+        ln $log_file "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log"
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
@@ -61,8 +63,9 @@
   tasks:
     - name: initialize master node
       shell: |
-        docker run --rm --name "{{ inventory_hostname }}" -d -p 15000:15000 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results:/alea/results" -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}:latest" master
-        docker ps
+        container_id=$(docker run --rm --name "{{ inventory_hostname }}" -d -p 15000:15000 -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results:/alea/results" -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}:latest" master)
+        log_file=$(docker inspect --format={% raw %}'{{.LogPath}}'{% endraw %} $container_id)
+        ln $log_file "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log"
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"

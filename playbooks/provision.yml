@@ -11,6 +11,11 @@
         path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
         state: directory
 
+    - name: Create logs folder
+      file:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs"
+        state: directory
+
     - name: Create remote configuration folder
       file: 
         path: "{{ item }}"
