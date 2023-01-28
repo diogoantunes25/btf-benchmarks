@@ -251,7 +251,7 @@ public class ExecuteVisitor implements CommandVisitor {
     public boolean visit(StartCommand cmd) {
         if (!currentConfig.set) return false;
         benchmarkService.startBenchmark();
-        updateRepository.set(String.format("%s-%d-%d-%d-%s-%s",
+        updateRepository.set(String.format("results/%s-%d-%d-%d-%s-%s",
                 currentConfig.protocol, currentConfig.n, currentConfig.batch, currentConfig.load, currentConfig.fault, currentConfig.mode));
         return true;
     }

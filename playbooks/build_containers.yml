@@ -1,4 +1,4 @@
-- hosts: manager
+- hosts: managers
   become: no
   any_errors_fatal: true
   gather_facts: no 
@@ -6,18 +6,17 @@
       - vars.yml
 
   tasks:
-
-    - name: Build Alea containers
+    - name: Build Alea images
       delegate_to: localhost
+      become: yes
       run_once: yes
       shell: | 
         cd ..
         docker build . -t "{{alea_image_name}}" 
-        #docker build . -t "{{alea_image_name}}" --no-cache
 
-    - name: Export Alea containers
+    - name: Push Alea images
+      become: yes
       delegate_to: localhost
       run_once: yes
       shell: | 
-        cd ..
-        docker save "{{alea_image_name}}" -o "containers/{{alea_image_name}}.tar"
+        docker push "{{alea_image_name}}"

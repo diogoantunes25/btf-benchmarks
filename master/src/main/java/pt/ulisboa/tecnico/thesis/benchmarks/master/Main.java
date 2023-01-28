@@ -26,7 +26,7 @@ public class Main {
     /**
      * Default files to which updates are written
      */
-    private static final String DEFAULT_FILE = "general_updates";
+    private static final String DEFAULT_FILE = "results/general_updates";
     
     /**
      * @param args Resources server and master address (both optional). By default

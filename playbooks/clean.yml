@@ -1,4 +1,20 @@
-- hosts: replicas,managers
+# - hosts: replicas, managers
+#   become: no
+#   any_errors_fatal: true
+#   gather_facts: no 
+#   vars_files:
+#       - vars.yml
+
+#   tasks:
+
+#     - name: Remove remote server configuration folder
+#       file: 
+#         path: "{{ item }}"
+#         state: absent
+#       with_items:
+#         - "{{ default_install_dir }}"
+    
+- hosts: masters
   become: no
   any_errors_fatal: true
   gather_facts: no 
@@ -6,10 +22,13 @@
       - vars.yml
 
   tasks:
+    - name: zip results
+      archive:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results/*"
+        dest: "{{ home_dir }}/benchmarks/results_{{ exp_number }}.tgz"
 
-    - name: Remove remote server configuration folder
-      file: 
-        path: "{{ item }}"
-        state: absent
-      with_items:
-        - "{{ default_install_dir }}"
+    - name: save zip locally
+      fetch:
+        src: "{{ home_dir }}/benchmarks/results_{{ exp_number }}.tgz"
+        flat: true
+        dest: "../experiments/"

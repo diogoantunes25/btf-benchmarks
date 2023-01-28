@@ -1,7 +1,0 @@
-topology 0 1 2 3
-protocol alea
-benchmark 1000 250
-topology 0 1 2 3
-protocol hb
-benchmark 1000 250
-shutdown

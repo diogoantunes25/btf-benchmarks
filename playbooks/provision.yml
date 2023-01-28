@@ -1,4 +1,4 @@
-- hosts: replicas,managers
+- hosts: replicas, masters, clients
   become: no
   any_errors_fatal: true
   gather_facts: no 
@@ -6,6 +6,10 @@
       - vars.yml
 
   tasks:
+    - name: Create remote execution folder
+      file:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
+        state: directory
 
     - name: Create remote configuration folder
       file: 
@@ -13,40 +17,97 @@
         state: directory
         mode: "g+rw"
       with_items:
-        - "{{ default_install_dir }}/{{inventory_hostname}}"      
+        - "{{ default_install_dir }}/{{ inventory_hostname }}"
 
-    - name: Upload containers to remote nodes
-      copy:
-        src: "../containers/{{ alea_image_name }}.tar"
-        dest: "{{ default_install_dir }}/"
+    - name: Install aptitude (docker installation)
+      become: yes
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+      when: g5k == false
 
-    - name: Load containers into local registry
-      shell: | 
-        docker load < {{ alea_image_name }}.tar
-      args:
-        chdir: "{{default_install_dir}}"
+    - name: Install required system packages (docker installation)
+      become: yes
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+      when: g5k == false
+
+    - name: Add Docker GPG apt Key (docker installation)
+      become: yes
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: g5k == false
+
+    - name: Add Docker Repository (docker installation)
+      become: yes
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+      when: g5k == false
+
+    - name: Update apt and install docker-ce (docker installation)
+      become: yes
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+      when: g5k == false
+
+    - name: Install Docker Module for Python (docker installtion)
+      pip:
+        name: docker
+      when: g5k == false
+
+    - name: Ensure rootless docker dependencies are installed
+      become: yes
+      apt:
+        pkg:
+          - uidmap
+        state: latest
+        update_cache: true
+      when: g5k == false
+
+    - name: Setup rootless docker
+      shell: |
+        sudo systemctl disable --now docker.service docker.socket
+        /usr/bin/dockerd-rootless-setuptool.sh install
+        systemctl --user start docker
+      when: g5k == false
+
+    - name: Install docker (g5k)
+      shell: /grid5000/code/bin/g5k-setup-docker
+      when: g5k == true
 
     - name: Ensure python dependencies are installed
       become: yes
       ansible.builtin.pip:
         name:
           - docker
-        # state: absent
+    
+    - name: Pull an image
+      shell: "docker pull {{ alea_image_name }}"
 
-    - name: Inspect if images are installed
-      docker_image_info:
-        name:
-          - "{{alea_image_name}}"
-      register: result
+#     - name: Inspect if images are installed
+#       docker_image_info:
+#         name:
+#           - "{{alea_image_name}}"
+#       register: result
 
-    # - name: print images
-    #   debug: 
-    #     msg:  "{{ result }}"
-
-    - name: Make sure that image "{{alea_image_name}}" exist locally
-      assert:
-        that:
-          - result.images | length == 1
+#     - name: Make sure that image "{{alea_image_name}}" exist locally
+#       assert:
+#         that:
+#           - result.images | length == 1
 
     # - name: Deploy cluster configuration
     #   template:
@@ -59,3 +120,21 @@
     #     src: templates/runServer.sh.tmpl
     #     dest: "{{ default_install_dir }}/{{ protocol }}/{{inventory_hostname}}/runServer{{ topology['servers'][inventory_hostname].id }}.sh"
     #     mode: "u=rx,g=rx,o=rx"
+    #
+    #
+    
+    
+- hosts: replicas, masters, clients
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+      - name: Create results folder
+        file:
+          path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results"
+          state: directory
+
+

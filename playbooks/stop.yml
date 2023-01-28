@@ -1,0 +1,10 @@
+- hosts: replicas, clients, masters
+  become: no
+  any_errors_fatal: true
+  vars_files:
+      - vars.yml
+
+  tasks:
+      - name: kill containers
+        shell: | 
+          (docker kill "{{ inventory_hostname }}") || true
