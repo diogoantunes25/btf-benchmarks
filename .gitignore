@@ -3,6 +3,7 @@ master/target
 pcs/target
 replica/target
 id_*
+containers/*
 
 scripts/.idea
 .project
