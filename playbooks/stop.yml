@@ -1,3 +1,16 @@
+- hosts: managers
+  become: no
+  any_errors_fatal: true
+  vars_files:
+      - vars.yml
+
+  tasks:
+      - name: create temporary folder for logs
+        file:
+          path: /tmp/dantunes_logs
+          state: directory
+          mode: '0755'
+
 - hosts: replicas, clients, masters
   become: no
   any_errors_fatal: true
@@ -9,8 +22,27 @@
         shell: | 
           (docker kill "{{ inventory_hostname }}") || true
 
-      - name: save logs
-        shell: |
-          run_number=$(ls "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs" | wc -l)
-          mkdir "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs/run$run_number"
-          mv "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log" "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/logs/run${run_number}/{{ inventory_hostname }}.log"
+      - name: save logs locally
+        fetch:
+          src: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log"
+          flat: true
+          dest: "/tmp/dantunes_logs/{{ inventory_hostname }}.log"
+
+- hosts: managers
+  become: no
+  any_errors_fatal: true
+  gather_facts: no
+  vars_files:
+      - vars.yml
+
+  tasks:
+    - name: zip results
+      archive:
+        path: "/tmp/dantunes_logs/*"
+        dest: "/tmp/dantunes_logs.tgz"
+
+    - name: move logs to proper directory
+      shell: |
+        run_number=$(ls "../logs" | grep "run_{{ exp_number }}" | wc -l)
+        mv /tmp/dantunes_logs.tgz ../logs/"run_{{ exp_number}}_${run_number}.tgz"
+

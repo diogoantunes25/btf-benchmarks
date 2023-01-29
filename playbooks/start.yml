@@ -15,6 +15,11 @@
         dest: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json"
         src: "{{ setting_file }}"
 
+    - name: create log file
+      file:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log"
+        state: touch
+
 - hosts: replicas
   become: no
   any_errors_fatal: true
