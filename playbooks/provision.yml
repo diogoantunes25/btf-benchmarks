@@ -103,33 +103,7 @@
     - name: Pull an image
       shell: "docker pull {{ alea_image_name }}"
 
-#     - name: Inspect if images are installed
-#       docker_image_info:
-#         name:
-#           - "{{alea_image_name}}"
-#       register: result
-
-#     - name: Make sure that image "{{alea_image_name}}" exist locally
-#       assert:
-#         that:
-#           - result.images | length == 1
-
-    # - name: Deploy cluster configuration
-    #   template:
-    #     src: templates/server.conf.tmpl
-    #     dest: "{{ default_install_dir }}/{{ protocol }}/{{inventory_hostname}}/server{{ topology['servers'][inventory_hostname].id }}.conf"
-    #     mode: "u=r,g=r,o=r"
-
-    # - name: Deploy server run script
-    #   template:
-    #     src: templates/runServer.sh.tmpl
-    #     dest: "{{ default_install_dir }}/{{ protocol }}/{{inventory_hostname}}/runServer{{ topology['servers'][inventory_hostname].id }}.sh"
-    #     mode: "u=rx,g=rx,o=rx"
-    #
-    #
-    
-    
-- hosts: replicas, masters, clients
+- hosts: masters
   become: no
   any_errors_fatal: true
   gather_facts: no 

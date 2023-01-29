@@ -20,6 +20,7 @@
         path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log"
         state: touch
 
+
 - hosts: replicas
   become: no
   any_errors_fatal: true
@@ -42,7 +43,7 @@
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
 
-    - debug: var=output
+    # - debug: var=output
           
 - hosts: clients
   become: no
@@ -64,7 +65,7 @@
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
 
-    - debug: var=output
+    # - debug: var=output
 
 - hosts: masters
   become: no
@@ -80,13 +81,11 @@
                         --name "{{ inventory_hostname }}" \
                         -p 15000:15000 \
                         -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results:/alea/results" \
-                        -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" "{{alea_image_name}}:latest" \
+                        -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json:/alea/setting.json" \
                         -v "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log:/alea/log" \
                         "{{alea_image_name}}:latest" master)
-
-                        # docker logs -f $container_id > "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}.log" &
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
 
-    - debug: var=output
+    # - debug: var=output
