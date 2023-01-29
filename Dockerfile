@@ -34,6 +34,7 @@ RUN chmod +x /alea/run.sh && \
 	amazon-linux-extras install -y epel && \
 	yum install -y ifstat && \
 	yum install -y python3 && \
+	yum -y clean all && \
 	mkdir /alea/results && \
 	mkdir /alea/logs
 

@@ -1,11 +1,13 @@
 - hosts: managers
   become: no
+  gather_facts: no
   any_errors_fatal: true
   vars_files:
       - vars.yml
 
   tasks:
       - name: create temporary folder for logs
+        delegate_to: localhost
         file:
           path: /tmp/dantunes_logs
           state: directory
@@ -13,6 +15,7 @@
 
 - hosts: replicas, clients, masters
   become: no
+  gather_facts: no
   any_errors_fatal: true
   vars_files:
       - vars.yml
@@ -37,11 +40,13 @@
 
   tasks:
     - name: zip results
+      delegate_to: localhost
       archive:
         path: "/tmp/dantunes_logs/*"
         dest: "/tmp/dantunes_logs.tgz"
 
     - name: move logs to proper directory
+      delegate_to: localhost
       shell: |
         run_number=$(ls "../logs" | grep "run_{{ exp_number }}" | wc -l)
         mv /tmp/dantunes_logs.tgz ../logs/"run_{{ exp_number}}_${run_number}.tgz"

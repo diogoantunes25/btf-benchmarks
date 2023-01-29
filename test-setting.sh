@@ -38,13 +38,24 @@ fi
 
 verify "/alea/setting.json";
 
+echo "arguments seem ok" >> /alea/log;
+
 if [[ "$1" == "master" ]]; then
-	echo "master";
+	echo "master started" >> /alea/log;
+
 	verify "/alea/master.jar";
+
+	echo "SETTING ==================="
+	cat /alea/setting.json >> /alea/log
+
 	python3 script-gen.py /alea/setting.json /alea/main.alea
 
-	# Produce main.alea
-	java -jar /alea/master.jar < main.alea
+	echo "\nMAIN.ALEA =================="
+	cat /alea/main.alea >> /alea/log
+	echo ""
+
+	java -jar /alea/master.jar < /alea/main.alea &>> /alea/log
+	echo "master done" >> /alea/log
 else
 	masterIP=$(cat setting.json | cut -d \, -f 6 | cut -d \:  -f 2 | sed -E 's/\ *\"\ *//g')
 	echo "The master is at $masterIP"
@@ -52,15 +63,14 @@ else
 	if [[ "$1" == "replica" ]]; then
 		verify "/alea/pcs.jar";
 		verify "/alea/replica.jar";
-		mkdir /alea/logs
 
 		cd /alea
-		java -jar /alea/pcs.jar http://$masterIP:15000
+		java -jar /alea/pcs.jar http://$masterIP:15000 &> /alea/log
 	else
 		if [[ "$1" == "client" ]]; then
 			verify "/alea/client.jar";
 
-			java -jar /alea/client.jar $masterIP
+			java -jar /alea/client.jar $masterIP &> /alea/log
 		else
 			echo "Invalid mode - $1";
 			help;

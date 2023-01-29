@@ -1,6 +1,6 @@
 home_dir: "${HOME}"
 default_install_dir: "{{ home_dir }}/devel/alea_benchmark"
 alea_image_name: "diogoantunes25/alea_benchmark"
-exp_number: 1
+exp_number: 4
 setting_file: "/home/diogo/MEGA/2 %7c LEIC-A/Projeto BIG/Study material/code/alea-code/alea-benchmarks/setting.json"
 g5k: false
