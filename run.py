@@ -95,7 +95,7 @@ def update_ansible_vars(setting_file, g5k):
     fh.write(f'setting_file: "{os.path.abspath(setting_file)}"\n')
     fh.write(f'g5k: {str(g5k).lower()}\n')
 
-def get_setting_list(settings):
+def get_setting_list(settings, master, replicas, clients):
     ans = []
     for section in settings["settings"]:
         for batch in section["batch"]:
@@ -105,7 +105,7 @@ def get_setting_list(settings):
                         for benchmarking_mode in section["benchmarking-mode"]:
                             n1 = int(section["n_replicas"])
                             n2 = int(section["n_clients"])
-                            ans.append({ "batch": batch, "load": load, "protocol": protocol, "fault-mode": fault_mode, "benchmarking-mode": benchmarking_mode, "master": settings["master"], "replicas": settings["replicas"][:n1], "clients": settings["clients"][:n2], "duration": settings["duration"]})
+                            ans.append({ "batch": batch, "load": load, "protocol": protocol, "fault-mode": fault_mode, "benchmarking-mode": benchmarking_mode, "master": master, "replicas": replicas[:n1], "clients": clients[:n2], "duration": settings["duration"]})
 
     return ans
 
@@ -164,7 +164,7 @@ def main():
 
         run_playbook("provision")
 
-        for setting in get_setting_list(settings):
+        for setting in get_setting_list(settings, master, replicas, clients):
             fh = open(SETTING_FILE, "w")
             fh.write(json.dumps(setting))
             fh.flush()
