@@ -45,12 +45,12 @@ if [[ "$1" == "master" ]]; then
 
 	verify "/alea/master.jar";
 
-	echo "SETTING ==================="
+	echo "SETTING ===================" >> /alea/log;
 	cat /alea/setting.json >> /alea/log
 
 	python3 script-gen.py /alea/setting.json /alea/main.alea
 
-	echo "\nMAIN.ALEA =================="
+	echo "\nMAIN.ALEA ==================" >> /alea/log;
 	cat /alea/main.alea >> /alea/log
 	echo ""
 

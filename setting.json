@@ -1,1 +1,1 @@
-{"batch": 1000, "load": 200, "protocol": "alea", "fault-mode": "free", "benchmarking-mode": "throughput", "master": "192.168.56.97", "replicas": ["192.168.56.99"], "clients": ["192.168.56.98"], "duration": 1000}
+{"batch": 1000, "load": 200, "protocol": "alea", "fault-mode": "free", "benchmarking-mode": "throughput", "master": "192.168.56.97", "replicas": ["192.168.56.99"], "clients": ["192.168.56.98"], "duration": 5000}
