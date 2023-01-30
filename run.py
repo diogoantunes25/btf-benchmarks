@@ -6,6 +6,7 @@ G5K_SSH_KEY = "/home/dantunes/.ssh/id_rsa"
 G5K_USER = "dantunes"
 SETTING_FILE = "./setting.json"
 WAIT_TIME = 1000 # milliseconds
+ANSIBLE_VERBOSE = False
 
 def g5k_reserve_nodes(master, replicas, clients, walltime):
     sites = [master] + replicas + clients
@@ -91,7 +92,7 @@ def update_ansible_vars(setting_file, g5k):
     fh.write('home_dir: "${HOME}"\n')
     fh.write('default_install_dir: "{{ home_dir }}/devel/alea_benchmark"\n')
     fh.write('alea_image_name: "diogoantunes25/alea_benchmark"\n')
-    fh.write(f'exp_number: {len(os.listdir("./experiments"))}\n')
+    fh.write(f'exp_number: {len([e for e in os.listdir("./experiments") if e[0] == "r"])}\n')
     fh.write(f'setting_file: "{os.path.abspath(setting_file)}"\n')
     fh.write(f'g5k: {str(g5k).lower()}\n')
 
@@ -113,7 +114,7 @@ def get_setting_list(settings, master, replicas, clients):
 def run_playbook(name):
     playbook = os.path.abspath(f"./playbooks/{name}.yml")
     inventory = os.path.abspath(f"./playbooks/inventory.ini")
-    runner = ansible_runner.interface.run(playbook = playbook, inventory = inventory)
+    runner = ansible_runner.interface.run(playbook = playbook, inventory = inventory, quiet = not ANSIBLE_VERBOSE)
     if len(runner.stats["failures"]) != 0:
         raise Exception("Playbook failed")
 

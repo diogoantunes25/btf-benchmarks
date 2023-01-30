@@ -4,6 +4,7 @@ pcs/target
 replica/target
 id_*
 containers/*
+experiments/*
 
 scripts/.idea
 .project
