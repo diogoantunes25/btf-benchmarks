@@ -49,7 +49,6 @@ def g5k_reserve_nodes(master, replicas, clients, walltime):
                 else:
                     raise Exception(f"node_reservation failed: non requested site found")
 
-                print(ips)
         except:
             oargriddel([jobid])
 
@@ -123,7 +122,7 @@ def run_playbook(name):
 def get_wait_time(setting):
     return WAIT_TIME * (2 * len(setting["replicas"]) + len(setting["clients"]) + 10) + setting["duration"]
 
-def main():
+def setup():
     parser = argparse.ArgumentParser(description='Launch set of experiments')
     parser.add_argument("settings")
 
@@ -163,7 +162,16 @@ def main():
 
         update_ansible_vars(SETTING_FILE, settings["g5k"])
 
+    finally:
+        if settings["g5k"]: oargriddel([jobid])
+
+    return [settings, master, replicas, clients, jobid]
+
+
+def run(settings, master, replicas, clients, jobid = None):
+    try:
         run_playbook("provision")
+        print("provisioning done")
 
         for setting in get_setting_list(settings, master, replicas, clients):
             fh = open(SETTING_FILE, "w")
@@ -174,7 +182,8 @@ def main():
             run_playbook("start")
 
             wait_time = get_wait_time(setting) / 1000
-            print("\n\n==============================================")
+            print()
+            print("==============================================")
             print(f"=SLEEPING FOR {wait_time} SECONDS====================")
             print("==============================================")
             time.sleep(wait_time)
@@ -182,9 +191,15 @@ def main():
             run_playbook("stop")
 
         run_playbook("clean")
-
+        print("cleaning done")
     finally:
         if settings["g5k"]: oargriddel([jobid])
+
+def main():
+    print("setup in progres...")
+    [settings, master, replicas, clients, jobid] = setup()
+    print("setup done")
+    run(settings, master, replicas, clients, jobid = jobid)
 
 if __name__ == "__main__":
     main()
