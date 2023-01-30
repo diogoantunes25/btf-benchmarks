@@ -5,6 +5,7 @@ replica/target
 id_*
 containers/*
 experiments/*
+playbooks/inventory.ini
 
 scripts/.idea
 .project
