@@ -6,6 +6,7 @@ id_*
 containers/*
 experiments/*
 playbooks/inventory.ini
+playbooks/vars.yml
 
 scripts/.idea
 .project
