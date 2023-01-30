@@ -33,3 +33,16 @@
         flat: true
         dest: "../experiments/"
 
+- hosts: managers
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+    - name: clean log directory
+      file:
+        path: /tmp/dantunes_logs
+        state: absent
+
