@@ -1,4 +1,4 @@
-import argparse, json, collections, socket, os, ansible_runner, time
+import argparse, json, collections, socket, os, ansible_runner, time, pickle
 from execo import *
 from execo_g5k import *
 
@@ -122,14 +122,9 @@ def run_playbook(name):
 def get_wait_time(setting):
     return WAIT_TIME * (2 * len(setting["replicas"]) + len(setting["clients"]) + 10) + setting["duration"]
 
-def setup():
-    parser = argparse.ArgumentParser(description='Launch set of experiments')
-    parser.add_argument("settings")
-
-    args = vars(parser.parse_args())
-
+def setup(settings_filename):
     # High-level check of json
-    settings_file = open(args["settings"], "r")
+    settings_file = open(settings_filename, "r")
     settings = json.loads(settings_file.read())
     for prop in ["description", "g5k", "replicas", "clients", "master", "duration", "settings"]:
         try:
@@ -162,13 +157,11 @@ def setup():
 
         update_ansible_vars(SETTING_FILE, settings["g5k"])
 
-    finally:
+        return [settings, master, replicas, clients, jobid]
+    except:
         if settings["g5k"]: oargriddel([jobid])
 
-    return [settings, master, replicas, clients, jobid]
-
-
-def run(settings, master, replicas, clients, jobid = None):
+def run(settings, master, replicas, clients, jobid):
     try:
         run_playbook("provision")
         print("provisioning done")
@@ -182,10 +175,7 @@ def run(settings, master, replicas, clients, jobid = None):
             run_playbook("start")
 
             wait_time = get_wait_time(setting) / 1000
-            print()
-            print("==============================================")
-            print(f"=SLEEPING FOR {wait_time} SECONDS====================")
-            print("==============================================")
+            print(f"sleeping for {wait_time}...")
             time.sleep(wait_time)
 
             run_playbook("stop")
@@ -196,10 +186,33 @@ def run(settings, master, replicas, clients, jobid = None):
         if settings["g5k"]: oargriddel([jobid])
 
 def main():
-    print("setup in progres...")
-    [settings, master, replicas, clients, jobid] = setup()
-    print("setup done")
-    run(settings, master, replicas, clients, jobid = jobid)
+    parser = argparse.ArgumentParser(description='Launch set of experiments')
+    parser.add_argument("vars")
+    parser.add_argument("--setup", action="store_true")
+    parser.add_argument("--settings")
+    parser.add_argument("--run", action="store_true")
+
+    args = vars(parser.parse_args())
+
+    if args["setup"]:
+        if not args["settings"]: raise Exception("In setup mode, settings file is required")
+        print("setup in progres...")
+        data = setup(args["settings"])
+        print("setup done")
+        print(f"saving vars to {args['vars']}")
+        with open(args["vars"], "wb") as fh:
+            pickle.dump(data, fh)
+
+    elif args["run"]:
+        print(f"loading vars from {args['vars']}")
+        with open(args["vars"], "rb") as fh:
+            [settings, master, replicas, clients, jobid] = pickle.load(fh)
+
+            print(f"running experiments")
+            run(settings, master, replicas, clients, jobid)
+
+    else:
+        print("Error: either setup or run must be specified")
 
 if __name__ == "__main__":
     main()
