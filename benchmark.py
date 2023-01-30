@@ -1,4 +1,4 @@
-import argparse, json, collections, socket, os, ansible_runner, time, pickle
+import argparse, json, collections, socket, os, ansible_runner, time, pickle, math
 from execo import *
 from execo_g5k import *
 
@@ -7,6 +7,20 @@ G5K_USER = "dantunes"
 SETTING_FILE = "./setting.json"
 WAIT_TIME = 1000 # milliseconds
 ANSIBLE_VERBOSE = False
+
+def get_walltime(settings): 
+    milliseconds = sum(map(lambda setting: get_wait_time(setting), get_setting_list(settings, settings["master"], settings["replicas"], settings["clients"])))
+    milliseconds = milliseconds * 1.2 # pad with 20%
+
+    seconds = math.ceil(milliseconds/1000)
+
+    minutes = seconds // 60
+    seconds = seconds % 60
+
+    hours = minutes // 60
+    minutes = minutes % 60
+
+    return f"{hours:02}:{minutes:02}:{seconds:02}"
 
 def g5k_reserve_nodes(master, replicas, clients, walltime):
     sites = [master] + replicas + clients
@@ -137,7 +151,9 @@ def setup(settings_filename):
     if settings["g5k"]:
         logger.info("g5k on - making node reservations")
         try:
-            (jobid, ips) = g5k_reserve_nodes(settings["master"], settings["replicas"], settings["clients"], "0:05:00")
+            walltime = get_walltime(settings)
+            logger.info(f"walltime is {walltime}")
+            (jobid, ips) = g5k_reserve_nodes(settings["master"], settings["replicas"], settings["clients"], walltime)
             master = ips["master"]
             replicas = ips["replicas"]
             clients = ips["clients"]
