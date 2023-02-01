@@ -10,7 +10,7 @@ ANSIBLE_VERBOSE = False
 
 def get_walltime(settings): 
     milliseconds = sum(map(lambda setting: get_wait_time(setting), get_setting_list(settings, settings["master"], settings["replicas"], settings["clients"])))
-    milliseconds = milliseconds * 1.2 # pad with 20%
+    milliseconds = milliseconds * 2
 
     seconds = math.ceil(milliseconds/1000)
 
