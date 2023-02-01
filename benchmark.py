@@ -180,7 +180,7 @@ def setup(settings_filename):
 def run(settings, master, replicas, clients, jobid):
     try:
         run_playbook("provision")
-        print("provisioning done")
+        print("Provisioning done.")
 
         for setting in get_setting_list(settings, master, replicas, clients):
             fh = open(SETTING_FILE, "w")
@@ -188,18 +188,22 @@ def run(settings, master, replicas, clients, jobid):
             fh.flush()
             fh.close()
 
+            print(f"Benchmarking with n={len(setting['replicas'])}, batch={setting['batch']}, load={setting['load']} and protocol={setting['protocol']}.", end = " ")
             run_playbook("start")
 
             wait_time = get_wait_time(setting) / 1000
-            print(f"sleeping for {wait_time}...")
+            print(f"Predicted to take {wait_time}...", end = " ")
             time.sleep(wait_time)
 
             run_playbook("stop")
+            print("Done")
 
         run_playbook("clean")
-        print("cleaning done")
+        print("Cleaning done.")
     finally:
         if settings["g5k"]: oargriddel([jobid])
+
+    print("Experiments ended.")
 
 def main():
     parser = argparse.ArgumentParser(description='Launch set of experiments')
