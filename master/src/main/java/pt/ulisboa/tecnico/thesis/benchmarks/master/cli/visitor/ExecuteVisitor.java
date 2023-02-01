@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -253,6 +254,7 @@ public class ExecuteVisitor implements CommandVisitor {
         benchmarkService.startBenchmark();
         updateRepository.set(String.format("results/%s-%d-%d-%d-%s-%s",
                 currentConfig.protocol, currentConfig.n, currentConfig.batch, currentConfig.load, currentConfig.fault, currentConfig.mode));
+        updateRepository.addStartTime(ZonedDateTime.now().toInstant().toEpochMilli());
         return true;
     }
 
