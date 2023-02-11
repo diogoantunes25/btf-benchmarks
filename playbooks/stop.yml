@@ -9,7 +9,7 @@
       - name: create temporary folder for logs
         delegate_to: localhost
         file:
-          path: /tmp/dantunes_logs
+          path: "{{ home_dir }}"/dantunes_logs
           state: directory
           mode: '0755'
 
@@ -29,7 +29,7 @@
         fetch:
           src: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log"
           flat: true
-          dest: "/tmp/dantunes_logs/{{ inventory_hostname }}.log"
+          dest: "{{ home_dir }}/dantunes_logs/{{ inventory_hostname }}.log"
 
 - hosts: managers
   become: no
@@ -42,12 +42,12 @@
     - name: zip results
       delegate_to: localhost
       archive:
-        path: "/tmp/dantunes_logs/*"
-        dest: "/tmp/dantunes_logs.tgz"
+        path: "{{ home_dir }}/dantunes_logs/*"
+        dest: "{{ home_dir }}/dantunes_logs.tgz"
 
     - name: move logs to proper directory
       delegate_to: localhost
       shell: |
         run_number=$(ls "../logs" | grep "run_{{ exp_number }}" | wc -l)
-        mv /tmp/dantunes_logs.tgz ../logs/"run_{{ exp_number}}_${run_number}.tgz"
+        mv "{{ home_dir }}"/dantunes_logs.tgz ../logs/"run_{{ exp_number}}_${run_number}.tgz"
 

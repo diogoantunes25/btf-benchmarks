@@ -43,6 +43,6 @@
   tasks:
     - name: clean log directory
       file:
-        path: /tmp/dantunes_logs
+        path: "{{ home_dir }}"/dantunes_logs
         state: absent
 

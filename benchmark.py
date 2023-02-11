@@ -183,16 +183,17 @@ def run(settings, master, replicas, clients, jobid):
         print("Provisioning done.")
 
         for setting in get_setting_list(settings, master, replicas, clients):
+            print(f"Benchmarking with n={len(setting['replicas'])}, batch={setting['batch']}, load={setting['load']} and protocol={setting['protocol']}.", end = " ")
+
             fh = open(SETTING_FILE, "w")
             fh.write(json.dumps(setting))
             fh.flush()
             fh.close()
 
-            print(f"Benchmarking with n={len(setting['replicas'])}, batch={setting['batch']}, load={setting['load']} and protocol={setting['protocol']}.", end = " ")
             run_playbook("start")
 
             wait_time = get_wait_time(setting) / 1000
-            print(f"Predicted to take {wait_time}...", end = " ")
+            print(f"Predicted to take {wait_time} seconds...", end = " ")
             time.sleep(wait_time)
 
             run_playbook("stop")

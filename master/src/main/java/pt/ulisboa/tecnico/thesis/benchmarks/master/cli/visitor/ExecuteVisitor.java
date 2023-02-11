@@ -260,6 +260,7 @@ public class ExecuteVisitor implements CommandVisitor {
 
     @Override
     public boolean visit(StopCommand cmd) {
+        updateRepository.addStopTime(ZonedDateTime.now().toInstant().toEpochMilli());
         benchmarkService.stopBenchmark();
         updateRepository.unset();
         return true;

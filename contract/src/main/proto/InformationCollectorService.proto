@@ -24,6 +24,7 @@ message ClientRequest {
   uint64 start = 4;
   uint64 end = 5;
   uint32 replicaId = 6;
+  uint32 clientId = 7;
 }
 
 message ClientResponse {}

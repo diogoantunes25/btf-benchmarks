@@ -42,6 +42,7 @@ public class InformationCollectorGrpcService extends InformationCollectorService
         responseObserver.onCompleted();
 
         updateRepository.addClientUpdate(
+            request.getClientId(),
             request.getReplicaId(),
             request.getTxs(),
             request.getLatency(),

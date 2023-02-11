@@ -8,6 +8,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.contract.InformationCollectorService
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.InformationCollectorServiceOuterClass;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.RegisterServiceGrpc;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,7 @@ public class Reporter {
         for (Execution ex: client.getStats()) {
             InformationCollectorServiceOuterClass.ClientRequest request =
                     InformationCollectorServiceOuterClass.ClientRequest.newBuilder()
+                    .setClientId(ThreadLocalRandom.current().nextInt())
                     .setReplicaId(ex.replicaId)
                     .setTxs(ex.txs)
                     .setStart(ex.start)
