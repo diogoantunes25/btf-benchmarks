@@ -116,4 +116,7 @@
           path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/results"
           state: directory
 
-
+      - name: Copy description file
+        copy:
+          src: "{{ description_file }}"
+          dest: "{{ home_dir }}/benchmarks/exp{{ exp_number}}/results/description.json"

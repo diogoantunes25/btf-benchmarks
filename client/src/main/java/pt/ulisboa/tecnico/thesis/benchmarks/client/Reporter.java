@@ -60,7 +60,7 @@ public class Reporter {
         for (Execution ex: client.getStats()) {
             InformationCollectorServiceOuterClass.ClientRequest request =
                     InformationCollectorServiceOuterClass.ClientRequest.newBuilder()
-                    .setClientId(ThreadLocalRandom.current().nextInt())
+                    .setClientId(client.getId())
                     .setReplicaId(ex.replicaId)
                     .setTxs(ex.txs)
                     .setStart(ex.start)

@@ -4,6 +4,7 @@ from execo_g5k import *
 
 G5K_SSH_KEY = "/home/dantunes/.ssh/id_rsa"
 G5K_USER = "dantunes"
+TMP_DESC_FILE = "/tmp/temporary_desc"
 SETTING_FILE = "./setting.json"
 WAIT_TIME = 1000 # milliseconds
 ANSIBLE_VERBOSE = False
@@ -107,6 +108,7 @@ def update_ansible_vars(setting_file, g5k):
     fh.write('alea_image_name: "diogoantunes25/alea_benchmark"\n')
     fh.write(f'exp_number: {len([e for e in os.listdir("./experiments") if e[0] == "r"])}\n')
     fh.write(f'setting_file: "{os.path.abspath(setting_file)}"\n')
+    fh.write(f'description_file: "{os.path.abspath(TMP_DESC_FILE)}"\n')
     fh.write(f'g5k: {str(g5k).lower()}\n')
 
 def get_setting_list(settings, master, replicas, clients):
@@ -135,6 +137,23 @@ def run_playbook(name):
 
 def get_wait_time(setting):
     return WAIT_TIME * (2 * len(setting["replicas"]) + len(setting["clients"]) + 10) + setting["duration"]
+
+def create_description_file(filename, settings, master, replicas, clients):
+    """
+    Creates the experiment description file and saves it to filename.
+    The description file includes:
+        - settings' description
+        - setting of each run 
+    """
+
+    fh = open(filename, "w")
+
+    desc = {
+        "description": settings["description"],
+        "runs": get_setting_list(settings, master, replicas, clients)
+    }
+
+    fh.write(json.dumps(desc)) 
 
 def setup(settings_filename):
     # High-level check of json
@@ -179,6 +198,9 @@ def setup(settings_filename):
 
 def run(settings, master, replicas, clients, jobid):
     try:
+
+        create_description_file(TMP_DESC_FILE, settings, master, replicas, clients)
+
         run_playbook("provision")
         print("Provisioning done.")
 

@@ -16,6 +16,7 @@ import pt.ulisboa.tecnico.thesis.benchmarks.contract.BenchmarkServiceOuterClass;
 import java.nio.ByteBuffer;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
@@ -32,6 +33,7 @@ public class Client {
     private Set<Stat> stats;
     private Map<Integer,Lock> locks;
     private String masterIP;
+    private int clientId;
 
     private static final int collectionDuration = 1000;
     /**
@@ -50,6 +52,7 @@ public class Client {
         onGoing = new HashMap<>();
         locks = new HashMap<>();
         this.masterIP = masterIP;
+        this.clientId = ThreadLocalRandom.current().nextInt();
     }
 
     /**
@@ -154,6 +157,10 @@ public class Client {
         buffer.put(bytes);
         buffer.flip();//need flip
         return buffer.getLong();
+    }
+
+    public int getId() {
+        return this.clientId;
     }
 
     private class Loader extends Thread {
