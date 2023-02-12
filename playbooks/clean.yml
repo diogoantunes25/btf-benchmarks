@@ -46,3 +46,24 @@
         path: /tmp/dantunes_logs
         state: absent
 
+- hosts: replicas, masters, clients
+  become: no
+  any_errors_fatal: true
+  gather_facts: no 
+  vars_files:
+      - vars.yml
+
+  tasks:
+    - name: Remove remote execution folder
+      file:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
+        state: absent
+
+    - name: Remove remote configuration folder
+      file: 
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ default_install_dir }}/{{ inventory_hostname }}"
+
+
