@@ -49,5 +49,5 @@
       delegate_to: localhost
       shell: |
         run_number=$(ls "../logs" | grep "run_{{ exp_number }}" | wc -l)
-        mv /tmp/dantunes_logs.tgz ../logs/"run_{{ exp_number}}_${run_number}.tgz"
+        mv /tmp/dantunes_logs.tgz "../logs/run_{{ exp_number}}_${run_number}.tgz"
 
