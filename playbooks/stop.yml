@@ -29,7 +29,7 @@
         fetch:
           src: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/logs/{{ inventory_hostname }}.log"
           flat: true
-          dest: /tmp/dantunes_logs/{{ inventory_hostname }}.log"
+          dest: /tmp/dantunes_logs/{{ inventory_hostname }}.log
 
 - hosts: managers
   become: no
