@@ -24,7 +24,7 @@ public class SystemReport {
         this.time = ZonedDateTime.now().toInstant().toEpochMilli();
         try {
             String line;
-            ProcessBuilder pb = new ProcessBuilder("iostat", "-n", "-i", INTERFACE, "0.1", "1");
+            ProcessBuilder pb = new ProcessBuilder("ifstat", "0.1", "1");
             Process p = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 

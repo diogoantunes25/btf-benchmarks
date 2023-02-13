@@ -28,9 +28,6 @@ public class Main {
         int port = BASE_PORT + config.getReplicaId();
         int controlPort = BASE_CONTROL_PORT + config.getReplicaId();
 
-        System.out.println("OUTPUT FILE FOR REPLICA " + config.getReplicaId());
-        System.err.println("LOG FILE FOR REPLICA " + config.getReplicaId());
-
         System.out.println("Building replica...");
         System.out.println("Master: [host] " + config.getMasterUri().getHost() + " [port] " + config.getMasterUri().getPort());
 

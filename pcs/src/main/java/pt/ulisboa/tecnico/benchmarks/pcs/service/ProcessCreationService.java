@@ -44,7 +44,6 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
     }
 
     private boolean _replica(String pcsIP, int replicaId) {
-        // FIXME: Remove hard coded version (use parameters or something)
         final String jarPath = "./replica.jar";
 
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
@@ -52,8 +51,9 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
 
 //        File outputFile = new File("./logs/replica" + replicaId + ".output");
 //        File logFile = new File("./logs/replica" + replicaId + ".log");
-//        processBuilder.redirectOutput(Redirect.to(outputFile));
-//        processBuilder.redirectError(Redirect.to(logFile));
+        processBuilder.redirectInput(Redirect.INHERIT);
+        processBuilder.redirectOutput(Redirect.INHERIT);
+        processBuilder.redirectError(Redirect.INHERIT);
 
         try {
             Process process = processBuilder.start();
