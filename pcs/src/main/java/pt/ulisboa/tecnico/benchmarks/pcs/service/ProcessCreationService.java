@@ -50,10 +50,10 @@ public class ProcessCreationService extends ProcessCreationServiceGrpc.ProcessCr
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
                 jarPath, String.valueOf(replicaId), masterUri.toString(), String.valueOf(pcsIP));
 
-        File outputFile = new File("./logs/replica" + replicaId + ".output");
-        File logFile = new File("./logs/replica" + replicaId + ".log");
-        processBuilder.redirectOutput(Redirect.to(outputFile));
-        processBuilder.redirectError(Redirect.to(logFile));
+//        File outputFile = new File("./logs/replica" + replicaId + ".output");
+//        File logFile = new File("./logs/replica" + replicaId + ".log");
+//        processBuilder.redirectOutput(Redirect.to(outputFile));
+//        processBuilder.redirectError(Redirect.to(logFile));
 
         try {
             Process process = processBuilder.start();
