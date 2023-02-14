@@ -31,6 +31,11 @@
           flat: true
           dest: /tmp/dantunes_logs/{{ inventory_hostname }}.log
 
+    - name: delete setting file
+      file:
+        path: "{{ home_dir }}/benchmarks/exp{{ exp_number }}/setting.json"
+        state: "absent"
+
 - hosts: managers
   become: no
   any_errors_fatal: true
