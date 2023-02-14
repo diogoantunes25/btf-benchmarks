@@ -63,6 +63,7 @@ public class Reporter {
                     .setClientId(client.getId())
                     .setReplicaId(ex.replicaId)
                     .setTxs(ex.txs)
+                    .setDropped(ex.dropped)
                     .setStart(ex.start)
                     .setEnd(ex.end)
                     .setLatency(ex.latency)

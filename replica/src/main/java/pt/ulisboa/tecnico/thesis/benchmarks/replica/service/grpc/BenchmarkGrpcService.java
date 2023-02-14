@@ -30,9 +30,9 @@ public class BenchmarkGrpcService extends BenchmarkServiceGrpc.BenchmarkServiceI
 
     public BenchmarkGrpcService(Integer replicaId, int port, URI masterURI) {
         this.replicaId = replicaId;
-        this.benchmarkService = new BenchmarkService(replicaId, port);
-        this.port = port;
         this.reporter = new Reporter(masterURI.getHost(), replicaId);
+        this.benchmarkService = new BenchmarkService(replicaId, port, this.reporter);
+        this.port = port;
     }
 
     @Override

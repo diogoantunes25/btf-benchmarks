@@ -27,6 +27,7 @@ import pt.tecnico.ulisboa.hbbft.utils.threshsig.KeyShare;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.BenchmarkMode;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Fault;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.Protocol;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.Reporter;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Confirmation;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Replica;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
@@ -45,14 +46,15 @@ public class BenchmarkService {
     private NetworkInfo networkInfo;
     private TcpTransport transport;
     private BenchmarkReplica benchmarkReplica; // replica.replica.BenchmarkReplica
-
+    private Reporter reporter;
 
     private int port;
 
-    public BenchmarkService(Integer replicaId, int port) {
+    public BenchmarkService(Integer replicaId, int port, Reporter reporter) {
         System.out.println("The replica id is " + replicaId);
         this.replicaId = replicaId;
         this.port = port;
+        this.reporter = reporter;
     }
 
     public boolean setTopology(List<Replica> replicas, GroupKey groupKey, KeyShare keyShare, int tolerance) {
@@ -117,6 +119,7 @@ public class BenchmarkService {
         IAtomicBroadcast instance = this.getInstance(protocol, batchSize, mode, fault, faulty);
 
         this.benchmarkReplica = new BenchmarkReplica(instance, encoder, transport, load, batchSize);
+        reporter.register(this.benchmarkReplica);
         logger.info("Success.");
         logger.info("------------------------------------------------------------------------\n");
         return true;    // success

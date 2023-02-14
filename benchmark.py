@@ -5,7 +5,7 @@ from execo_g5k import *
 G5K_SSH_KEY = "/home/dantunes/.ssh/id_rsa"
 G5K_USER = "dantunes"
 TMP_DESC_FILE = "/tmp/temporary_desc"
-SETTING_FILE = "./setting.json"
+SETTING_FILE = "/tmp/benchmark_setting.json"
 WAIT_TIME = 1000 # milliseconds
 ANSIBLE_VERBOSE = False
 

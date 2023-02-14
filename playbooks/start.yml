@@ -42,8 +42,6 @@
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
-
-    # - debug: var=output
           
 - hosts: clients
   become: no
@@ -65,8 +63,6 @@
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
 
-    # - debug: var=output
-
 - hosts: masters
   become: no
   any_errors_fatal: true
@@ -87,5 +83,3 @@
       register: output
       args:
         chdir: "{{ ansible_env.HOME }}/benchmarks/exp{{ exp_number }}/{{ inventory_hostname }}"
-
-    # - debug: var=output

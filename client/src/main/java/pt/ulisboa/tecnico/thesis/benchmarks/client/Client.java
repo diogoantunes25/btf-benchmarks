@@ -209,7 +209,7 @@ public class Client {
                         long now = ZonedDateTime.now().toInstant().toEpochMilli();
                         handleSubmission(now - submitTime);
                     } else {
-                        logger.info("transaction dropped");
+                        handleDropped();
                     }
                 }
 
@@ -228,7 +228,6 @@ public class Client {
          *  Produces transaction (that includes submission timestamp)
          */
         public byte[] generateTx() {
-
             byte[] payload = new byte[PAYLOAD_SIZE];
             (new Random()).nextBytes(payload);
             return payload;
@@ -245,6 +244,15 @@ public class Client {
             locks.get(id).unlock();
         }
 
+        /**
+         * Registers the drop of a transaction
+         */
+        public void handleDropped() {
+            logger.info("transaction dropped");
+            locks.get(id).lock();
+            onGoing.get(id).addDropped();
+            locks.get(id).unlock();
+        }
     }
 
     public List<Execution> getStats() {
@@ -262,7 +270,7 @@ public class Client {
         return past.keySet().stream()
                 .map(id -> {
                     OnGoingExecution ex = past.get(id);
-                    return Execution.build(id, ex.getStart(), end, ex.getTxs(), ex.getLatency());
+                    return Execution.build(id, ex.getStart(), end, ex.getTxs(), ex.getDropped(), ex.getLatency());
                 })
                 .collect(Collectors.toList());
     }
@@ -271,11 +279,13 @@ public class Client {
         private long start;
         private AtomicLong txs;
         private AtomicLong totalLatency;
+        private AtomicLong dropped;
 
         public OnGoingExecution() {
             start = ZonedDateTime.now().toInstant().toEpochMilli();
             txs = new AtomicLong();
             totalLatency = new AtomicLong();
+            dropped = new AtomicLong();
         }
 
         public void addTransaction(long latency) {
@@ -283,8 +293,13 @@ public class Client {
             totalLatency.addAndGet(latency);
         }
 
+        public void addDropped() {
+            dropped.incrementAndGet();
+        }
+
         public long getStart() { return start; }
         public long getTxs() { return txs.get(); }
+        public long getDropped() { return dropped.get(); }
         public double getLatency() {
             long t = txs.get();
             if (t == 0) return 0;

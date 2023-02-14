@@ -13,6 +13,10 @@ message ReplicaRequest {
   SystemInfo systemInfo = 1;
   uint32 replicaId = 2;
   uint64 time = 3;
+  uint64 received = 4;
+  uint64 confirmed = 5;
+  uint64 dropped = 6;
+  double bufferOccupancy = 7;
 }
 
 message ReplicaResponse {}
@@ -20,6 +24,7 @@ message ReplicaResponse {}
 message ClientRequest {
   SystemInfo systemInfo = 1;
   uint64 txs = 2;
+  uint64 dropped = 8;
   double latency = 3;
   uint64 start = 4;
   uint64 end = 5;

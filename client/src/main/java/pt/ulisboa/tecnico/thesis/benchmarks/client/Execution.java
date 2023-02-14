@@ -16,6 +16,7 @@ public class Execution {
     public long start;
     public long end;
     public long txs;
+    public long dropped;
     public double latency;
     public double cpu;
     public double bandwithIn;
@@ -25,21 +26,22 @@ public class Execution {
     public static final OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory
             .getOperatingSystemMXBean();
 
-    public Execution(int replicaId, long start, long end, long txs, double latency, double cpu, double bandwithIn,
-                     double bandwithOut, double freeMemory, double totalMemory) {
+    public Execution(int replicaId, long start, long end, long txs, long dropped, double latency, double cpu, double bandwidthIn,
+                     double bandwidthOut, double freeMemory, double totalMemory) {
         this.replicaId = replicaId;
         this.start = start;
         this.end = end;
         this.txs = txs;
+        this.dropped = dropped;
         this.latency = latency;
         this.cpu = cpu;
-        this.bandwithIn = bandwithIn;
-        this.bandwithOut = bandwithOut;
+        this.bandwithIn = bandwidthIn;
+        this.bandwithOut = bandwidthOut;
         this.freeMemory = freeMemory;
         this.totalMemory = totalMemory;
     }
 
-    public static Execution build(int replicaId, long start, long end, long txs, double latency) {
+    public static Execution build(int replicaId, long start, long end, long txs, long dropped, double latency) {
         try {
             double cpu, in, out, freeMemory, totalMemory;
             String line;
@@ -70,7 +72,7 @@ public class Execution {
             freeMemory = Runtime.getRuntime().freeMemory();
             totalMemory = Runtime.getRuntime().totalMemory();
 
-            return new Execution(replicaId, start, end, txs, latency, cpu, in, out, freeMemory, totalMemory);
+            return new Execution(replicaId, start, end, txs, dropped, latency, cpu, in, out, freeMemory, totalMemory);
         } catch (IOException e) {
             e.printStackTrace();
         }

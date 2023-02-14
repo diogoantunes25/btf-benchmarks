@@ -11,6 +11,7 @@ import pt.tecnico.ulisboa.hbbft.abc.Block;
 import pt.tecnico.ulisboa.hbbft.abc.IAtomicBroadcast;
 import pt.tecnico.ulisboa.hbbft.abc.alea.Alea;
 import pt.tecnico.ulisboa.hbbft.binaryagreement.BinaryAgreementMessage;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.Reporter;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Benchmark;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.model.Confirmation;
 import pt.ulisboa.tecnico.thesis.benchmarks.replica.transport.Connection;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class BenchmarkReplica {
 
@@ -30,13 +32,16 @@ public class BenchmarkReplica {
     private TcpTransport transport;
     private final long maxPending;
     private Map<Transaction, Confirmation> pending;
+    private AtomicLong dropped = new AtomicLong();
+    private AtomicLong received = new AtomicLong();
+    private AtomicLong confirmed = new AtomicLong();
 
     public BenchmarkReplica(IAtomicBroadcast protocol, MessageEncoder<String> encoder, TcpTransport transport,
                             int load, int batchSize) {
         this.protocol = protocol;
         this.encoder = encoder;
         this.transport = transport;
-        this.pending = new HashMap<>();
+        this.pending = new ConcurrentHashMap<>();
 
         // start listeners
         for (Connection connection: this.transport.getConnections()) {
@@ -93,17 +98,37 @@ public class BenchmarkReplica {
             Transaction t = new Transaction(entry);
             if (pending.containsKey(t)) {
                 pending.remove(t).confirm(true);
+                confirmed.incrementAndGet();
             }
         }
     }
 
     public void submit(byte[] payload, Confirmation confirmation) {
-        if (pending.size() > maxPending) {
-            confirmation.confirm(false);
-        }
+        received.incrementAndGet();
+
+//        if (pending.size() > maxPending) {
+//            dropped.incrementAndGet();
+//            confirmation.confirm(false);
+//        }
 
         pending.put(new Transaction(payload), confirmation);
         handleStep(this.protocol.handleInput(payload));
+    }
+
+    public long getReceivedAndReset() {
+        return received.getAndSet(0);
+    }
+
+    public long getConfirmedAndReset() {
+        return confirmed.getAndSet(0);
+    }
+
+    public long getDroppedAndReset() {
+        return dropped.getAndSet(0);
+    }
+
+    public double getBufferOccupancy() {
+        return (double) this.pending.size() / (double) this.maxPending;
     }
 
     /**

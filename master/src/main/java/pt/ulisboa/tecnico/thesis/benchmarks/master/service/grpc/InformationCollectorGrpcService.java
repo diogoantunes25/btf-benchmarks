@@ -30,7 +30,11 @@ public class InformationCollectorGrpcService extends InformationCollectorService
                 request.getSystemInfo().getBandwidthOut(),
                 request.getSystemInfo().getFreeMemory(),
                 request.getSystemInfo().getTotalMemory(),
-                request.getTime()
+                request.getTime(),
+                request.getReceived(),
+                request.getConfirmed(),
+                request.getDropped(),
+                request.getBufferOccupancy()
         );
     }
 
@@ -45,6 +49,7 @@ public class InformationCollectorGrpcService extends InformationCollectorService
             request.getClientId(),
             request.getReplicaId(),
             request.getTxs(),
+            request.getDropped(),
             request.getLatency(),
             request.getStart(),
             request.getEnd(),

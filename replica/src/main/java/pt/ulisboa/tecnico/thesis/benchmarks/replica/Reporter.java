@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.InformationCollectorServiceGrpc;
 import pt.ulisboa.tecnico.thesis.benchmarks.contract.InformationCollectorServiceOuterClass;
+import pt.ulisboa.tecnico.thesis.benchmarks.replica.replica.BenchmarkReplica;
 
+import java.time.ZonedDateTime;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -20,6 +22,7 @@ public class Reporter {
     private Thread reportDaemon;
     private InformationCollectorServiceGrpc.InformationCollectorServiceBlockingStub stub;
     private int replicaID;
+    private BenchmarkReplica replica;
 
     public Reporter(String masterIP, int replicaID) {
         this.masterIP = masterIP;
@@ -30,6 +33,7 @@ public class Reporter {
                 .build();
 
         stub = InformationCollectorServiceGrpc.newBlockingStub(channel);
+        replica = null;
     }
 
     /**
@@ -67,12 +71,55 @@ public class Reporter {
                                         .setTotalMemory(systemReport.getTotalMemory())
                                         .build()
                         )
+                        .setReceived(received())
+                        .setConfirmed(confirmed())
+                        .setDropped(dropped())
+                        .setBufferOccupancy(bufferOccupancy())
+                        .setTime(ZonedDateTime.now().toInstant().toEpochMilli())
                         .build();
 
         stub.replicaUpdate(request);
     }
 
+    private long received() {
+        if (replica == null) {
+            logger.info("txs received defaulted to 0 - no replica registered yet");
+            return 0;
+        }
+        return replica.getReceivedAndReset();
+    }
+
+    private long confirmed() {
+        if (replica == null) {
+            logger.info("txs confirmed defaulted to 0 - no replica registered yet");
+            return 0;
+        }
+        return replica.getConfirmedAndReset();
+    }
+
+    private long dropped() {
+        if (replica == null) {
+            logger.info("txs dropped defaulted to 0 - no replica registered yet");
+            return 0;
+        }
+        return replica.getDroppedAndReset();
+    }
+
+    private double bufferOccupancy() {
+        if (replica == null) {
+            logger.info("buffer occupancy defaulted to 0 - no replica registered yet");
+            return 0;
+        }
+        return replica.getBufferOccupancy();
+    }
+
+    public void register(BenchmarkReplica replica) {
+        logger.info("replica registered");
+        this.replica = replica;
+    }
+
     public void stop() {
+        this.replica = null;
         logger.info("stopped");
         done.set(true);
     }
